@@ -226,7 +226,8 @@ onMounted(() => {
       <div class="flex flex-col gap-6">
         
         <!-- 1. Upload Area -->
-        <UCard class="h-full flex flex-col">
+        <!-- 关键修复：移除了 h-full flex flex-col，防止其占据整个左列高度挤掉下方的设置卡片 -->
+        <UCard>
           <template #header>
             <h2 class="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
               <UIcon name="i-heroicons-arrow-up-tray" class="text-teal-500" /> 

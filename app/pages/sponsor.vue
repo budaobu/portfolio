@@ -75,7 +75,7 @@
                 <img
                   :src="method.qrcode"
                   :alt="method.title"
-                  class="w-48 h-48 rounded-lg border border-gray-200 dark:border-gray-700"
+                  class="w-48 h-full rounded-lg border border-gray-200 dark:border-gray-700"
                 />
               </div>
             </div>
