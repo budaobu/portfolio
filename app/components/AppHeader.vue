@@ -3,10 +3,9 @@
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <NuxtLink to="/" class="flex items-center gap-3 group">
-          <!-- 直接引用 API 图片地址，就像引用 public 里的图片一样 -->
-          <!-- 浏览器会缓存它，Nitro 服务端也会缓存它 -->
+          <!-- 使用绑定的常量，确保万无一失 -->
           <img 
-            src="/api/avatar.png" 
+            :src="avatarUrl" 
             alt="Budaobu" 
             class="w-10 h-10 rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all object-cover"
           />
@@ -28,7 +27,8 @@
   </header>
 </template>
 
-<!-- 之前的 script 逻辑可以完全删除了 -->
 <script setup lang="ts">
-// 保持空 setup 即可，不再需要 fetch 数据
+// 将 URL 定义为常量，避免模板直接解析可能带来的边缘问题
+// 同时也确保了文件内容发生实质变更，强迫 Git 识别更新
+const avatarUrl = '/api/avatar.png'
 </script>
