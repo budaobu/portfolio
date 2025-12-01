@@ -83,7 +83,7 @@
 <script setup lang="ts">
 // 添加 SEO 配置
 useSeoMeta({
-  title: '首页', 
+  title: 'Budaobu 的个人作品集', 
   description: 'Budaobu 的个人作品集。全栈开发者，开源爱好者，终身学习者。',
   keywords: 'Budaobu, 个人作品集, vibe coding',
   ogTitle: 'Budaobu - vibe 作品集',
