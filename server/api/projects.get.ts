@@ -8,28 +8,30 @@ export default defineEventHandler((event) => {
     // 浅拷贝对象，避免污染原始数据
     const item = { ...project }
 
-    // 辅助函数：判断字符串是否为图片 URL (简单的特征判断)
-    const isUrl = (str: string) => /^(https?:\/\/|\/|data:image)/.test(str)
-
-    // 逻辑 1: 如果 icon 键值本身就是图片 URL，直接使用
-    if (isUrl(item.icon)) {
+    // 逻辑 1: 只要 icon 有值 (无论是 Emoji, Iconify Class, 还是自定义 URL)，直接使用，不做任何处理
+    if (item.icon) {
       return item
     }
 
-    // 逻辑 2: 如果 icon 不是 URL，且 demoUrl 不为空，尝试自动获取 Favicon
+    // 逻辑 2: icon 为空，尝试通过 demoUrl 获取 Google Favicon
     if (item.demoUrl) {
       try {
         const hostname = new URL(item.demoUrl).hostname
-        // 使用 Google S2 Favicon API 自动获取该域名的图标
-        // 这比后端去 fetch HTML 解析 <link> 标签要快得多，且自带 CDN 缓存
         // sz=128 获取较高清图标
         item.icon = `https://www.google.com/s2/favicons?domain=${hostname}&sz=128`
+        return item
       } catch (e) {
-        // 如果 URL 解析失败，不做处理，继续走下面的兜底逻辑
+        // URL 解析失败，继续走后续逻辑
       }
     }
 
-    // 逻辑 3: demoUrl 为空或获取失败，直接使用原始 icon (Emoji 或 Iconify class)
+    // 逻辑 3: icon 和 demoUrl 都为空 (或解析失败)，但有 githubUrl，使用 GitHub 官方图标
+    if (item.githubUrl) {
+      item.icon = 'https://github.com/favicon.ico'
+      return item
+    }
+
+    // 逻辑 4: 什么都没有，返回原样 (此时 icon 应该是 undefined 或空字符串)
     return item
   })
 })
