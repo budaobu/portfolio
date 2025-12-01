@@ -5,7 +5,7 @@
         你好，我是 <span class="text-primary-600 dark:text-primary-400">Budaobu</span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-        一个热衷于创造有趣项目的开发者。我关注用户体验，追求代码的简洁和效率。
+        一个正在学习和探索 AI 的普通人，不是开发者。我喜欢用简单清晰的方式和 AI 对话。
       </p>
     </section>
 
