@@ -319,6 +319,13 @@ onMounted(() => {
               </div>
             </div>
 
+            <!-- Hint Section (Restored) -->
+            <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 text-xs rounded-lg border border-yellow-100 dark:border-yellow-900/30 flex gap-2">
+              <UIcon name="i-heroicons-information-circle" class="text-lg shrink-0" />
+              <span>提示：如果视频较长，请减少帧率或宽度。浏览器内存有限，转换长视频可能失败。</span>
+            </div>
+
+            <!-- Convert Button (Restored) -->
             <UButton 
               block 
               size="xl" 
