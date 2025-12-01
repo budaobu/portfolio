@@ -77,8 +77,8 @@
 useSeoMeta({
   title: '首页', 
   description: 'Budaobu 的个人作品集。全栈开发者，开源爱好者，终身学习者。',
-  keywords: 'Budaobu, 个人作品集, 全栈开发, Vue, Nuxt, TypeScript, 开源项目',
-  ogTitle: 'Budaobu - 全栈开发者作品集',
+  keywords: 'Budaobu, 个人作品集, vibe coding',
+  ogTitle: 'Budaobu - vibe 作品集',
   ogDescription: '探索 Budaobu 的个人项目和技术分享，包括 AI 应用、工具类软件等。',
 })
 
