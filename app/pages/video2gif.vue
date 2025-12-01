@@ -283,8 +283,9 @@ onMounted(() => {
 
           <div class="space-y-6">
             <!-- Loop Toggle -->
-            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div class="flex items-center gap-3 cursor-pointer" @click="settings.loop = !settings.loop">
+            <!-- 修复：使用手动构建的 Toggle 替代 UToggle，确保在任何环境下都能显示 -->
+            <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 cursor-pointer" @click="settings.loop = !settings.loop">
+              <div class="flex items-center gap-3">
                 <div class="flex items-center justify-center w-8 h-8 rounded bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-primary-500">
                   <UIcon name="i-heroicons-arrow-path" class="text-xl" />
                 </div>
@@ -293,7 +294,18 @@ onMounted(() => {
                   <span class="block text-xs text-gray-500">GIF 播放完毕后是否重新开始</span>
                 </div>
               </div>
-              <UToggle v-model="settings.loop" color="primary" />
+              
+              <!-- 手写 Toggle 开关 -->
+              <div 
+                class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none"
+                :class="settings.loop ? 'bg-primary-500' : 'bg-gray-200 dark:bg-gray-700'"
+              >
+                <span 
+                  aria-hidden="true" 
+                  class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+                  :class="settings.loop ? 'translate-x-5' : 'translate-x-0'"
+                />
+              </div>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
