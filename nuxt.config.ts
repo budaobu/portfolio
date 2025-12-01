@@ -12,7 +12,6 @@ export default defineNuxtConfig({
   
   compatibilityDate: '2024-11-29',
 
-  // 显式指定部署目标为 Cloudflare Pages
   nitro: {
     preset: 'cloudflare-pages'
   },
@@ -32,6 +31,20 @@ export default defineNuxtConfig({
     exclude: ['/admin/**'],
   },
 
+  // --- 新增配置开始 ---
+  // 1. 强制在构建阶段预渲染首页和 OG 图片
+  // 这样 Cloudflare 只需要返回静态文件，不需要消耗 CPU 计算，完美解决 1102 错误
+  routeRules: {
+    '/': { prerender: true },
+    '/sponsor': { prerender: true }
+  },
+
+  // 2. 确保 OG Image 模块开启预渲染
+  ogImage: {
+    prerender: true
+  },
+  // --- 新增配置结束 ---
+
   app: {
     head: {
       htmlAttrs: {
@@ -49,7 +62,6 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' }
       ],
       link: [
-        // 指向我们新的缓存 API
         { rel: 'icon', type: 'image/png', href: '/api/avatar.png' }
       ]
     }

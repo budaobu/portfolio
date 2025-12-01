@@ -84,6 +84,7 @@
 // 添加 SEO 配置
 useSeoMeta({
   title: 'Budaobu 的个人作品集', 
+  titleTemplate: null, // 关键：设置为 null 以覆盖全局的 '%s - Budaobu' 模板，防止出现 "Budaobu Portfolio - Budaobu"
   description: 'Budaobu 的个人作品集。全栈开发者，开源爱好者，终身学习者。',
   keywords: 'Budaobu, 个人作品集, vibe coding',
   ogTitle: 'Budaobu - vibe 作品集',
@@ -113,6 +114,12 @@ interface Project {
 // 使用 useFetch 从 API 获取数据
 // 这样即使项目数据更新，也只需要修改 server/utils/projectData.ts，无需重新构建前端逻辑
 const { data: projects, pending, error } = await useFetch<Project[]>('/api/projects')
+
+// 辅助函数：判断是否为 URL (用于渲染 img 标签)
+const isIconUrl = (iconStr: string) => {
+  if (!iconStr) return false
+  return /^(https?:\/\/|\/|data:image)/.test(iconStr)
+}
 
 const handleCardClick = (project: Project) => {
   const url = project.demoUrl || project.githubUrl
