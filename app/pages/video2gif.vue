@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 引入 gif.js (通过 CDN，避免复杂的 Worker 构建配置)
+// 引入 gif.js
 useHead({
   title: '视频转 GIF 工具',
   meta: [
@@ -27,7 +27,7 @@ const resultSize = ref('')
 
 // 设置项
 const settings = reactive({
-  loop: true,
+  loop: true, // 默认开启循环
   width: 480,
   fps: 10
 })
@@ -38,7 +38,7 @@ const fileInputRef = ref<HTMLInputElement | null>(null)
 
 // --- 核心逻辑 ---
 
-// 1. 初始化 Worker (复用原代码逻辑，解决跨域问题)
+// 1. 初始化 Worker
 const initWorker = async () => {
   if (workerBlobUrl.value) return true
   try {
@@ -105,7 +105,6 @@ const startConversion = async () => {
     if (!success) return
   }
 
-  // 检查 GIF 库是否加载
   // @ts-ignore
   if (typeof GIF === 'undefined') {
     alert('组件尚未加载完成，请稍候...')
@@ -116,29 +115,26 @@ const startConversion = async () => {
   loadingText.value = '正在初始化...'
   
   const width = settings.width
-  // 计算高度保持比例
   const ratio = sourceVideoRef.value.videoHeight / sourceVideoRef.value.videoWidth
   const height = Math.round(width * ratio)
   
-  // 创建 Canvas
   const canvas = document.createElement('canvas')
   canvas.width = width
   canvas.height = height
   const ctx = canvas.getContext('2d', { willReadFrequently: true })
   if (!ctx) return
 
-  // @ts-ignore - GIF library global
+  // @ts-ignore
   const gif = new GIF({
     workers: 2,
     quality: 10,
     width: width,
     height: height,
     workerScript: workerBlobUrl.value,
-    repeat: settings.loop ? 0 : -1,
+    repeat: settings.loop ? 0 : -1, // 关键逻辑：0 为循环，-1 为不循环
     background: '#fff'
   })
 
-  // 绑定事件
   gif.on('progress', (p: number) => {
     progress.value = Math.round(p * 100)
     progressText.value = `${progress.value}%`
@@ -152,14 +148,14 @@ const startConversion = async () => {
     loadingText.value = ''
   })
 
-  // 捕获帧逻辑
+  // 捕获帧
   loadingText.value = '正在捕获视频帧...'
   const video = sourceVideoRef.value
   const duration = video.duration
   const interval = 1 / settings.fps
   let currentTime = 0
   let frameCount = 0
-  const maxFrames = 300 // 限制最大帧数防止崩溃
+  const maxFrames = 300 
 
   const captureFrame = async () => {
     if (frameCount >= maxFrames || currentTime >= duration) {
@@ -170,7 +166,6 @@ const startConversion = async () => {
 
     video.currentTime = currentTime
     
-    // 等待 seek 完成
     await new Promise<void>(resolve => {
       const handleSeek = () => {
         resolve()
@@ -178,30 +173,25 @@ const startConversion = async () => {
       video.addEventListener('seeked', handleSeek, { once: true })
     })
 
-    // 绘制到 Canvas
     ctx.drawImage(video, 0, 0, width, height)
     gif.addFrame(ctx, { copy: true, delay: interval * 1000 })
     
     frameCount++
     const captureProgress = Math.round((currentTime / duration) * 100)
-    // 这里我们简单处理：捕获阶段不占满进度条，或者用文字提示
     progressText.value = `捕获: ${captureProgress}% (${frameCount}帧)`
     
     currentTime += interval
-    setTimeout(captureFrame, 0) // 避免阻塞 UI
+    setTimeout(captureFrame, 0)
   }
 
-  // 开始捕获
   video.pause()
   captureFrame()
 }
 
-// 辅助：触发文件选择
 const triggerFileInput = () => {
   fileInputRef.value?.click()
 }
 
-// 页面加载时预加载 Worker
 onMounted(() => {
   initWorker()
 })
@@ -211,7 +201,7 @@ onMounted(() => {
   <div class="min-h-screen bg-gray-50 dark:bg-gray-950 py-12 px-4 sm:px-6">
     <!-- Header -->
     <div class="max-w-3xl mx-auto text-center mb-12">
-      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 mb-4">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 mb-4">
         <UIcon name="i-heroicons-film" class="text-3xl" />
       </div>
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-3">视频转 GIF 工具</h1>
@@ -226,17 +216,16 @@ onMounted(() => {
       <div class="flex flex-col gap-6">
         
         <!-- 1. Upload Area -->
-        <!-- 关键修复：移除了 h-full flex flex-col，防止其占据整个左列高度挤掉下方的设置卡片 -->
         <UCard>
           <template #header>
             <h2 class="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
-              <UIcon name="i-heroicons-arrow-up-tray" class="text-teal-500" /> 
+              <UIcon name="i-heroicons-arrow-up-tray" class="text-primary-500" /> 
               1. 上传视频
             </h2>
           </template>
 
           <div 
-            class="relative border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-8 text-center hover:border-teal-500 dark:hover:border-teal-500 hover:bg-teal-50 dark:hover:bg-teal-900/10 transition-all cursor-pointer group"
+            class="relative border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-8 text-center hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all cursor-pointer group"
             @click="triggerFileInput"
             @dragover.prevent
             @drop.prevent="handleDrop"
@@ -250,13 +239,13 @@ onMounted(() => {
             >
             
             <div v-if="!videoFile">
-              <UIcon name="i-heroicons-video-camera" class="text-4xl text-gray-400 group-hover:text-teal-500 mb-3 transition-colors" />
+              <UIcon name="i-heroicons-video-camera" class="text-4xl text-gray-400 group-hover:text-primary-500 mb-3 transition-colors" />
               <p class="text-sm font-medium text-gray-600 dark:text-gray-300">点击或拖拽视频文件到此处</p>
               <p class="text-xs text-gray-400 mt-1">支持 MP4, WebM, MOV</p>
             </div>
 
             <div v-else class="text-left flex items-center gap-4">
-              <UIcon name="i-heroicons-check-circle" class="text-3xl text-teal-500 shrink-0" />
+              <UIcon name="i-heroicons-check-circle" class="text-3xl text-primary-500 shrink-0" />
               <div class="min-w-0 flex-1">
                 <p class="text-sm font-bold text-gray-900 dark:text-white truncate">{{ videoFile.name }}</p>
                 <p class="text-xs text-gray-500">{{ (videoFile.size / 1024 / 1024).toFixed(1) }} MB</p>
@@ -265,7 +254,7 @@ onMounted(() => {
             </div>
           </div>
 
-          <!-- Video Preview (Hidden for processing mostly, but shown for user feedback) -->
+          <!-- Video Preview -->
           <video 
             ref="sourceVideoRef" 
             class="mt-4 w-full rounded-lg bg-black aspect-video object-contain" 
@@ -287,7 +276,7 @@ onMounted(() => {
         <UCard>
           <template #header>
             <h2 class="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
-              <UIcon name="i-heroicons-adjustments-horizontal" class="text-teal-500" />
+              <UIcon name="i-heroicons-adjustments-horizontal" class="text-primary-500" />
               2. 转换设置
             </h2>
           </template>
@@ -295,8 +284,8 @@ onMounted(() => {
           <div class="space-y-6">
             <!-- Loop Toggle -->
             <div class="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-              <div class="flex items-center gap-3">
-                <div class="flex items-center justify-center w-8 h-8 rounded bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-teal-500">
+              <div class="flex items-center gap-3 cursor-pointer" @click="settings.loop = !settings.loop">
+                <div class="flex items-center justify-center w-8 h-8 rounded bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 text-primary-500">
                   <UIcon name="i-heroicons-arrow-path" class="text-xl" />
                 </div>
                 <div>
@@ -304,7 +293,7 @@ onMounted(() => {
                   <span class="block text-xs text-gray-500">GIF 播放完毕后是否重新开始</span>
                 </div>
               </div>
-              <UToggle v-model="settings.loop" color="teal" />
+              <UToggle v-model="settings.loop" color="primary" />
             </div>
 
             <div class="grid grid-cols-2 gap-4">
@@ -320,17 +309,15 @@ onMounted(() => {
               </div>
             </div>
 
-            <!-- Hint Section (Restored) -->
             <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 text-xs rounded-lg border border-yellow-100 dark:border-yellow-900/30 flex gap-2">
               <UIcon name="i-heroicons-information-circle" class="text-lg shrink-0" />
               <span>提示：如果视频较长，请减少帧率或宽度。浏览器内存有限，转换长视频可能失败。</span>
             </div>
 
-            <!-- Convert Button (Restored) -->
             <UButton 
               block 
               size="xl" 
-              :color="isProcessing ? 'gray' : 'teal'"
+              :color="isProcessing ? 'gray' : 'primary'"
               :loading="isProcessing"
               :disabled="!videoFile || isProcessing"
               @click="startConversion"
@@ -349,7 +336,7 @@ onMounted(() => {
         <UCard class="h-full flex flex-col" :ui="{ body: { base: 'flex-1 flex flex-col' } }">
           <template #header>
             <h2 class="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-white">
-              <UIcon name="i-heroicons-photo" class="text-teal-500" />
+              <UIcon name="i-heroicons-photo" class="text-primary-500" />
               3. 结果预览
             </h2>
           </template>
@@ -364,13 +351,13 @@ onMounted(() => {
 
             <!-- Loading State -->
             <div v-if="isProcessing" class="absolute inset-0 bg-white/90 dark:bg-gray-900/90 z-20 flex flex-col items-center justify-center p-8">
-              <UIcon name="i-heroicons-arrow-path" class="text-4xl text-teal-500 animate-spin mb-4" />
+              <UIcon name="i-heroicons-arrow-path" class="text-4xl text-primary-500 animate-spin mb-4" />
               <h3 class="text-lg font-bold text-gray-700 dark:text-white mb-1">正在处理</h3>
               <p class="text-sm text-gray-500 mb-4">{{ loadingText }}</p>
               
               <!-- Progress Bar -->
               <div class="w-full max-w-xs h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <div class="h-full bg-teal-500 transition-all duration-300" :style="{ width: `${progress}%` }"></div>
+                <div class="h-full bg-primary-500 transition-all duration-300" :style="{ width: `${progress}%` }"></div>
               </div>
               <p class="text-xs text-gray-400 mt-2">{{ progressText }}</p>
             </div>
@@ -391,7 +378,7 @@ onMounted(() => {
             <UButton
               :to="resultUrl"
               download="converted.gif"
-              color="teal"
+              color="primary"
               block
               icon="i-heroicons-arrow-down-tray"
             >
