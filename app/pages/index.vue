@@ -47,7 +47,7 @@
                 <img 
                   v-if="project.icon.startsWith('http') || project.icon.startsWith('/')" 
                   :src="project.icon" 
-                  class="w-8 h-8 object-contain" 
+                  class="w-8 h-8 object-contain rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all object-cover" 
                   alt="icon" 
                 />
                 <!-- 情况 B: 否则渲染 Emoji 或 Iconify (保持原有逻辑) -->
