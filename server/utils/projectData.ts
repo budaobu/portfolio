@@ -12,6 +12,24 @@ export interface Project {
 // 单一数据源
 export const projects: Project[] = [
   {
+    id: 6,
+    title: '视频转Gif',
+    description: '在浏览器本地将视频转换为 GIF 动图，无需上传服务器。。',
+    icon: '🤖',
+    demoUrl: '/video2gif',
+    githubUrl: 'https://github.com/budaobu/portfolio',
+    date: '2025-12-01'
+  },
+  {
+    id: 5,
+    title: '作品集网站',
+    description: '我的个人作品集网站，展示了我 vibe 的各种有趣项目和技术探索。',
+    icon: '🤖',
+    demoUrl: 'https://portfolio-2d2.pages.dev/',
+    githubUrl: 'https://github.com/budaobu/portfolio',
+    date: '2025-12-01'
+  },
+  {
     id: 4,
     title: '图片压缩助手',
     description: '图片压缩工具，支持 PNG, JPG, JPEG, WebP, AVIF 格式。浏览器本地压缩，无需上传服务器。',

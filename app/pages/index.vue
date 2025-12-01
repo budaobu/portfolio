@@ -108,7 +108,14 @@ const { data: projects, pending, error } = await useFetch<Project[]>('/api/proje
 
 const handleCardClick = (project: Project) => {
   const url = project.demoUrl || project.githubUrl
-  if (url) {
+  if (!url) return
+
+  // 判断是否为站内链接 (以 / 开头)
+  // 如果是站内链接，使用 Nuxt 的 navigateTo 进行 SPA 路由跳转
+  if (url.startsWith('/')) {
+    navigateTo(url)
+  } else {
+    // 如果是外链 (http 开头)，则在新标签页打开
     window.open(url, '_blank')
   }
 }
