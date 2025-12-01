@@ -17,7 +17,7 @@ export const projects: Project[] = [
     description: '在浏览器本地将视频转换为 GIF 动图，无需上传服务器。。',
     icon: '🤖',
     demoUrl: '/video2gif',
-    githubUrl: 'https://github.com/budaobu/portfolio',
+    githubUrl: 'https://github.com/budaobu/video2gif',
     date: '2025-12-01'
   },
   {

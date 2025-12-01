@@ -43,7 +43,15 @@
                 <UIcon name="i-simple-icons-github" class="w-6 h-6 text-gray-900 dark:text-white" />
               </div>
               <div v-else class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 text-2xl group-hover:scale-110 transition-transform duration-300">
-                {{ project.icon }}
+                <!-- 情况 A: 如果是 URL，渲染图片 -->
+                <img 
+                  v-if="project.icon.startsWith('http') || project.icon.startsWith('/')" 
+                  :src="project.icon" 
+                  class="w-8 h-8 object-contain" 
+                  alt="icon" 
+                />
+                <!-- 情况 B: 否则渲染 Emoji 或 Iconify (保持原有逻辑) -->
+                <span v-else class="text-2xl">{{ project.icon }}</span>
               </div>
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                 {{ project.title }}
