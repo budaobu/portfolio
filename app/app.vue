@@ -1,8 +1,24 @@
 <template>
-  <!-- UApp 是 Nuxt UI 的核心容器，负责管理 Toast、Modal 等全局组件 -->
   <UApp>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
   </UApp>
 </template>
+
+<script setup lang="ts">
+// 在根组件设置默认的 Title Template
+// 这样所有页面默认都会带有 " - Budaobu" 后缀
+useHead({
+  titleTemplate: '%s - Budaobu',
+  bodyAttrs: {
+    class: 'bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased'
+  }
+})
+</script>
+
+<style>
+body {
+  transition: background-color 0.3s;
+}
+</style>

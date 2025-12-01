@@ -81,14 +81,20 @@
 </template>
 
 <script setup lang="ts">
-// 添加 SEO 配置
+// 这里仅保留 SEO 相关的 Meta，移除 titleTemplate 的设置
 useSeoMeta({
-  title: 'Budaobu 的个人作品集', 
-  titleTemplate: null, // 关键：设置为 null 以覆盖全局的 '%s - Budaobu' 模板，防止出现 "Budaobu Portfolio - Budaobu"
+  title: 'Budaobu 的个人作品集',
   description: 'Budaobu 的个人作品集 - vibe 开发者，分享有趣的项目和 AI 探索。',
   keywords: 'Budaobu, 个人作品集, vibe coding',
   ogTitle: 'Budaobu - 作品集',
   ogDescription: '探索 Budaobu 的个人 vibe 项目，包括 AI 应用、工具类软件等。',
+})
+
+// 关键修复：使用 useHead 局部覆盖 Title Template
+// '%s' 表示直接显示标题，不加任何后缀
+// 当离开此页面时，Vue 会卸载这个配置，恢复 app.vue 中的默认配置
+useHead({
+  titleTemplate: '%s'
 })
 
 // OG 图片配置
