@@ -3,13 +3,13 @@
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <NuxtLink to="/" class="flex items-center gap-3 group">
+          <!-- 直接引用 API 图片地址，就像引用 public 里的图片一样 -->
+          <!-- 浏览器会缓存它，Nitro 服务端也会缓存它 -->
           <img 
-            v-if="avatar" 
-            :src="avatar" 
-            alt="Logo" 
-            class="w-10 h-10 rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all"
+            src="/api/avatar.png" 
+            alt="Budaobu" 
+            class="w-10 h-10 rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all object-cover"
           />
-          <div v-else class="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse"></div>
         </NuxtLink>
         
         <div class="flex items-center gap-3">
@@ -28,17 +28,7 @@
   </header>
 </template>
 
+<!-- 之前的 script 逻辑可以完全删除了 -->
 <script setup lang="ts">
-const { data: githubData } = await useFetch('/api/github-avatar')
-const avatar = computed(() => githubData.value?.avatar_url)
-
-useHead({
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/png',
-      href: avatar.value || '/favicon.ico'
-    }
-  ]
-})
+// 保持空 setup 即可，不再需要 fetch 数据
 </script>

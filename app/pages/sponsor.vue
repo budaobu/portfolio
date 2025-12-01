@@ -118,20 +118,24 @@ const sponsorMethods: SponsorMethod[] = [
     icon: '☕',
     url: 'https://buymeacoffee.com/lizhaoshui'
   },
+  // 暂时注释加密货币钱包
+  /*
   {
     id: 2,
     type: 'address',
     title: '加密货币钱包',
     description: '如果你使用加密货币，可以直接转账到以下 USDT (TRC20) 地址。',
     icon: '₿',
-    address: 'TXh8Y9K2mN3pL4qR5sT6uV7wX8yZ9A0bC1dE2fG3hJ4'
+    address: '占位符'
   },
+  */
   {
     id: 3,
     type: 'qrcode',
     title: '微信赞赏',
     description: '使用微信扫描下方二维码进行赞赏。',
-    qrcode: 'https://placehold.co/400x400/0ea5e9/white?text=WeChat+QR'
+    // 更新为 public 目录下的 wx-qr.JPG，直接使用绝对路径即可
+    qrcode: '/wx-qr.JPG'
   }
 ]
 
@@ -141,7 +145,7 @@ const handleClick = (method: SponsorMethod) => {
   }
 }
 
-const copyAddress = async (address: string) => {
+const copyAddress = async (address: string | undefined) => {
   if (!address) return
 
   try {
