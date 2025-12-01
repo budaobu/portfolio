@@ -55,7 +55,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Budaobu 的个人作品集 - 全栈开发者，分享有趣的项目和技术探索。' },
+        { name: 'description', content: 'Budaobu 的个人作品集 - vibe 开发者，分享有趣的项目和 AI 探索。' },
         { name: 'author', content: 'Budaobu' },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:site_name', content: 'Budaobu Portfolio' },

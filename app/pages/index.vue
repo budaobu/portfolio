@@ -85,16 +85,16 @@
 useSeoMeta({
   title: 'Budaobu 的个人作品集', 
   titleTemplate: null, // 关键：设置为 null 以覆盖全局的 '%s - Budaobu' 模板，防止出现 "Budaobu Portfolio - Budaobu"
-  description: 'Budaobu 的个人作品集。全栈开发者，开源爱好者，终身学习者。',
+  description: 'Budaobu 的个人作品集 - vibe 开发者，分享有趣的项目和 AI 探索。',
   keywords: 'Budaobu, 个人作品集, vibe coding',
-  ogTitle: 'Budaobu - vibe 作品集',
-  ogDescription: '探索 Budaobu 的个人项目和技术分享，包括 AI 应用、工具类软件等。',
+  ogTitle: 'Budaobu - 作品集',
+  ogDescription: '探索 Budaobu 的个人 vibe 项目，包括 AI 应用、工具类软件等。',
 })
 
 // OG 图片配置
 defineOgImageComponent('NuxtSeo', {
   title: 'Budaobu Portfolio',
-  description: '全栈开发者 / 开源爱好者 / 终身学习者',
+  description: 'AI 爱好者 / vibe 开发者',
   theme: '#3b82f6',
   colorMode: 'dark',
   siteLogo: 'https://github.com/budaobu.png'
