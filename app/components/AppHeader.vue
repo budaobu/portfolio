@@ -12,18 +12,18 @@
         </NuxtLink>
         
         <div class="flex items-center gap-2 sm:gap-4">
-          <!-- 新增：文章链接 -->
+          <!-- 文章链接 -->
+          <!-- 逻辑：当路由以 /blog 开头时（含详情页），文字变色高亮，但保持 ghost 风格，不抢赞助按钮风头 -->
           <UButton
             to="/blog"
-            color="gray"
+            :color="isBlogActive ? 'primary' : 'gray'"
             variant="ghost"
             label="文章"
             class="hidden sm:flex"
           />
-          <!-- 移动端显示的文章图标按钮 -->
           <UButton
             to="/blog"
-            color="gray"
+            :color="isBlogActive ? 'primary' : 'gray'"
             variant="ghost"
             icon="i-heroicons-book-open"
             class="sm:hidden"
@@ -33,21 +33,22 @@
           <!-- 好物推荐链接 -->
           <UButton
             to="/goods"
-            color="gray"
+            :color="isGoodsActive ? 'primary' : 'gray'"
             variant="ghost"
             label="好物"
             class="hidden sm:flex"
           />
-          <!-- 移动端显示的好物图标按钮 -->
           <UButton
             to="/goods"
-            color="gray"
+            :color="isGoodsActive ? 'primary' : 'gray'"
             variant="ghost"
             icon="i-heroicons-shopping-bag"
             class="sm:hidden"
             aria-label="好物推荐"
           />
 
+          <!-- 赞助链接 -->
+          <!-- 保持 variant="soft" 带有背景色，作为视觉重点 -->
           <UButton
             to="/sponsor"
             color="primary"
@@ -56,7 +57,6 @@
             label="赞助"
             class="hidden sm:flex"
           />
-          <!-- 移动端精简显示 -->
           <UButton
             to="/sponsor"
             color="primary"
@@ -74,7 +74,13 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
 const avatarUrl = ref('/api/avatar.png')
+
+// 计算属性：根据当前路径判断是否激活
+// startsWith 确保在进入文章详情页时，"文章"导航依然保持高亮
+const isBlogActive = computed(() => route.path.startsWith('/blog'))
+const isGoodsActive = computed(() => route.path.startsWith('/goods'))
 
 const handleImageError = () => {
   if (!avatarUrl.value.includes('github.com')) {

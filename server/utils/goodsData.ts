@@ -11,7 +11,27 @@ export interface Good {
 
 export const goods: Good[] = [
   {
-    id: 5,
+    id: 3,
+    brand: 'Wise',
+    name: 'Wise (TransferWise)',
+    category: '金融服务',
+    description: '跨境汇款与多币种账户服务的首选。提供真实的中间市场汇率，费用透明低廉，是数字游民和跨境工作者的必备工具。',
+    imageUrl: '',
+    linkUrl: 'https://wise.com/',
+    isAffiliate: false
+  },
+  {
+    id: 2,
+    brand: '达尔优',
+    name: 'EK87 Pro 机械键盘',
+    category: '数码配件',
+    description: '87键机械键盘，带RGB背光，静音设计，适合长时间使用。',
+    imageUrl: '/goods/DAREU-EK87Pro-Keyboard.png',
+    linkUrl: 'https://item.jd.com/10101796526513.html',
+    isAffiliate: false
+  },
+  {
+    id: 1,
     brand: 'Dler Cloud',
     name: 'Pass Gold套餐',
     category: '机场',
@@ -19,46 +39,5 @@ export const goods: Good[] = [
     imageUrl: '',
     linkUrl: 'https://dlercloud.com/auth/register?affid=39909',
     isAffiliate: true
-  },
-  {
-    id: 4,
-    brand: 'Logitech',
-    name: 'MX Keys Mini',
-    category: '数码外设',
-    description: '我最喜欢的矮轴无线键盘，手感极佳，支持多设备无缝切换，Mac 用户首选。',
-    // 示例：使用外部占位图，实际项目中请替换为 public/goods/ 下的图片
-    imageUrl: 'https://images.unsplash.com/photo-1587829741301-dc798b91a603?q=80&w=400&auto=format&fit=crop',
-    linkUrl: 'https://item.jd.com/100026206666.html',
-    isAffiliate: true
-  },
-  {
-    id: 3,
-    brand: 'Herman Miller',
-    name: 'Aeron Chair',
-    category: '办公生活',
-    description: '人体工学椅的终点。虽然价格昂贵，但考虑到每天要坐8小时以上，这是对腰椎最好的投资。',
-    imageUrl: 'https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?q=80&w=400&auto=format&fit=crop',
-    linkUrl: 'https://www.hermanmiller.com/',
-    isAffiliate: false
-  },
-  {
-    id: 2,
-    brand: 'Sony',
-    name: 'WH-1000XM5',
-    category: '音频设备',
-    description: '降噪效果非常惊艳，戴上它整个世界都安静了，非常适合在嘈杂的咖啡厅写代码。',
-    imageUrl: 'https://images.unsplash.com/photo-1610398000004-927503f132e6?q=80&w=400&auto=format&fit=crop',
-    linkUrl: 'https://www.sony.com.cn/',
-    isAffiliate: true
-  },
-  {
-    id: 1,
-    brand: 'OReilly',
-    name: 'Designing Data-Intensive Applications',
-    category: '书籍',
-    description: '后端工程师必读神书（DDIA），深入浅出地讲解了分布式系统的核心原理。',
-    imageUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&auto=format&fit=crop',
-    linkUrl: 'https://book.douban.com/subject/26961191/',
-    isAffiliate: false
   }
 ]
