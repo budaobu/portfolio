@@ -3,6 +3,7 @@
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
         好物推荐
+        <span class="text-primary-500">.</span>
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
         工欲善其事，必先利其器。这里列出了我在工作和生活中长期使用并高度认可的物品。
@@ -12,9 +13,9 @@
       </p>
     </div>
 
-    <!-- 加载状态 -->
+    <!-- 加载状态：骨架屏 -->
     <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div v-for="i in 4" :key="i" class="h-80 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse"></div>
+      <div v-for="i in 4" :key="i" class="h-80 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse ring-1 ring-gray-200 dark:ring-gray-800"></div>
     </div>
 
     <!-- 错误状态 -->
@@ -22,8 +23,8 @@
       获取好物数据失败，请稍后重试。
     </div>
 
-    <!-- 商品列表 -->
-    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- 商品列表：增加淡入动画 -->
+    <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-fade-in">
       <a 
         v-for="item in goodsList" 
         :key="item.id"
@@ -41,10 +42,8 @@
           }"
         >
           <!-- 图片/图标显示区域 -->
-          <!-- 增加 flex justify-center items-center 以便让无图时的 icon 居中 -->
           <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors flex items-center justify-center">
             
-            <!-- 情况1：有 imageUrl，显示全屏封面图 -->
             <img 
               v-if="item.imageUrl"
               :src="item.imageUrl" 
@@ -53,7 +52,6 @@
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             />
             
-            <!-- 情况2：没有 imageUrl，根据 linkUrl 提取 Favicon -->
             <div v-else class="flex flex-col items-center justify-center transition-transform duration-500 group-hover:scale-110">
               <img 
                 :src="getFavicon(item.linkUrl)" 
@@ -63,7 +61,6 @@
               />
             </div>
 
-            <!-- AFF 标记 (绝对定位在右上角) -->
             <div v-if="item.isAffiliate" class="absolute top-2 right-2 z-10">
               <UBadge 
                 color="orange" 
@@ -75,7 +72,6 @@
               </UBadge>
             </div>
 
-            <!-- 类别标记 (左下角) -->
             <div class="absolute bottom-2 left-2 z-10">
               <UBadge 
                 color="gray" 
@@ -88,7 +84,6 @@
             </div>
           </div>
 
-          <!-- 内容区域 -->
           <div class="p-5 flex-1 flex flex-col">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-medium text-primary-600 dark:text-primary-400 uppercase tracking-wider">
@@ -120,24 +115,34 @@ useSeoMeta({
   ogTitle: '好物推荐 - Budaobu',
 })
 
-const { data: goodsList, pending, error } = await useFetch<Good[]>('/api/goods')
+// 优化：开启 lazy 懒加载
+const { data: goodsList, pending, error } = await useFetch<Good[]>('/api/goods', {
+  lazy: true
+})
 
-// 获取 Favicon 的辅助函数
 const getFavicon = (url: string) => {
   if (!url) return ''
   try {
     const hostname = new URL(url).hostname
-    // 使用 Google S2 服务获取高清 Favicon (sz=128)
     return `https://www.google.com/s2/favicons?domain=${hostname}&sz=128`
   } catch (e) {
     return ''
   }
 }
 
-// 图标加载失败处理（可选）
 const handleIconError = (e: Event) => {
   const img = e.target as HTMLImageElement
-  // 失败时可以显示一个默认占位图
   img.src = '/api/avatar.png' 
 }
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>

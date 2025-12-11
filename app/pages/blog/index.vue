@@ -6,12 +6,12 @@
         博客
         <span class="text-primary-500">.</span>
       </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+      <p class="text-lg text-gray-600 dark:text-gray-400">
         这里记录了我的技术思考、开发日志以及一些生活随笔。
       </p>
     </div>
 
-    <!-- 加载状态 -->
+    <!-- 加载状态：骨架屏 -->
     <div v-if="pending" class="space-y-6">
       <div v-for="i in 3" :key="i">
         <UCard :ui="{ body: { padding: 'p-6 sm:p-8' } }">
@@ -36,13 +36,13 @@
     </div>
 
     <!-- 空状态 -->
-    <div v-else-if="!articles?.length" class="text-center py-24 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+    <div v-else-if="!articles?.length" class="text-center py-24 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 animate-fade-in">
       <UIcon name="i-heroicons-document-text" class="w-12 h-12 text-gray-400 mb-4" />
       <p class="text-gray-500">暂无文章，敬请期待。</p>
     </div>
 
-    <!-- 文章列表 -->
-    <div v-else class="space-y-6">
+    <!-- 文章列表：增加淡入动画 -->
+    <div v-else class="space-y-6 animate-fade-in">
       <NuxtLink
         v-for="article in articles"
         :key="article.path"
@@ -59,10 +59,8 @@
             ring: 'ring-1 ring-gray-200 dark:ring-gray-800'
           }"
         >
-          <!-- 核心布局：Flexbox 实现左侧日期，右侧内容 -->
           <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-10">
             
-            <!-- 左侧：日期 -->
             <div class="md:w-40 flex-shrink-0">
               <time 
                 :datetime="article.date" 
@@ -72,7 +70,6 @@
               </time>
             </div>
 
-            <!-- 右侧：内容主体 -->
             <div class="flex-1 min-w-0">
               <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                 {{ article.title }}
@@ -82,7 +79,6 @@
                 {{ article.description }}
               </p>
 
-              <!-- Read Article 链接样式 -->
               <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors">
                 <span class="mr-1">阅读全文</span>
                 <UIcon name="i-heroicons-arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -97,25 +93,24 @@
 </template>
 
 <script setup lang="ts">
-// 设置页面元数据
 useSeoMeta({
   title: '博客',
   description: '分享我的技术思考、开发日志和生活随笔。',
   ogTitle: '博客 - Budaobu',
 })
 
-// 使用 Nuxt Content v3 的 queryCollection API
+// 优化：开启 lazy 懒加载
 const { data: articles, pending, error } = await useAsyncData('blog-list', () => {
   return queryCollection('blog')
-    .order('date', 'DESC') // 按日期降序
+    .order('date', 'DESC')
     .all()
+}, {
+  lazy: true
 })
 
-// 日期格式化：保持类似参考图的简洁风格，但中文化
 const formatDate = (dateStr: string) => {
   if (!dateStr) return ''
   const date = new Date(dateStr)
-  // 使用长格式，例如：2023年9月5日
   return date.toLocaleDateString('zh-CN', {
     year: 'numeric',
     month: 'long',
@@ -123,3 +118,14 @@ const formatDate = (dateStr: string) => {
   })
 }
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>

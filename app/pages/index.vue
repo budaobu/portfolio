@@ -11,10 +11,10 @@
 
     <section>
       <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">作品集</h2>
-      
-      <!-- 加载状态处理 -->
+    
+      <!-- 加载状态：骨架屏 -->
       <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div v-for="i in 3" :key="i" class="h-48 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse"></div>
+        <div v-for="i in 3" :key="i" class="h-64 rounded-xl bg-gray-100 dark:bg-gray-800 animate-pulse ring-1 ring-gray-200 dark:ring-gray-800"></div>
       </div>
       
       <!-- 错误处理 -->
@@ -22,7 +22,8 @@
         获取作品数据失败，请稍后重试。
       </div>
 
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 作品列表：增加淡入动画 -->
+      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
         <div
           v-for="project in projects" 
           :key="project.id"
@@ -43,14 +44,12 @@
                 <UIcon name="i-simple-icons-github" class="w-6 h-6 text-gray-900 dark:text-white" />
               </div>
               <div v-else class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 text-2xl group-hover:scale-110 transition-transform duration-300">
-                <!-- 情况 A: 如果是 URL，渲染图片 -->
                 <img 
                   v-if="project.icon.startsWith('http') || project.icon.startsWith('/')" 
                   :src="project.icon" 
                   class="w-8 h-8 object-contain rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all object-cover" 
                   alt="icon" 
                 />
-                <!-- 情况 B: 否则渲染 Emoji 或 Iconify (保持原有逻辑) -->
                 <span v-else class="text-2xl">{{ project.icon }}</span>
               </div>
               <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
@@ -118,8 +117,9 @@ interface Project {
 }
 
 // 使用 useFetch 从 API 获取数据
-// 这样即使项目数据更新，也只需要修改 server/utils/projectData.ts，无需重新构建前端逻辑
-const { data: projects, pending, error } = await useFetch<Project[]>('/api/projects')
+const { data: projects, pending, error } = await useFetch<Project[]>('/api/projects', {
+  lazy: true
+})
 
 // 辅助函数：判断是否为 URL (用于渲染 img 标签)
 const isIconUrl = (iconStr: string) => {
@@ -141,3 +141,14 @@ const handleCardClick = (project: Project) => {
   }
 }
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
