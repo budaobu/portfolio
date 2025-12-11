@@ -4,7 +4,7 @@ export interface Good {
   name: string // 名称
   category: string // 类别：数码、生活、书籍等
   description: string // 推荐语
-  imageUrl: string // 图片路径
+  imageUrl?: string // 图片路径
   linkUrl: string // 购买链接
   isAffiliate: boolean // 是否恰饭
 }
