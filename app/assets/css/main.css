@@ -1,2 +1,22 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+/* Markdown 内容排版优化 */
+.prose {
+  @apply max-w-none;
+}
+
+/* 需求 4: 文章内的普通图片居中 */
+.prose img {
+  @apply mx-auto rounded-lg shadow-sm my-8;
+}
+
+/* 链接样式 */
+.prose a {
+  @apply text-primary-600 dark:text-primary-400 no-underline hover:underline;
+}
+
+/* 标题锚点微调 */
+.prose h2, .prose h3 {
+  @apply scroll-mt-20;
+}

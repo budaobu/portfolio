@@ -3,7 +3,6 @@
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <NuxtLink to="/" class="flex items-center gap-3 group">
-          <!-- 添加 @error 处理，如果 API 挂了自动切回 GitHub 源 -->
           <img 
             :src="avatarUrl" 
             @error="handleImageError"
@@ -12,13 +11,59 @@
           />
         </NuxtLink>
         
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-4">
+          <!-- 新增：文章链接 -->
+          <UButton
+            to="/blog"
+            color="gray"
+            variant="ghost"
+            label="文章"
+            class="hidden sm:flex"
+          />
+          <!-- 移动端显示的文章图标按钮 -->
+          <UButton
+            to="/blog"
+            color="gray"
+            variant="ghost"
+            icon="i-heroicons-book-open"
+            class="sm:hidden"
+            aria-label="文章列表"
+          />
+
+          <!-- 好物推荐链接 -->
+          <UButton
+            to="/goods"
+            color="gray"
+            variant="ghost"
+            label="好物"
+            class="hidden sm:flex"
+          />
+          <!-- 移动端显示的好物图标按钮 -->
+          <UButton
+            to="/goods"
+            color="gray"
+            variant="ghost"
+            icon="i-heroicons-shopping-bag"
+            class="sm:hidden"
+            aria-label="好物推荐"
+          />
+
           <UButton
             to="/sponsor"
             color="primary"
             variant="soft"
             icon="i-heroicons-heart"
             label="赞助"
+            class="hidden sm:flex"
+          />
+          <!-- 移动端精简显示 -->
+          <UButton
+            to="/sponsor"
+            color="primary"
+            variant="soft"
+            icon="i-heroicons-heart"
+            class="sm:hidden"
+            aria-label="赞助"
           />
           
           <ThemeToggle />
@@ -29,12 +74,9 @@
 </template>
 
 <script setup lang="ts">
-// 使用 ref 使其变为响应式，以便在加载失败时切换地址
 const avatarUrl = ref('/api/avatar.png')
 
-// 图片加载失败时的兜底处理
 const handleImageError = () => {
-  // 如果当前不是 GitHub 地址（避免死循环），则降级使用 GitHub 直链
   if (!avatarUrl.value.includes('github.com')) {
     console.warn('Avatar API failed, falling back to GitHub CDN')
     avatarUrl.value = 'https://github.com/budaobu.png'

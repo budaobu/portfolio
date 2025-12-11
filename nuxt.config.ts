@@ -3,7 +3,8 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxtjs/sitemap',
-    'nuxt-og-image'
+    'nuxt-og-image',
+    '@nuxt/content' // 新增 Content 模块
   ],
   
   css: ['~/assets/css/main.css'],
@@ -12,9 +13,14 @@ export default defineNuxtConfig({
   
   compatibilityDate: '2024-11-29',
 
-  nitro: {
-    preset: 'cloudflare-pages'
-  },
+  // ⚠️ 删除或注释掉这一行！
+  // nitro: {
+  //   preset: 'cloudflare-pages'
+  // },
+  // 如果你非常想保留，必须加判断，只在生产环境启用：
+  // nitro: {
+  //   preset: process.env.NODE_ENV === 'production' ? 'cloudflare-pages' : undefined
+  // },
 
   site: {
     url: 'https://portfolio-2d2.pages.dev/',
@@ -31,19 +37,32 @@ export default defineNuxtConfig({
     exclude: ['/admin/**'],
   },
 
-  // --- 新增配置开始 ---
-  // 1. 强制在构建阶段预渲染首页和 OG 图片
-  // 这样 Cloudflare 只需要返回静态文件，不需要消耗 CPU 计算，完美解决 1102 错误
   routeRules: {
     '/': { prerender: true },
-    '/sponsor': { prerender: true }
+    '/sponsor': { prerender: true },
+    '/goods': { prerender: true }, // 新增：预渲染好物推荐页面
+    '/blog/**': { prerender: true } // 预渲染所有博客页面
   },
 
-  // 2. 确保 OG Image 模块开启预渲染
   ogImage: {
     prerender: true
   },
-  // --- 新增配置结束 ---
+
+  // --- 新增 Content 配置 ---
+  content: {
+    highlight: {
+      // 使用 Shiki 高亮，主题自动适配暗黑模式
+      theme: {
+        default: 'github-light',
+        dark: 'github-dark'
+      },
+      preload: ['javascript', 'typescript', 'vue', 'bash', 'json', 'python', 'css', 'html']
+    },
+    // 启用 MDC (Markdown Components) 语法，用于支持 ::ImageGallery 这种写法
+    markdown: {
+      mdc: true
+    }
+  },
 
   app: {
     head: {

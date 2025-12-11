@@ -1,0 +1,125 @@
+<template>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- 页面头部 -->
+    <div class="mb-12 md:mb-20">
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        博客
+        <span class="text-primary-500">.</span>
+      </h1>
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+        这里记录了我的技术思考、开发日志以及一些生活随笔。
+      </p>
+    </div>
+
+    <!-- 加载状态 -->
+    <div v-if="pending" class="space-y-6">
+      <div v-for="i in 3" :key="i">
+        <UCard :ui="{ body: { padding: 'p-6 sm:p-8' } }">
+          <div class="flex flex-col md:flex-row gap-6">
+            <div class="md:w-40 h-6 bg-gray-100 dark:bg-gray-800 rounded animate-pulse"></div>
+            <div class="flex-1 space-y-4">
+              <div class="h-8 bg-gray-100 dark:bg-gray-800 rounded w-3/4 animate-pulse"></div>
+              <div class="h-4 bg-gray-100 dark:bg-gray-800 rounded w-full animate-pulse"></div>
+              <div class="h-4 bg-gray-100 dark:bg-gray-800 rounded w-2/3 animate-pulse"></div>
+            </div>
+          </div>
+        </UCard>
+      </div>
+    </div>
+
+    <!-- 错误状态 -->
+    <div v-else-if="error" class="text-center py-20">
+      <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
+        <UIcon name="i-heroicons-exclamation-triangle" class="w-8 h-8 text-red-500" />
+      </div>
+      <p class="text-gray-500">加载文章列表失败</p>
+    </div>
+
+    <!-- 空状态 -->
+    <div v-else-if="!articles?.length" class="text-center py-24 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700">
+      <UIcon name="i-heroicons-document-text" class="w-12 h-12 text-gray-400 mb-4" />
+      <p class="text-gray-500">暂无文章，敬请期待。</p>
+    </div>
+
+    <!-- 文章列表 -->
+    <div v-else class="space-y-6">
+      <NuxtLink
+        v-for="article in articles"
+        :key="article.path"
+        :to="article.path"
+        class="block group outline-none"
+      >
+        <UCard
+          :ui="{
+            body: { padding: 'p-6 sm:p-8' },
+            base: 'transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-2 hover:ring-primary-500/20 dark:hover:ring-primary-400/20',
+            rounded: 'rounded-xl',
+            shadow: 'shadow-sm',
+            divide: '',
+            ring: 'ring-1 ring-gray-200 dark:ring-gray-800'
+          }"
+        >
+          <!-- 核心布局：Flexbox 实现左侧日期，右侧内容 -->
+          <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-10">
+            
+            <!-- 左侧：日期 -->
+            <div class="md:w-40 flex-shrink-0">
+              <time 
+                :datetime="article.date" 
+                class="text-sm font-medium text-gray-500 dark:text-gray-400 md:border-l-2 md:border-transparent md:group-hover:border-primary-500 md:group-hover:pl-3 md:transition-all md:duration-300"
+              >
+                {{ formatDate(article.date) }}
+              </time>
+            </div>
+
+            <!-- 右侧：内容主体 -->
+            <div class="flex-1 min-w-0">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                {{ article.title }}
+              </h2>
+              
+              <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 line-clamp-3">
+                {{ article.description }}
+              </p>
+
+              <!-- Read Article 链接样式 -->
+              <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors">
+                <span class="mr-1">阅读全文</span>
+                <UIcon name="i-heroicons-arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </div>
+            </div>
+
+          </div>
+        </UCard>
+      </NuxtLink>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+// 设置页面元数据
+useSeoMeta({
+  title: '博客',
+  description: '分享我的技术思考、开发日志和生活随笔。',
+  ogTitle: '博客 - Budaobu',
+})
+
+// 使用 Nuxt Content v3 的 queryCollection API
+const { data: articles, pending, error } = await useAsyncData('blog-list', () => {
+  return queryCollection('blog')
+    .order('date', 'DESC') // 按日期降序
+    .all()
+})
+
+// 日期格式化：保持类似参考图的简洁风格，但中文化
+const formatDate = (dateStr: string) => {
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  // 使用长格式，例如：2023年9月5日
+  return date.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+}
+</script>
