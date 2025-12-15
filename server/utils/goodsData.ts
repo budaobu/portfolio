@@ -33,7 +33,7 @@ export const goods: Good[] = [
   {
     id: 1,
     brand: 'Dler Cloud',
-    name: 'Pass Gold套餐',
+    name: 'IPLC 机场',
     category: '机场',
     description: '使用了5年的机场，稳定高速，支持多种协议',
     imageUrl: '',
