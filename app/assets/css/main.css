@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+/* Tailwind v4 主题配置覆盖 
+  在 v4 中，我们需要通过 @theme 块来覆盖默认的 CSS 变量，
+  而不是使用 tailwind.config.ts
+*/
+@theme {
+  --font-sans: "LXGW WenKai Screen", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 /* Markdown 内容排版优化 */
 .prose {
   @apply max-w-none;
