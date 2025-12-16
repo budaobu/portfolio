@@ -69,7 +69,7 @@
                 @click.stop
               >
                 <UIcon name="i-simple-icons-github" class="w-4 h-4" />
-                <span>源码</span>
+                <span>Repo</span>
               </NuxtLink>
             </div>
           </UCard>
