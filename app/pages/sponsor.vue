@@ -47,7 +47,7 @@
                 </h3>
                 <UIcon 
                   v-if="method.type === 'link'"
-                  name="i-heroicons-arrow-top-right-on-square"
+                  name="i-heroicons:arrow-up-right-solid"
                   class="w-4 h-4 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                 />
               </div>

@@ -12,8 +12,24 @@
         </NuxtLink>
         
         <div class="flex items-center gap-2 sm:gap-4">
+          <!-- 作品链接 -->
+          <UButton
+            to="/projects"
+            :color="isProjectsActive ? 'primary' : 'gray'"
+            variant="ghost"
+            label="作品"
+            class="hidden sm:flex"
+          />
+          <UButton
+            to="/projects"
+            :color="isProjectsActive ? 'primary' : 'gray'"
+            variant="ghost"
+            icon="i-heroicons-rocket-launch"
+            class="sm:hidden"
+            aria-label="作品集"
+          />
+
           <!-- 文章链接 -->
-          <!-- 逻辑：当路由以 /blog 开头时（含详情页），文字变色高亮，但保持 ghost 风格，不抢赞助按钮风头 -->
           <UButton
             to="/blog"
             :color="isBlogActive ? 'primary' : 'gray'"
@@ -78,7 +94,7 @@ const route = useRoute()
 const avatarUrl = ref('/api/avatar.png')
 
 // 计算属性：根据当前路径判断是否激活
-// startsWith 确保在进入文章详情页时，"文章"导航依然保持高亮
+const isProjectsActive = computed(() => route.path.startsWith('/projects'))
 const isBlogActive = computed(() => route.path.startsWith('/blog'))
 const isGoodsActive = computed(() => route.path.startsWith('/goods'))
 

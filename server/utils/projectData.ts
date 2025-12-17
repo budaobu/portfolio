@@ -6,7 +6,10 @@ export interface Project {
   icon: string
   demoUrl?: string
   githubUrl?: string
+  appStoreUrl?: string
+  googlePlayUrl?: string
   date?: string // 可选：用于 RSS 的发布时间，如果不填则使用当前时间
+  featured?: boolean
 }
 
 // 单一数据源
@@ -18,7 +21,8 @@ export const projects: Project[] = [
     icon: '🎥',
     demoUrl: '/video2gif',
     githubUrl: 'https://github.com/budaobu/video2gif',
-    date: '2025-12-01'
+    date: '2025-12-01',
+    featured: true
   },
   {
     id: 6,
@@ -27,7 +31,8 @@ export const projects: Project[] = [
     icon: '/api/avatar.png',
     demoUrl: 'https://portfolio-2d2.pages.dev/',
     githubUrl: 'https://github.com/budaobu/portfolio',
-    date: '2025-12-01'
+    date: '2025-12-01',
+    featured: true
   },
   {
     id: 5,
@@ -36,7 +41,8 @@ export const projects: Project[] = [
     icon: '🖼',
     demoUrl: 'https://tinypic.lizhaoshui.workers.dev/',
     githubUrl: 'https://github.com/budaobu/tinypic',
-    date: '2025-11-29'
+    date: '2025-11-29',
+    featured: true
   },
   {
     id: 4,
@@ -45,7 +51,8 @@ export const projects: Project[] = [
     icon: '✂',
     demoUrl: 'https://slice-meme.lizhaoshui.workers.dev/',
     githubUrl: 'https://github.com/budaobu/slice-meme-image',
-    date: '2025-11-28'
+    date: '2025-11-28',
+    featured: true
   },
   {
     id: 3,
@@ -54,7 +61,8 @@ export const projects: Project[] = [
     icon: '💻',
     demoUrl: 'https://image-watermark-at5.pages.dev/',
     githubUrl: 'https://github.com/budaobu/image-watermark',
-    date: '2025-01-05'
+    date: '2025-01-05',
+    featured: true
   },
   {
     id: 2,
@@ -72,6 +80,7 @@ export const projects: Project[] = [
     icon: '🌐',
     demoUrl: '',
     githubUrl: 'https://github.com/budaobu/rules/blob/main/py/cn-asn-scraper.py',
-    date: '2024-09-10'
+    date: '2024-09-10',
+    featured: true
   }
 ]

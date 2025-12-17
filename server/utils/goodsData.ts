@@ -15,7 +15,7 @@ export const goods: Good[] = [
     brand: 'Wise',
     name: 'Wise (TransferWise)',
     category: '金融服务',
-    description: '跨境汇款与多币种账户服务的首选。提供真实的中间市场汇率，费用透明低廉，是数字游民和跨境工作者的必备工具。',
+    description: '跨境汇款与多币种账户服务的首选。',
     imageUrl: '',
     linkUrl: 'https://wise.com/',
     isAffiliate: false
