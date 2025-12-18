@@ -2,10 +2,11 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        全部作品
+        <span class="text-primary-500">|</span>
+        缝合怪们
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
-        氛围编码，最重要的是能跑。
+        Vibe coding, 最重要的是能跑。
       </p>
     </div>
 

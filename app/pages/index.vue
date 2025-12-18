@@ -2,10 +2,10 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <section class="mb-20">
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        你好，我是 <span class="text-primary-600 dark:text-primary-400">Budaobu</span>
+        你好，我是 <span class="text-primary-600 dark:text-primary-400">@lizhaoshui</span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-        一个 I 人，不是开发者，却总想搞点啥玩意儿出来。
+        不是开发者，但是爱折腾，总想搞点啥玩意儿出来，主打一个随缘。
       </p>
       
       <!-- 新增：社交媒体图标栏 -->

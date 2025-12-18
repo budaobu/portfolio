@@ -2,11 +2,11 @@
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        赞助支持
-        <span class="text-primary-500">.</span>
+        <span class="text-primary-500">|</span>
+        打钱
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-        喜欢就请我喝杯咖啡吧。
+        kfc疯狂星期四，v我50。
       </p>
     </div>
 

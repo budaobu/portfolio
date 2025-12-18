@@ -3,8 +3,8 @@
     <!-- 页面头部 -->
     <div class="mb-12 md:mb-20">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        博客
-        <span class="text-primary-500">.</span>
+        <span class="text-primary-500">|</span>
+        瞎扯
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
         没有技术，都是瞎扯。
