@@ -6,7 +6,7 @@
         <span class="text-primary-500">➟</span>
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-        工欲善其事，必先利其器。这里列出了我在工作和生活中长期使用并高度认可的物品。
+        都是我花了钱的。
         <span class="text-sm opacity-75 block mt-2">
           注：带有 <UBadge color="orange" variant="subtle" size="xs" label="AFF" /> 标记的链接为推广链接，购买时我可能会获得少量佣金，这不会增加您的购买成本。
         </span>

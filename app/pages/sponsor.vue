@@ -6,7 +6,7 @@
         <span class="text-primary-500">.</span>
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-        如果我的作品对你有帮助，欢迎通过以下方式赞助支持。你的支持是我持续创作的动力。
+        喜欢就请我喝杯咖啡吧。
       </p>
     </div>
 

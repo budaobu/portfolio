@@ -7,7 +7,7 @@
         <span class="text-primary-500">.</span>
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
-        这里记录了我的技术思考、开发日志以及一些生活随笔。
+        没有技术，都是瞎扯。
       </p>
     </div>
 

@@ -91,7 +91,7 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const avatarUrl = ref('/api/avatar.png')
+const avatarUrl = ref('/avatar.webp') // 使用本地图片替换动态获取 /api/avatar.png
 
 // 计算属性：根据当前路径判断是否激活
 const isProjectsActive = computed(() => route.path.startsWith('/projects'))

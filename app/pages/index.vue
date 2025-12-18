@@ -5,7 +5,7 @@
         你好，我是 <span class="text-primary-600 dark:text-primary-400">Budaobu</span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-        一个 I 人, 在玩 AI 工具, 不是开发者. 我喜欢用简单直接的方式和 AI 对话.
+        一个 I 人，不是开发者，却总想搞点啥玩意儿出来。
       </p>
       
       <!-- 新增：社交媒体图标栏 -->
