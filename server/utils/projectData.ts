@@ -28,7 +28,7 @@ export const projects: Project[] = [
     id: 6,
     title: '作品集网站',
     description: '我的个人作品集网站，展示了我 vibe 的各种有趣项目和技术探索。',
-    icon: '/api/avatar.png',
+    icon: '/avatar.webp',
     demoUrl: 'https://portfolio-2d2.pages.dev/',
     githubUrl: 'https://github.com/budaobu/portfolio',
     date: '2025-12-01',
