@@ -9,7 +9,10 @@
     <footer class="border-t border-gray-200 dark:border-gray-800 py-6 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <p class="text-center text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center gap-1">
-          © {{ currentYear }} Budaobu. Vibe with <UIcon name="i-heroicons-heart-solid" class="text-red-500" />
+          <span>&copy; {{ currentYear }} Budaobu.</span>
+          <span class="hidden sm:inline">·</span>
+          <span>Vibe with</span>
+          <UIcon name="i-heroicons-heart-solid" class="text-red-500 w-4 h-4" />
         </p>
       </div>
     </footer>
