@@ -3,21 +3,20 @@
     <section class="mb-20">
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
         你好，我是
-        <!-- 修改开始：文字翻滚效果容器 -->
+        <!-- 文字翻滚效果容器 -->
         <span class="text-roll-wrapper text-primary-600 dark:text-primary-400">
           <span class="text-roll-inner">
             <span class="block">@lizhaoshui</span>
             <span class="block">@lizhaoshui</span>
           </span>
         </span>
-        <!-- 修改结束 -->
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
         不是开发者，但是爱折腾，总想搞点啥玩意儿出来，主打一个随缘。
       </p>
       
       <!-- 新增：社交媒体图标栏 -->
-      <!-- <div class="flex items-center gap-4 mt-6">
+      <div class="flex items-center gap-4 mt-6">
         <UButton
           v-for="social in socialLinks"
           :key="social.name"
@@ -30,7 +29,7 @@
           :aria-label="social.name"
           class="p-0 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
         />
-      </div> -->
+      </div>
     </section>
 
     <section>
@@ -110,6 +109,8 @@
 
             <!-- 底部操作栏：独立按钮 -->
             <div class="flex items-center justify-start flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800 relative z-20">
+
+              <!-- 顺序调整：App Store -> Google Play -> GitHub -> Web -->
               
               <!-- App Store (蓝色主题色) -->
               <UButton
@@ -188,23 +189,58 @@ interface Project {
 }
 
 // 社交媒体链接配置
-/* const socialLinks = [
+const socialLinks = [
   {
     name: 'X',
     icon: 'i-simple-icons-x',
-    url: 'https://x.com/lizhaoshui'
+    url: 'https://x.com/intent/follow?screen_name=lizhaoshui'
   },
   {
     name: 'GitHub',
     icon: 'i-simple-icons-github',
-    url: 'https://github.com/budaobu'
+    url: 'https://github.com/budaobu/portfolio'
   },
+  /* {
+    name: 'Discord',
+    icon: 'i-simple-icons-discord',
+    url: '#' // 请替换为您的 Discord 链接
+  },
+  {
+    name: 'Telegram',
+    icon: 'i-simple-icons-telegram',
+    url: '#' // 请替换为您的 Telegram 链接
+  },
+  {
+    name: 'Instagram',
+    icon: 'i-simple-icons-instagram',
+    url: '#' // 请替换为您的 Instagram 链接
+  },
+  {
+    name: 'WhatsApp',
+    icon: 'i-simple-icons-whatsapp',
+    url: '#' // 请替换为您的 WhatsApp 链接
+  },
+  {
+    name: 'YouTube',
+    icon: 'i-simple-icons-youtube',
+    url: '#' // 请替换为您的 YouTube 链接
+  },
+  {
+    name: 'Apple Music',
+    icon: 'i-simple-icons-applemusic',
+    url: '#' // 请替换为您的 Apple Music 链接
+  },
+  {
+    name: 'Spotify',
+    icon: 'i-simple-icons-spotify',
+    url: '#' // 请替换为您的 Spotify 链接
+  }, */
   {
     name: 'Email',
     icon: 'i-heroicons-envelope',
-    url: 'mailto:hi@budaobu.com'
+    url: 'mailto:lizhaoshui@duck.com'
   }
-] */
+]
 
 useSeoMeta({
   title: 'Budaobu 的个人作品集',
