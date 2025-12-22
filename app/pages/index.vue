@@ -35,7 +35,7 @@
 
     <section>
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">精选作品</h2>
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">作品</h2>
         <UButton to="/projects" color="gray" variant="ghost" icon="i-heroicons-arrow-right" label="查看全部" />
       </div>
       
