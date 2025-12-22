@@ -16,7 +16,7 @@
       </p>
       
       <!-- 新增：社交媒体图标栏 -->
-      <div class="flex items-center gap-4 mt-6">
+      <!-- <div class="flex items-center gap-4 mt-6">
         <UButton
           v-for="social in socialLinks"
           :key="social.name"
@@ -29,7 +29,7 @@
           :aria-label="social.name"
           class="p-0 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
         />
-      </div>
+      </div> -->
     </section>
 
     <section>
@@ -58,7 +58,6 @@
           <UCard 
             :ui="{ 
               body: { padding: 'p-6' },
-              /* 即使 UCard 内部 relative 失效，外层 group 的 relative 也能兜底，防止遮罩层溢出 */
               base: 'relative h-full flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1',
               divide: '',
               header: { padding: '' },
@@ -109,8 +108,6 @@
 
             <!-- 底部操作栏：独立按钮 -->
             <div class="flex items-center justify-start flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800 relative z-20">
-
-              <!-- 顺序调整：App Store -> Google Play -> GitHub -> Web -->
               
               <!-- App Store (蓝色主题色) -->
               <UButton
@@ -187,60 +184,6 @@ interface Project {
   mainUrl?: string
   featured?: boolean
 }
-
-// 社交媒体链接配置
-const socialLinks = [
-  {
-    name: 'X',
-    icon: 'i-simple-icons-x',
-    url: 'https://x.com/intent/follow?screen_name=lizhaoshui'
-  },
-  {
-    name: 'GitHub',
-    icon: 'i-simple-icons-github',
-    url: 'https://github.com/budaobu/portfolio'
-  },
-  /* {
-    name: 'Discord',
-    icon: 'i-simple-icons-discord',
-    url: '#' // 请替换为您的 Discord 链接
-  },
-  {
-    name: 'Telegram',
-    icon: 'i-simple-icons-telegram',
-    url: '#' // 请替换为您的 Telegram 链接
-  },
-  {
-    name: 'Instagram',
-    icon: 'i-simple-icons-instagram',
-    url: '#' // 请替换为您的 Instagram 链接
-  },
-  {
-    name: 'WhatsApp',
-    icon: 'i-simple-icons-whatsapp',
-    url: '#' // 请替换为您的 WhatsApp 链接
-  },
-  {
-    name: 'YouTube',
-    icon: 'i-simple-icons-youtube',
-    url: '#' // 请替换为您的 YouTube 链接
-  },
-  {
-    name: 'Apple Music',
-    icon: 'i-simple-icons-applemusic',
-    url: '#' // 请替换为您的 Apple Music 链接
-  },
-  {
-    name: 'Spotify',
-    icon: 'i-simple-icons-spotify',
-    url: '#' // 请替换为您的 Spotify 链接
-  }, */
-  {
-    name: 'Email',
-    icon: 'i-heroicons-envelope',
-    url: 'mailto:lizhaoshui@duck.com'
-  }
-]
 
 useSeoMeta({
   title: 'Budaobu 的个人作品集',
