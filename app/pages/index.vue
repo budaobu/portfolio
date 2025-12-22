@@ -2,7 +2,15 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <section class="mb-20">
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        你好，我是 <span class="text-primary-600 dark:text-primary-400">@lizhaoshui</span>
+        你好，我是
+        <!-- 修改开始：文字翻滚效果容器 -->
+        <span class="text-roll-wrapper text-primary-600 dark:text-primary-400">
+          <span class="text-roll-inner">
+            <span class="block">@lizhaoshui</span>
+            <span class="block">@lizhaoshui</span>
+          </span>
+        </span>
+        <!-- 修改结束 -->
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
         不是开发者，但是爱折腾，总想搞点啥玩意儿出来，主打一个随缘。
@@ -252,5 +260,32 @@ const isExternal = (url: string) => {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* 文字翻滚动画相关样式 */
+.text-roll-wrapper {
+  display: inline-block;
+  height: 1.2em; /* 高度设为 1.2em，确保只显示一行 */
+  line-height: 1.2em;
+  overflow: hidden;
+  vertical-align: bottom; /* 对齐底部，防止文字抖动 */
+}
+
+.text-roll-inner {
+  display: block;
+  /* 3秒一次循环，cubic-bezier 让滚动有弹性感 */
+  animation: text-roll-anim 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes text-roll-anim {
+  0%, 45% {
+    transform: translateY(0);
+  }
+  55%, 90% {
+    transform: translateY(-50%); /* 向上移动 50%，显示第二行文字 */
+  }
+  100% {
+    transform: translateY(0); /* 瞬间回到初始位置（需要无缝衔接） */
+  }
 }
 </style>
