@@ -26,7 +26,7 @@ export const goods: Good[] = [
     name: 'EK87 Pro 机械键盘',
     category: '数码配件',
     description: '87键机械键盘，带RGB背光，静音设计，适合长时间使用。',
-    imageUrl: '/goods/DAREU-EK87Pro-Keyboard.png',
+    imageUrl: 'https://cloudflare-imgbed-88m.pages.dev/file/AgACAgEAAyEGAASJ9vGyAAMWaUpXuCHVEHGtJIYgB_XXJAbKEwwAAkcLaxvZZVBGSXU8KRoTkbcBAAMCAAN5AAM2BA.png',
     linkUrl: 'https://item.jd.com/10101796526513.html',
     isAffiliate: false
   },

@@ -80,7 +80,7 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' }
       ],
       link: [
-        { rel: 'icon', type: 'image/png', href: '/avatar.webp' }, // 使用本地图片替换动态获取 /api/avatar.png
+        { rel: 'icon', type: 'image/webp', href: '/avatar.webp' }, // 使用本地图片替换动态获取 /api/avatar.png
         { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' }
       ]
     }
