@@ -69,7 +69,7 @@
             to="/sponsor"
             color="primary"
             variant="soft"
-            icon="i-heroicons-heart"
+            icon="i-heroicons-heart-solid"
             label="赞助"
             class="hidden sm:flex"
           />
@@ -77,7 +77,7 @@
             to="/sponsor"
             color="primary"
             variant="soft"
-            icon="i-heroicons-heart"
+            icon="i-heroicons-heart-solid"
             class="sm:hidden"
             aria-label="赞助"
           />
