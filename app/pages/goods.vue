@@ -118,18 +118,12 @@
         </a>
       </div>
 
-      <!-- 加载更多按钮 -->
-      <div v-if="hasMore" class="flex justify-center pt-4">
-        <UButton 
-          :loading="loadingMore"
-          variant="soft" 
-          color="gray" 
-          label="加载更多" 
-          icon="i-heroicons-arrow-path"
-          @click="loadMore"
-          class="px-8"
-        />
+      <!-- 核心修改：无限滚动触发器 -->
+      <!-- 只要 hasMore 为 true，这个 div 就会渲染。一旦进入视口，就触发 loadMore -->
+      <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
+        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
+      
       <!-- 到底提示 -->
       <div v-else-if="allGoods.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
         - 到底了，也没钱败了 -
@@ -154,13 +148,14 @@ interface ApiResponse {
   total: number
 }
 
-const PAGE_SIZE = 9 // 3列布局，9个刚好填满
+const PAGE_SIZE = 9
 const page = ref(1)
 const allGoods = ref<Good[]>([])
 const hasMore = ref(false)
 const loadingMore = ref(false)
+const loadMoreTrigger = ref<HTMLElement | null>(null) // 触发器 DOM 引用
 
-// 1. 初始加载：使用 useFetch 获取第一页数据
+// 1. 初始加载
 const { data, pending, error } = await useFetch<ApiResponse>('/api/goods', {
   lazy: true,
   query: { 
@@ -169,7 +164,6 @@ const { data, pending, error } = await useFetch<ApiResponse>('/api/goods', {
   }
 })
 
-// 监听初始数据返回，并初始化列表
 watch(data, (newVal) => {
   if (newVal) {
     allGoods.value = newVal.items
@@ -177,7 +171,7 @@ watch(data, (newVal) => {
   }
 }, { immediate: true })
 
-// 2. 加载更多：使用 $fetch 发起后续请求
+// 2. 加载更多逻辑
 const loadMore = async () => {
   if (loadingMore.value) return
   loadingMore.value = true
@@ -192,7 +186,6 @@ const loadMore = async () => {
     })
     
     if (response) {
-      // 追加新数据
       allGoods.value.push(...response.items)
       hasMore.value = response.hasMore
       page.value = nextPage
@@ -203,6 +196,24 @@ const loadMore = async () => {
     loadingMore.value = false
   }
 }
+
+// 3. 设置 IntersectionObserver 实现无限滚动
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    // 如果触发器进入视口，且当前不是正在加载中，且还有更多数据
+    if (entries[0].isIntersecting && !loadingMore.value && hasMore.value) {
+      loadMore()
+    }
+  }, {
+    rootMargin: '200px' // 提前 200px 触发，体验更丝滑
+  })
+
+  // 监听 loadMoreTrigger 元素的变化（因为 v-if 可能会导致它创建/销毁）
+  watch(loadMoreTrigger, (el) => {
+    if (el) observer.observe(el)
+    else observer.disconnect()
+  })
+})
 
 const getFavicon = (url: string) => {
   if (!url) return ''

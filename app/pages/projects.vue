@@ -137,17 +137,9 @@
         </div>
       </div>
 
-      <!-- 加载更多按钮 -->
-      <div v-if="hasMore" class="flex justify-center pt-4">
-        <UButton 
-          :loading="loadingMore"
-          variant="soft" 
-          color="gray" 
-          label="加载更多" 
-          icon="i-heroicons-arrow-path"
-          @click="loadMore"
-          class="px-8"
-        />
+      <!-- 无限滚动触发器 -->
+      <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
+        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
       <!-- 到底提示 -->
       <div v-else-if="allProjects.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
@@ -190,8 +182,8 @@ const page = ref(1)
 const allProjects = ref<Project[]>([])
 const hasMore = ref(false)
 const loadingMore = ref(false)
+const loadMoreTrigger = ref<HTMLElement | null>(null)
 
-// 1. 初始加载：使用 useFetch 获取第一页数据
 const { data, pending, error } = await useFetch<ApiResponse>('/api/projects', {
   lazy: true,
   query: { 
@@ -200,7 +192,6 @@ const { data, pending, error } = await useFetch<ApiResponse>('/api/projects', {
   }
 })
 
-// 监听初始数据返回，并初始化列表
 watch(data, (newVal) => {
   if (newVal) {
     allProjects.value = newVal.items
@@ -208,7 +199,6 @@ watch(data, (newVal) => {
   }
 }, { immediate: true })
 
-// 2. 加载更多：使用 $fetch 发起后续请求
 const loadMore = async () => {
   if (loadingMore.value) return
   loadingMore.value = true
@@ -223,7 +213,6 @@ const loadMore = async () => {
     })
     
     if (response) {
-      // 追加新数据
       allProjects.value.push(...response.items)
       hasMore.value = response.hasMore
       page.value = nextPage
@@ -234,6 +223,19 @@ const loadMore = async () => {
     loadingMore.value = false
   }
 }
+
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !loadingMore.value && hasMore.value) {
+      loadMore()
+    }
+  }, { rootMargin: '200px' })
+
+  watch(loadMoreTrigger, (el) => {
+    if (el) observer.observe(el)
+    else observer.disconnect()
+  })
+})
 
 // 文案逻辑生成函数
 const getAvailabilityText = (project: Project) => {

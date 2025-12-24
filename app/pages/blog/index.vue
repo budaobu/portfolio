@@ -89,17 +89,9 @@
         </UCard>
       </NuxtLink>
 
-      <!-- 新增：加载更多按钮 -->
-      <div v-if="!allLoaded" class="flex justify-center pt-8 pb-4">
-        <UButton 
-          :loading="loadingMore"
-          variant="soft" 
-          color="gray" 
-          label="加载更多" 
-          icon="i-heroicons-arrow-path"
-          @click="loadMore"
-          class="px-8"
-        />
+      <!-- 无限滚动触发器 -->
+      <div v-if="!allLoaded" ref="loadMoreTrigger" class="flex justify-center py-8">
+        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
       <!-- 新增：到底提示 -->
       <div v-else class="text-center py-12 text-gray-400 text-sm italic">
@@ -120,45 +112,39 @@ useSeoMeta({
 const PAGE_SIZE = 10
 const loadingMore = ref(false)
 const allLoaded = ref(false)
+const loadMoreTrigger = ref<HTMLElement | null>(null)
 
-// 优化：开启 lazy 懒加载 + 分页限制 (Limit 10)
 const { data: articles, pending, error } = await useAsyncData('blog-list', async () => {
-  const data = await queryCollection('blog')
+  return await queryCollection('blog')
     .order('date', 'DESC')
     .limit(PAGE_SIZE)
     .all()
-  return data
 }, {
   lazy: true
 })
 
-// 监听初始数据，判断是否不够一页（直接显示到底）
 watch(articles, (newVal) => {
   if (newVal && newVal.length < PAGE_SIZE) {
     allLoaded.value = true
   }
 }, { immediate: true })
 
-// 加载更多逻辑
 const loadMore = async () => {
   if (loadingMore.value || allLoaded.value) return
   loadingMore.value = true
   
   try {
     const currentLength = articles.value?.length || 0
-    // 跳过已有的数量，再取下一页
     const moreArticles = await queryCollection('blog')
       .order('date', 'DESC')
       .skip(currentLength)
       .limit(PAGE_SIZE)
       .all()
     
-    // 如果取回来的数据少于 PAGE_SIZE，说明取完了
     if (moreArticles.length < PAGE_SIZE) {
       allLoaded.value = true
     }
     
-    // 将新数据追加到列表末尾
     if (articles.value) {
       articles.value.push(...moreArticles)
     }
@@ -168,6 +154,19 @@ const loadMore = async () => {
     loadingMore.value = false
   }
 }
+
+onMounted(() => {
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !loadingMore.value && !allLoaded.value) {
+      loadMore()
+    }
+  }, { rootMargin: '200px' })
+
+  watch(loadMoreTrigger, (el) => {
+    if (el) observer.observe(el)
+    else observer.disconnect()
+  })
+})
 
 const formatDate = (dateStr: string) => {
   if (!dateStr) return ''
