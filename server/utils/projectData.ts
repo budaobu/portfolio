@@ -48,8 +48,8 @@ export const projects: Project[] = [
     id: 4,
     title: '表情包切片工具',
     description: '表情包制作工具，提供图片网格自动裁剪（支持6x4, 7x4等自定义布局）与GIF动图合成功能',
-    icon: '✂',
-    demoUrl: '/single/slice-meme-image.html',
+    icon: 'i-heroicons-squares-2x2',
+    demoUrl: '/slice-meme',
     githubUrl: 'https://github.com/budaobu/slice-meme-image',
     date: '2025-11-28',
     featured: true

@@ -2,7 +2,7 @@ export const socialLinks = [
   {
     name: 'X',
     icon: 'i-simple-icons-x',
-    url: 'https://x.com/intent/follow?screen_name=lizhaoshui'
+    url: 'https://x.com/lizhaoshui'  // 关注链接：https://x.com/intent/follow?screen_name=
   },
   {
     name: 'GitHub',

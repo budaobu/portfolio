@@ -40,7 +40,7 @@
             <!-- 头部：图标 + 标题 -->
             <div class="flex items-center gap-3 mb-4">
               <div v-if="!project.demoUrl && project.githubUrl" class="flex-shrink-0 w-12 h-12 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                <UIcon name="i-simple-icons-github" class="w-6 h-6 text-gray-900 dark:text-white" />
+                <UIcon name="i-simple-icons-github" class="w-7 h-7 text-gray-900 dark:text-white" />
               </div>
               <div v-else class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center text-primary-600 dark:text-primary-400 text-2xl group-hover:scale-110 transition-transform duration-300">
                 <img 
@@ -48,6 +48,11 @@
                   :src="project.icon" 
                   class="w-8 h-8 object-contain rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all object-cover" 
                   alt="icon" 
+                />
+                <UIcon 
+                  v-else-if="project.icon.startsWith('i-')" 
+                  :name="project.icon" 
+                  class="w-7 h-7 text-gray-900 dark:text-white" 
                 />
                 <span v-else class="text-2xl">{{ project.icon }}</span>
               </div>
@@ -120,7 +125,7 @@
                 class="hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
               />
 
-              <!-- Web (图标已修改) -->
+              <!-- Web -->
               <UButton
                 v-if="project.demoUrl"
                 :to="project.demoUrl"

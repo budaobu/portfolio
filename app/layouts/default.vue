@@ -18,7 +18,7 @@
           </p>
 
           <!-- 右侧：社交媒体图标 -->
-          <!-- <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3">
             <UButton
               v-for="social in socialLinks"
               :key="social.name"
@@ -31,7 +31,7 @@
               :aria-label="social.name"
               class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
             />
-          </div> -->
+          </div>
         </div>
       </div>
     </footer>
