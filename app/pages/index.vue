@@ -205,8 +205,8 @@ defineOgImageComponent('NuxtSeo', {
   siteLogo: 'https://github.com/budaobu.png'
 })
 
-// 修改：请求新的 API 接口 /api/featured-projects
-const { data: featuredProjects, pending, error } = await useFetch<Project[]>('/api/featured-projects', {
+// 修改：请求新的 API 接口 /api/featuredProjects
+const { data: featuredProjects, pending, error } = await useFetch<Project[]>('/api/featuredProjects', {
   lazy: true
 })
 
