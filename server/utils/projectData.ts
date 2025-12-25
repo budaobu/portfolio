@@ -39,7 +39,7 @@ export const projects: Project[] = [
     title: '图片压缩助手',
     description: '图片压缩工具，支持 PNG, JPG, JPEG, WebP, AVIF 格式。浏览器本地压缩，无需上传服务器。',
     icon: '🖼',
-    demoUrl: 'https://tinypic.lizhaoshui.workers.dev/',
+    demoUrl: '/tinypic',
     githubUrl: 'https://github.com/budaobu/tinypic',
     date: '2025-11-29',
     featured: true
