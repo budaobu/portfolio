@@ -16,8 +16,8 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 7,
-    title: '视频转Gif',
-    description: '在浏览器本地将视频转换为 GIF 动图，无需上传服务器。。',
+    title: 'Video to GIF',
+    description: 'In browser converter, process locally, no server upload required.',
     icon: '🎥',
     demoUrl: '/video2gif',
     githubUrl: 'https://github.com/budaobu/video2gif',
@@ -27,7 +27,7 @@ export const projects: Project[] = [
   {
     id: 6,
     title: 'Portfolio',
-    description: '我的个人作品集网站，展示了我 vibe 的各种有趣项目和技术探索。',
+    description: 'Personal Homepage。',
     icon: '/avatar.webp',
     demoUrl: '/',
     githubUrl: 'https://github.com/budaobu/portfolio',
@@ -36,8 +36,8 @@ export const projects: Project[] = [
   },
   {
     id: 5,
-    title: '图片压缩助手',
-    description: '图片压缩工具，支持 PNG, JPG, JPEG, WebP, AVIF 格式。浏览器本地压缩，无需上传服务器。',
+    title: 'Tinypic',
+    description: 'In browser compression, process images locally without uploading.',
     icon: '🖼',
     demoUrl: '/tinypic',
     githubUrl: 'https://github.com/budaobu/tinypic',
@@ -46,28 +46,28 @@ export const projects: Project[] = [
   },
   {
     id: 4,
-    title: '表情包切片工具',
-    description: '表情包制作工具，提供图片网格自动裁剪（支持6x4, 7x4等自定义布局）与GIF动图合成功能',
+    title: 'Meme Slicer',
+    description: 'In browser meme tool, auto-slice images into custom grids (e.g., 6x4, 7x4) and generate GIFs.',
     icon: 'i-heroicons-squares-2x2',
-    demoUrl: '/slice-meme',
-    githubUrl: 'https://github.com/budaobu/slice-meme-image',
+    demoUrl: '/meme-slicer',
+    githubUrl: 'https://github.com/budaobu/meme-slicer',
     date: '2025-11-28',
     featured: true
   },
   {
     id: 3,
-    title: '证件照加水印',
-    description: '证件照加水印工具，支持文字水印。可自定义位置、透明度和大小，操作简单，效果专业。',
+    title: 'ID Photo Watermarker',
+    description: 'In browser watermarker, add text watermarks to ID photos. Customize position, opacity, and size for professional results.',
     icon: '💻',
-    demoUrl: '/watermark-id-photo',
+    demoUrl: '/image-watermark',
     githubUrl: 'https://github.com/budaobu/image-watermark',
     date: '2025-01-05',
     featured: true
   },
   {
     id: 2,
-    title: '买电车还是油车？',
-    description: '通过年行驶里程、充电条件、使用场景等多个维度，科学计算是否适合购买电动汽车或燃油车。',
+    title: 'EV vs. Gas Calculator',
+    description: 'Scientifically analyze the best choice based on annual mileage, charging access, and driving habits.',
     icon: '🚗',
     demoUrl: 'https://car-calculator.pages.dev/',
     githubUrl: 'https://github.com/budaobu/car-calculator',

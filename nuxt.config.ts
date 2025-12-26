@@ -47,9 +47,9 @@ export default defineNuxtConfig({
     '/blog/Example': { prerender: false },
     // --- 新增工具页面的预渲染配置 ---
     '/tinypic': { prerender: true },
-    '/slice-meme': { prerender: true },
+    '/meme-slicer': { prerender: true },
     '/video2gif': { prerender: true },
-    '/watermark-id-photo': { prerender: true }
+    '/image-watermark': { prerender: true }
   },
 
   ogImage: {
