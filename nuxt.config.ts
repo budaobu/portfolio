@@ -53,7 +53,11 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    prerender: true
+    prerender: true/* ,
+    fonts: [
+      'Noto Sans SC:400', 
+      'Noto Sans SC:700'
+    ] */
   },
 
   // 配置 @nuxt/fonts 模块 (由 @nuxt/ui 引入)

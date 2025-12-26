@@ -116,7 +116,7 @@ const sponsorMethods: SponsorMethod[] = [
     id: 1,
     type: 'link',
     title: 'Buy Me a Coffee',
-    description: '通过 Buy Me a Coffee 平台赞助，支持信用卡和 PayPal 支付。',
+    description: 'Support my work and keep the code flowing.',
     icon: '☕',
     url: 'https://buymeacoffee.com/lizhaoshui'
   },
@@ -125,8 +125,8 @@ const sponsorMethods: SponsorMethod[] = [
   {
     id: 2,
     type: 'address',
-    title: '加密货币钱包',
-    description: '如果你使用加密货币，可以直接转账到以下 USDT (TRC20) 地址。',
+    title: 'Crypto Wallet',
+    description: 'Crypto Support: Transfer USDT (TRC20) directly to the address below.',
     icon: '₿',
     address: '占位符'
   },
@@ -134,8 +134,8 @@ const sponsorMethods: SponsorMethod[] = [
   {
     id: 3,
     type: 'qrcode',
-    title: '微信赞赏',
-    description: '使用微信扫描下方二维码进行赞赏。',
+    title: 'Wechat Pay',
+    description: 'Scan the QR code below with WeChat to support.',
     // 更新为 public 目录下的 wx-qr.JPG，直接使用绝对路径即可
     qrcode: '/wx-qr.JPG'
   }
@@ -155,19 +155,19 @@ const copyAddress = async (address: string | undefined) => {
     
     // 使用 Nuxt UI 的 Toast 进行优雅提示
     toast.add({
-      title: '复制成功',
-      description: '钱包地址已复制到剪贴板',
+      title: 'Copied Successfully',
+      description: 'Wallet address copied to clipboard.',
       icon: 'i-heroicons-check-circle', // 成功图标
       color: 'primary', // 使用主题色
       timeout: 3000 // 3秒后自动消失
     })
   } catch (err) {
-    console.error('复制失败:', err)
+    console.error('Copy failed:', err)
     
     // 错误处理提示
     toast.add({
-      title: '复制失败',
-      description: '请手动选中文本进行复制',
+      title: 'Copy Failed',
+      description: 'Please manually select and copy the text.',
       icon: 'i-heroicons-exclamation-circle',
       color: 'red'
     })
