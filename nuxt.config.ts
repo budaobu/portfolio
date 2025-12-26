@@ -53,17 +53,7 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
-    prerender: true,
-    // 配置 og-image 使用 CDN 上的霞鹜文楷字体文件
-    // 注意：Satori (OG Image 引擎) 需要直接的字体文件地址 (.ttf/.woff2)，不能仅靠 CSS
-    fonts: [
-      {
-        name: 'LXGW WenKai Screen',
-        weight: 400,
-        // 使用 GitHub Release 提供的直接文件链接 (.ttf)
-        path: '/fonts/LXGWWenKaiScreen.ttf'
-      }
-    ]
+    prerender: true
   },
 
   // 配置 @nuxt/fonts 模块 (由 @nuxt/ui 引入)
