@@ -3,10 +3,10 @@
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
         <span class="text-primary-500">|</span>
-        打钱
+        Sponsor
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-        kfc疯狂星期四，v我50。
+        V me 50 for KFC Crazy Thursday.
       </p>
     </div>
 
@@ -93,10 +93,11 @@ const toast = useToast()
 
 // SEO 优化
 useSeoMeta({
-  title: '赞助支持', // 最终显示 "赞助支持 - Budaobu"
-  description: '如果您喜欢我的作品，欢迎赞助支持。支持方式包括 Buy Me a Coffee、USDT 加密货币和微信赞赏。',
-  ogTitle: '赞助支持 - Budaobu',
-  ogDescription: '您的支持是我持续创作开源项目的动力。',
+  title: 'Sponsor, Fuel the AI-Stitched Chaos, Donate',
+  description: 'Support Budaobu\'s AI-stitched experiments. Stitching code together is exhausting work (even with AI). If it happens to be Thursday, please V me 50 for a KFC bucket.',
+  keywords: 'Sponsor, Donate, Budaobu, AI-Stitched, KFC Fund, V me 50, Support Creator',
+  ogTitle: 'Sponsor Budaobu - V me 50!',
+  ogDescription: 'The AI writes the code, but I have to do the stitching. Feed the stitcher. V me 50 for KFC Crazy Thursday.',
 })
 
 interface SponsorMethod {

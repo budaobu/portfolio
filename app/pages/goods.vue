@@ -3,12 +3,12 @@
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
         <span class="text-primary-500">|</span>
-        败家
+        Buy List
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-        都是我花了钱的。
+        My wallet suffered for this list.
         <span class="text-sm opacity-75 block mt-2">
-          注：带有 <UBadge color="orange" variant="subtle" size="xs" label="AFF" /> 标记的链接为推广链接，购买时我可能会获得少量佣金，这不会增加您的购买成本。
+          Note: Links marked with <UBadge color="orange" variant="subtle" size="xs" label="AFF" /> are affiliate links; I may earn a small commission at no extra cost to you.
         </span>
       </p>
     </div>
@@ -105,9 +105,9 @@
 
                 <!-- 底部：分类 + 跳转图标 -->
                 <div class="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800 mt-auto">
-                  <UBadge color="gray" variant="subtle" size="xs">{{ item.category }}</UBadge>
+                  <UBadge color="gray" variant="subtle" size="sm">{{ item.category }}</UBadge>
                   <div class="flex items-center text-xs text-gray-400 group-hover:text-primary-500 transition-colors">
-                    <span class="mr-1">访问</span>
+                    <span class="mr-1">View</span>
                     <UIcon name="i-heroicons-arrow-top-right-on-square" class="w-3 h-3" />
                   </div>
                 </div>
@@ -126,7 +126,7 @@
       
       <!-- 到底提示 -->
       <div v-else-if="allGoods.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
-        - 到底了，也没钱败了 -
+        - Budget: Zero. -
       </div>
     </div>
   </div>
@@ -136,9 +136,11 @@
 import type { Good } from '~/server/utils/goodsData'
 
 useSeoMeta({
-  title: '好物推荐',
-  description: 'Budaobu 的好物推荐清单 - 分享我日常使用的数码产品、软件工具和生活好物。',
-  ogTitle: '好物推荐 - Budaobu',
+  title: 'Goods, Stuff I Paid For',
+  description: 'Everything here is something I actually paid for. Welcome to my personal \'Buy\' list. Note: Links marked with AFF are affiliate links; I may earn a small commission at no extra cost to you.',
+  keywords: 'Goods, Shopping List, Budaobu, Tech Gear, Affiliate, My Buy List',
+  ogTitle: 'Budaobu\'s \'Buy\' List - Stuff I Paid For',
+  ogDescription: 'My wallet suffered for this list. A collection of things I actually spent money on. (AFF links included at no extra cost)',
 })
 
 // 分页 API 返回结构

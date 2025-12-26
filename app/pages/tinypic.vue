@@ -30,36 +30,38 @@
               <label for="quality" class="text-sm font-medium text-gray-600 dark:text-gray-300">压缩强度/画质</label>
               <span class="text-sm font-bold text-primary-500">{{ quality }}%</span>
             </div>
-            <input 
-              type="range" 
-              id="quality" 
-              min="10" 
-              max="100" 
-              v-model.number="quality"
-              class="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-lg appearance-none cursor-pointer accent-primary-500"
-            >
+            <!-- Nuxt UI v4: 使用 USlider -->
+            <USlider 
+              v-model="quality" 
+              :min="10" 
+              :max="100" 
+            />
             <p class="text-xs text-gray-400 mt-2">数值越小，体积越小，画质越低。</p>
           </div>
 
           <!-- 输出格式 -->
           <div class="mb-6">
             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">输出格式</label>
+            <!-- Nuxt UI v4: prop 变更为 items -->
             <USelect 
               v-model="outputFormat"
-              :options="formatOptions"
+              :items="formatOptions"
               option-attribute="label"
               value-attribute="value"
+              class="w-full"
             />
           </div>
 
           <!-- 最大宽度 -->
           <div>
             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-2">最大宽度 (像素)</label>
+            <!-- Nuxt UI v4: prop 变更为 items -->
             <USelect 
               v-model="maxWidth"
-              :options="widthOptions"
+              :items="widthOptions"
               option-attribute="label"
               value-attribute="value"
+              class="w-full"
             />
           </div>
         </div>

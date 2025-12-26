@@ -32,12 +32,22 @@
 
           <div class="flex-1 space-y-5">
             <div class="grid grid-cols-2 gap-4">
-              <UFormGroup label="列数 (宽)">
-                <UInput v-model="settings.cols" type="number" :min="1" />
-              </UFormGroup>
-              <UFormGroup label="行数 (高)">
-                <UInput v-model="settings.rows" type="number" :min="1" />
-              </UFormGroup>
+              <UFormField label="列数 (宽)">
+                <UInput 
+                  v-model="settings.cols" 
+                  type="number" 
+                  :min="1" 
+                  icon="i-heroicons-arrows-right-left"
+                />
+              </UFormField>
+              <UFormField label="行数 (高)">
+                <UInput 
+                  v-model="settings.rows" 
+                  type="number" 
+                  :min="1" 
+                  icon="i-heroicons-arrows-up-down"
+                />
+              </UFormField>
             </div>
 
             <div class="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
@@ -46,13 +56,12 @@
                 <UBadge color="green" variant="subtle" size="xs">{{ settings.padding }}px</UBadge>
               </div>
               
+              <!-- 修复：移除不支持的 color 和 size 属性 -->
               <USlider 
                 v-model="settings.padding" 
                 :min="0" 
                 :max="60" 
                 :step="1"
-                color="green" 
-                size="sm"
               />
               
               <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
@@ -60,16 +69,19 @@
               </p>
             </div>
 
-            <UFormGroup label="文件名前缀">
+            <UFormField label="文件名前缀">
               <UInput v-model="settings.prefix" placeholder="例如: emoji" icon="i-heroicons-tag" />
-            </UFormGroup>
+            </UFormField>
           </div>
 
           <div class="mt-auto pt-8 space-y-3 border-t border-gray-100 dark:border-gray-800">
+            <!-- 修复：使用 Tailwind class 强制覆盖背景色 -->
             <UButton 
               block 
               size="lg"
               color="green" 
+              variant="solid"
+              class="!bg-green-600 hover:!bg-green-700 text-white font-semibold shadow-lg transition-colors"
               :disabled="!hasImage || processing"
               :loading="processing && processType === 'zip'"
               @click="processAndZip"
@@ -86,9 +98,10 @@
               <UInput v-model="settings.gifDelay" type="number" :min="10" :step="10" class="w-24" placeholder="ms">
                 <template #trailing>ms</template>
               </UInput>
+              <!-- 修复：使用 Tailwind class 强制覆盖背景色 -->
               <UButton 
                 block 
-                class="flex-1"
+                class="flex-1 !bg-purple-600 hover:!bg-purple-700 text-white font-semibold shadow-lg transition-colors"
                 color="purple" 
                 variant="solid"
                 :disabled="!hasImage || processing"

@@ -11,7 +11,7 @@
         <div class="flex flex-col md:flex-row items-center justify-between gap-4">
           <!-- 左侧：版权信息 -->
           <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
-            <span>&copy; {{ currentYear }} Lizhaoshui.</span>
+            <span>&copy; {{ currentYear }} Budaobu.</span>
             <span class="hidden sm:inline">·</span>
             <span>Vibe with</span>
             <UIcon name="i-heroicons-heart-solid" class="text-red-500 w-4 h-4" />

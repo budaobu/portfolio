@@ -1,6 +1,6 @@
 export interface Good {
   id: number
-  brand: string // 品牌
+  brand?: string // 品牌
   name: string // 名称
   category: string // 类别：数码、生活、书籍等
   description: string // 推荐语
@@ -11,31 +11,51 @@ export interface Good {
 
 export const goods: Good[] = [
   {
-    id: 3,
-    brand: 'Wise',
-    name: 'Wise (TransferWise)',
-    category: '金融服务',
-    description: '跨境汇款与多币种账户服务的首选。',
+    id: 5,
+    brand: '',
+    name: 'Spotify Premium',
+    category: 'Music Service',
+    description: 'My Music Essential: Ad-free, Offline Listening, High Quality Audio.',
+    imageUrl: '',
+    linkUrl: 'https://open.spotify.com/',
+    isAffiliate: false
+  },
+  {
+    id: 4,
+    brand: '',
+    name: 'Wise',
+    category: 'Nomad',
+    description: 'My Go-To for Remittance: Transparent Pricing, Fast Transfers, Multi-Currency Support.',
     imageUrl: '',
     linkUrl: 'https://wise.com/',
     isAffiliate: false
   },
   {
-    id: 2,
-    brand: '达尔优',
-    name: 'EK87 Pro 机械键盘',
-    category: '数码配件',
-    description: '87键机械键盘，带RGB背光，静音设计，适合长时间使用。',
+    id: 3,
+    brand: 'DAREU',
+    name: 'EK87 Pro',
+    category: 'Accessories',
+    description: '87-Key Mechanical Keyboard: RGB Backlit, Comfortable for All-Day Use.',
     imageUrl: 'https://cloudflare-imgbed-88m.pages.dev/file/AgACAgEAAyEGAASJ9vGyAAMWaUpXuCHVEHGtJIYgB_XXJAbKEwwAAkcLaxvZZVBGSXU8KRoTkbcBAAMCAAN5AAM2BA.png',
     linkUrl: 'https://item.jd.com/10101796526513.html',
     isAffiliate: false
   },
   {
+    id: 2,
+    brand: '',
+    name: 'Surge',
+    category: 'App',
+    description: 'Advanced Network Toolbox for Mac & iOS',
+    imageUrl: '',
+    linkUrl: 'https://nssurge.com/',
+    isAffiliate: false
+  },
+  {
     id: 1,
     brand: 'Dler Cloud',
-    name: 'IPLC 机场',
-    category: '机场',
-    description: '使用了5年的机场，稳定高速，支持多种协议',
+    name: 'Proxy Provider',
+    category: 'IPLC',
+    description: 'Used for 5 Years: Stable, Fast, and Multi-Protocol Support.',
     imageUrl: '',
     linkUrl: 'https://dlercloud.com/auth/register?affid=39909',
     isAffiliate: true

@@ -26,10 +26,10 @@ export const projects: Project[] = [
   },
   {
     id: 6,
-    title: '作品集网站',
+    title: 'Portfolio',
     description: '我的个人作品集网站，展示了我 vibe 的各种有趣项目和技术探索。',
     icon: '/avatar.webp',
-    demoUrl: '#',
+    demoUrl: '/',
     githubUrl: 'https://github.com/budaobu/portfolio',
     date: '2025-12-01',
     featured: true
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     title: '证件照加水印',
     description: '证件照加水印工具，支持文字水印。可自定义位置、透明度和大小，操作简单，效果专业。',
     icon: '💻',
-    demoUrl: 'https://image-watermark-at5.pages.dev/',
+    demoUrl: '/watermark-id-photo',
     githubUrl: 'https://github.com/budaobu/image-watermark',
     date: '2025-01-05',
     featured: true

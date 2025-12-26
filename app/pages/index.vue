@@ -2,17 +2,17 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <section class="mb-20">
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-        你好，我是
+        Hi👋🏻, I'm 
         <!-- 文字翻滚效果容器 -->
         <span class="text-roll-wrapper text-primary-600 dark:text-primary-400">
           <span class="text-roll-inner">
-            <span class="block">@lizhaoshui</span>
-            <span class="block">@lizhaoshui</span>
+            <span class="block">@Budaobu</span>
+            <span class="block">@Budaobu</span>
           </span>
         </span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-        不是开发者，但是爱折腾，总想搞点啥玩意儿出来，主打一个随缘。
+        Welcome to Budaobu's playground. I am not a pro developer; this portfolio is directly stitched together by AI. Explore my AI-stitched experiments and random web tools.
       </p>
       
       <!-- 新增：社交媒体图标栏 -->
@@ -34,8 +34,8 @@
 
     <section>
       <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">作品</h2>
-        <UButton to="/projects" color="gray" variant="ghost" icon="i-heroicons-arrow-right" label="查看全部" />
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Projects</h2>
+        <UButton to="/projects" color="gray" variant="ghost" icon="i-heroicons-arrow-right" label="View All" />
       </div>
       
       <!-- 加载状态：骨架屏 -->
@@ -191,11 +191,11 @@ interface Project {
 }
 
 useSeoMeta({
-  title: 'Budaobu 的个人作品集',
-  description: 'Budaobu 的个人作品集 - vibe 开发者，分享有趣的项目和 AI 探索。',
-  keywords: 'Budaobu, 个人作品集, vibe coding',
-  ogTitle: 'Budaobu - 作品集',
-  ogDescription: '探索 Budaobu 的个人 vibe 项目，包括 AI 应用、工具类软件等。',
+  title: 'Budaobu\'s AI-Stitched Personal Homepage, Portfolio',
+  description: 'Welcome to Budaobu\'s playground. I am not a pro developer; this portfolio is directly stitched together by AI. Explore my AI-stitched experiments and random web tools.',
+  keywords: 'Budaobu, AI-Stitched, Portfolio, Stitched Code, Tinkerer, Personal Projects, Serendipity',
+  ogTitle: 'Budaobu\'s AI-Stitched Personal Homepage',
+  ogDescription: 'Not a developer, just vibe code to stitch cool stuff together.',
 })
 
 useHead({
@@ -204,7 +204,7 @@ useHead({
 
 defineOgImageComponent('NuxtSeo', {
   title: 'Budaobu Portfolio',
-  description: 'AI 爱好者 / vibe 开发者',
+  description: 'Vibe coding playground for a non-developer.',
   theme: '#3b82f6',
   colorMode: 'dark',
   siteLogo: 'https://github.com/budaobu.png'

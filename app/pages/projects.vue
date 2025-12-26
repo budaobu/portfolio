@@ -3,10 +3,10 @@
     <div class="mb-12">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
         <span class="text-primary-500">|</span>
-        缝合怪们
+        Projects
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
-        Vibe coding, 最重要的是能跑。
+        It might be messy under the hood, but hey, it runs. Come see the chaos.
       </p>
     </div>
 
@@ -148,7 +148,7 @@
       </div>
       <!-- 到底提示 -->
       <div v-else-if="allProjects.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
-        - 到底了，也没啥好缝合的了 -
+        - All stitched out. -
       </div>
     </div>
   </div>
@@ -177,9 +177,11 @@ interface ApiResponse {
 }
 
 useSeoMeta({
-  title: '全部作品',
-  description: 'Budaobu 的所有作品列表。',
-  ogTitle: '全部作品 - Budaobu',
+  title: 'Projects, The AI-Stitched Collection, Vibe Coding',
+  description: 'Meet the "Stitched Ones"—a collection of projects entirely stitched together by AI. My philosophy is Vibe Coding: I don\'t care how the code looks; the most important thing is that it runs.',
+  keywords: 'Projects, The Stitched Ones, AI-Stitched, Vibe Coding, Budaobu, Web Tools, Experimental Code, MVP',
+  ogTitle: 'Budaobu\'s Projects - The Stitched Collection',
+  ogDescription: 'Pure Vibe Coding. It might be messy under the hood, but hey, it runs. Come see the chaos.',
 })
 
 const PAGE_SIZE = 9

@@ -4,10 +4,10 @@
     <div class="mb-12 md:mb-20">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
         <span class="text-primary-500">|</span>
-        瞎扯
+        Blog
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
-        没有技术，都是瞎扯。
+        No Tech, just ramblings.
       </p>
     </div>
 
@@ -95,7 +95,7 @@
       </div>
       <!-- 新增：到底提示 -->
       <div v-else class="text-center py-12 text-gray-400 text-sm italic">
-        - 到底了，也没啥好扯的了 -
+        - All rambled out. -
       </div>
     </div>
   </div>
@@ -103,9 +103,11 @@
 
 <script setup lang="ts">
 useSeoMeta({
-  title: '博客',
-  description: '分享我的技术思考、开发日志和生活随笔。',
-  ogTitle: '博客 - Budaobu',
+  title: 'Blog, No Tech, Just Talking Nonsense',
+  description: 'No technical skills involved, just ramblings. This is a tech-free zone where I talk nonsense and share random thoughts without any professional filter.',
+  keywords: 'Blog, Ramblings, Nonsense, Budaobu, Random Thoughts, Non-Technical, Life Log, Just Talk',
+  ogTitle: 'Budaobu\'s Blog - No Tech, Just Nonsense',
+  ogDescription: 'Warning: Contains zero technical content. Just me rambling about random stuff. No code, just vibes.',
 })
 
 // 分页配置
@@ -171,9 +173,9 @@ onMounted(() => {
 const formatDate = (dateStr: string) => {
   if (!dateStr) return ''
   const date = new Date(dateStr)
-  return date.toLocaleDateString('zh-CN', {
+  return date.toLocaleDateString('en-US', {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric'
   })
 }

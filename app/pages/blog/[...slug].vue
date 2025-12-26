@@ -109,9 +109,9 @@ useSeoMeta({
 
 const formatDate = (dateStr: string) => {
   if (!dateStr) return ''
-  return new Date(dateStr).toLocaleDateString('zh-CN', {
+  return new Date(dateStr).toLocaleDateString('en-US', {
     year: 'numeric',
-    month: 'long',
+    month: 'short',
     day: 'numeric'
   })
 }

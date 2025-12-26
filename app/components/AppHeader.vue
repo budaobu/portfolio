@@ -17,16 +17,16 @@
             to="/projects"
             :color="isProjectsActive ? 'primary' : 'gray'"
             variant="ghost"
-            label="作品"
-            class="hidden sm:flex"
+            label="Projects"
+            class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
           <UButton
             to="/projects"
             :color="isProjectsActive ? 'primary' : 'gray'"
             variant="ghost"
             icon="i-heroicons-rocket-launch"
-            class="sm:hidden"
-            aria-label="作品集"
+            class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            aria-label="Projects"
           />
 
           <!-- 文章链接 -->
@@ -34,16 +34,16 @@
             to="/blog"
             :color="isBlogActive ? 'primary' : 'gray'"
             variant="ghost"
-            label="文章"
-            class="hidden sm:flex"
+            label="Articles"
+            class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
           <UButton
             to="/blog"
             :color="isBlogActive ? 'primary' : 'gray'"
             variant="ghost"
             icon="i-heroicons-book-open"
-            class="sm:hidden"
-            aria-label="文章列表"
+            class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            aria-label="Articles"
           />
 
           <!-- 好物推荐链接 -->
@@ -51,16 +51,16 @@
             to="/goods"
             :color="isGoodsActive ? 'primary' : 'gray'"
             variant="ghost"
-            label="好物"
-            class="hidden sm:flex"
+            label="Goods"
+            class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
           <UButton
             to="/goods"
             :color="isGoodsActive ? 'primary' : 'gray'"
             variant="ghost"
             icon="i-heroicons-shopping-bag"
-            class="sm:hidden"
-            aria-label="好物推荐"
+            class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            aria-label="Goods"
           />
 
           <!-- 赞助链接 -->
@@ -70,7 +70,7 @@
             color="primary"
             variant="soft"
             icon="i-heroicons-heart-solid"
-            label="赞助"
+            label="Sponsor"
             class="hidden sm:flex"
           />
           <UButton
@@ -79,7 +79,7 @@
             variant="soft"
             icon="i-heroicons-heart-solid"
             class="sm:hidden"
-            aria-label="赞助"
+            aria-label="Sponsor"
           />
           
           <ThemeToggle />
