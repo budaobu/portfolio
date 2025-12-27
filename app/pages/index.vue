@@ -12,7 +12,7 @@
         </span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-        Welcome to Budaobu's playground. I am not a pro developer; this portfolio is directly stitched together by AI. Explore my AI-stitched experiments and random web tools.
+        Just a quiet non-dev vibe coding with AI. Everything here is stitched together by prompt and intuition. Enjoy.
       </p>
       
       <!-- 新增：社交媒体图标栏 -->
@@ -25,9 +25,10 @@
           color="gray"
           variant="ghost"
           :icon="social.icon"
-          size="lg"
+          size="sm"
           :aria-label="social.name"
-          class="p-0 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+          class="p-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+          @click="handleSocialClick(social)"
         />
       </div>
     </section>
@@ -35,7 +36,7 @@
     <section>
       <div class="flex items-center justify-between mb-8">
         <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Projects</h2>
-        <UButton to="/projects" color="gray" variant="ghost" icon="i-heroicons-arrow-right" label="View All" />
+        <UButton to="/projects" color="gray" variant="ghost" icon="i-lucide-arrow-right" label="View All" />
       </div>
       
       <!-- 加载状态：骨架屏 -->
@@ -45,7 +46,7 @@
       
       <!-- 错误处理 -->
       <div v-else-if="error" class="text-center py-10 text-red-500">
-        获取作品数据失败，请稍后重试。
+        Failed to fetch projects data. Please try again later.
       </div>
 
       <!-- 作品列表：增加淡入动画 -->
@@ -161,9 +162,9 @@
                 size="xs"
                 color="gray"
                 variant="soft"
-                icon="i-heroicons-arrow-up-right-solid"
+                icon="i-lucide-arrow-up-right"
                 label="Web"
-                class="ml-auto" 
+                class="hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 ml-auto" 
               />
 
             </div>
@@ -190,12 +191,18 @@ interface Project {
   featured?: boolean
 }
 
+interface SocialLink {
+  name: string
+  icon: string
+  url: string
+}
+
 useSeoMeta({
-  title: 'Budaobu\'s AI-Stitched Personal Homepage, Portfolio',
-  description: 'Welcome to Budaobu\'s playground. I am not a pro developer; this portfolio is directly stitched together by AI. Explore my AI-stitched experiments and random web tools.',
-  keywords: 'Budaobu, AI-Stitched, Portfolio, Stitched Code, Tinkerer, Personal Projects, Serendipity',
-  ogTitle: 'Budaobu\'s AI-Stitched Personal Homepage',
-  ogDescription: 'Not a developer, just vibe code to stitch cool stuff together.',
+  title: 'Budaobu | AI-Stitched Personal Portfolio',
+  description: 'Non-dev, just vibe coding to stitch stuff together. An introvert\'s playground where everything is built by prompt and intuition.',
+  keywords: 'Budaobu, AI Stitched, Portfolio, Vibe Coding, Non-dev, Personal Website, Web Tools, Prompt Engineering',
+  ogTitle: 'Budaobu | AI-Stitched Personal Portfolio',
+  ogDescription: 'Non-dev, just vibe coding to stitch stuff together.',
 })
 
 useHead({
@@ -203,8 +210,8 @@ useHead({
 })
 
 defineOgImageComponent('NuxtSeo', {
-  title: 'Budaobu Portfolio',
-  description: 'Vibe coding playground for a non-developer.',
+  title: 'Budaobu | AI-Stitched Personal Portfolio',
+  description: 'Non-dev, just vibe coding to stitch stuff together.',
   theme: '#3b82f6',
   colorMode: 'dark',
   siteLogo: 'https://github.com/budaobu.png'
@@ -221,11 +228,11 @@ const getAvailabilityText = (project: Project) => {
   const hasGooglePlay = !!project.googlePlayUrl
 
   if (hasAppStore && hasGooglePlay) {
-    return "现已在 App Store, Google Play 上架"
+    return "Now available on App Store and Google Play"
   } else if (hasAppStore) {
-    return "现已在 App Store 上架"
+    return "Now available on App Store"
   } else if (hasGooglePlay) {
-    return "现已在 Google Play 上架"
+    return "Now available on Google Play"
   }
   return ""
 }
@@ -233,6 +240,17 @@ const getAvailabilityText = (project: Project) => {
 const isExternal = (url: string) => {
   if (!url) return false
   return url.startsWith('http')
+}
+
+// 防爬虫点击处理逻辑 (与 default.vue 保持一致)
+const handleSocialClick = (social: SocialLink) => {
+  if (social.name === 'Email') {
+    const u = 'lizhaoshui'
+    const d = 'duck.com'
+    window.location.href = `mailto:${u}@${d}`
+  } else if (social.url) {
+    window.open(social.url, '_blank')
+  }
 }
 </script>
 

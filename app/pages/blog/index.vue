@@ -32,13 +32,13 @@
       <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
         <UIcon name="i-heroicons-exclamation-triangle" class="w-8 h-8 text-red-500" />
       </div>
-      <p class="text-gray-500">加载文章列表失败</p>
+      <p class="text-gray-500">Failed to fetch articles. Please try again later.</p>
     </div>
 
     <!-- 空状态 -->
     <div v-else-if="!articles?.length" class="text-center py-24 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 animate-fade-in">
       <UIcon name="i-heroicons-document-text" class="w-12 h-12 text-gray-400 mb-4" />
-      <p class="text-gray-500">暂无文章，敬请期待。</p>
+      <p class="text-gray-500">No articles yet, stay tuned.</p>
     </div>
 
     <!-- 文章列表：增加淡入动画 -->
@@ -80,8 +80,8 @@
               </p>
 
               <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors">
-                <span class="mr-1">阅读全文</span>
-                <UIcon name="i-heroicons-arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <span class="mr-1">Read More</span>
+                <UIcon name="i-lucide-arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
             </div>
 
@@ -91,7 +91,7 @@
 
       <!-- 无限滚动触发器 -->
       <div v-if="!allLoaded" ref="loadMoreTrigger" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-gray-400" />
+        <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
       <!-- 新增：到底提示 -->
       <div v-else class="text-center py-12 text-gray-400 text-sm italic">

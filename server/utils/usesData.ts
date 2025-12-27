@@ -1,4 +1,4 @@
-export interface Good {
+export interface Use {
   id: number
   brand?: string // 品牌
   name: string // 名称
@@ -9,10 +9,10 @@ export interface Good {
   isAffiliate: boolean // 是否恰饭
 }
 
-export const goods: Good[] = [
+export const uses: Use[] = [
   {
-    id: 5,
-    brand: '',
+    id: 6,
+    brand: 'Spotify',
     name: 'Spotify Premium',
     category: 'Music Service',
     description: 'My Music Essential: Ad-free, Offline Listening, High Quality Audio.',
@@ -21,14 +21,24 @@ export const goods: Good[] = [
     isAffiliate: false
   },
   {
-    id: 4,
-    brand: '',
+    id: 5,
+    brand: 'Wise',
     name: 'Wise',
     category: 'Nomad',
     description: 'My Go-To for Remittance: Transparent Pricing, Fast Transfers, Multi-Currency Support.',
     imageUrl: '',
     linkUrl: 'https://wise.com/',
     isAffiliate: false
+  },
+  {
+    id: 4,
+    brand: 'Giffgaff',
+    name: 'Giffgaff SIM',
+    category: 'Mobile Service',
+    description: 'Receive SMS for free. No monthly fees, pay-as-you-go, keep number easily.',
+    imageUrl: '',
+    linkUrl: 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
+    isAffiliate: true
   },
   {
     id: 3,
@@ -42,7 +52,7 @@ export const goods: Good[] = [
   },
   {
     id: 2,
-    brand: '',
+    brand: 'Surge',
     name: 'Surge',
     category: 'App',
     description: 'Advanced Network Toolbox for Mac & iOS',

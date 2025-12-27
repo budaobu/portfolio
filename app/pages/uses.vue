@@ -20,14 +20,14 @@
 
     <!-- 错误状态 -->
     <div v-else-if="error" class="text-center py-10 text-red-500">
-      获取好物数据失败，请稍后重试。
+      Failed to fetch projects data. Please try again later.
     </div>
 
     <!-- 商品列表 -->
     <div v-else class="space-y-12 animate-fade-in">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <a 
-          v-for="item in allGoods" 
+          v-for="item in allUses" 
           :key="item.id"
           :href="item.linkUrl"
           target="_blank"
@@ -67,7 +67,7 @@
               <div class="p-5 flex-1 flex flex-col">
                 <div class="flex items-center justify-between mb-2">
                   <span class="text-xs font-medium text-primary-600 dark:text-primary-400 uppercase tracking-wider">{{ item.brand }}</span>
-                  <UIcon name="i-heroicons-arrow-top-right-on-square" class="w-4 h-4 text-gray-300 group-hover:text-primary-500 transition-colors" />
+                  <UIcon name="i-lucide-circle-arrow-out-up-right" class="w-4 h-4 text-gray-300 group-hover:text-primary-500 transition-colors" />
                 </div>
                 <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 transition-colors">{{ item.name }}</h3>
                 <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed">{{ item.description }}</p>
@@ -108,7 +108,7 @@
                   <UBadge color="gray" variant="subtle" size="sm">{{ item.category }}</UBadge>
                   <div class="flex items-center text-xs text-gray-400 group-hover:text-primary-500 transition-colors">
                     <span class="mr-1">View</span>
-                    <UIcon name="i-heroicons-arrow-top-right-on-square" class="w-3 h-3" />
+                    <UIcon name="i-lucide-circle-arrow-out-up-right" class="w-3 h-3" />
                   </div>
                 </div>
               </div>
@@ -121,11 +121,11 @@
       <!-- 核心修改：无限滚动触发器 -->
       <!-- 只要 hasMore 为 true，这个 div 就会渲染。一旦进入视口，就触发 loadMore -->
       <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-gray-400" />
+        <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
       
       <!-- 到底提示 -->
-      <div v-else-if="allGoods.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
+      <div v-else-if="allUses.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
         - Budget: Zero. -
       </div>
     </div>
@@ -133,32 +133,32 @@
 </template>
 
 <script setup lang="ts">
-import type { Good } from '~/server/utils/goodsData'
+import type { Use } from '~/server/utils/usesData'
 
 useSeoMeta({
-  title: 'Goods, Stuff I Paid For',
+  title: 'Uses, Goods, Stuff I Paid For',
   description: 'Everything here is something I actually paid for. Welcome to my personal \'Buy\' list. Note: Links marked with AFF are affiliate links; I may earn a small commission at no extra cost to you.',
-  keywords: 'Goods, Shopping List, Budaobu, Tech Gear, Affiliate, My Buy List',
+  keywords: 'Uses, Goods, Shopping List, Budaobu, Tech Gear, Affiliate, My Buy List',
   ogTitle: 'Budaobu\'s \'Buy\' List - Stuff I Paid For',
   ogDescription: 'My wallet suffered for this list. A collection of things I actually spent money on. (AFF links included at no extra cost)',
 })
 
 // 分页 API 返回结构
 interface ApiResponse {
-  items: Good[]
+  items: Use[]
   hasMore: boolean
   total: number
 }
 
 const PAGE_SIZE = 9
 const page = ref(1)
-const allGoods = ref<Good[]>([])
+const allUses = ref<Use[]>([])
 const hasMore = ref(false)
 const loadingMore = ref(false)
 const loadMoreTrigger = ref<HTMLElement | null>(null) // 触发器 DOM 引用
 
 // 1. 初始加载
-const { data, pending, error } = await useFetch<ApiResponse>('/api/goods', {
+const { data, pending, error } = await useFetch<ApiResponse>('/api/uses', {
   lazy: true,
   query: { 
     page: 1, 
@@ -168,7 +168,7 @@ const { data, pending, error } = await useFetch<ApiResponse>('/api/goods', {
 
 watch(data, (newVal) => {
   if (newVal) {
-    allGoods.value = newVal.items
+    allUses.value = newVal.items
     hasMore.value = newVal.hasMore
   }
 }, { immediate: true })
@@ -180,7 +180,7 @@ const loadMore = async () => {
   
   try {
     const nextPage = page.value + 1
-    const response = await $fetch<ApiResponse>('/api/goods', {
+    const response = await $fetch<ApiResponse>('/api/uses', {
       query: { 
         page: nextPage, 
         limit: PAGE_SIZE 
@@ -188,12 +188,12 @@ const loadMore = async () => {
     })
     
     if (response) {
-      allGoods.value.push(...response.items)
+      allUses.value.push(...response.items)
       hasMore.value = response.hasMore
       page.value = nextPage
     }
   } catch (err) {
-    console.error('加载更多失败:', err)
+    console.error('Failed to load more uses:', err)
   } finally {
     loadingMore.value = false
   }

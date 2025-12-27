@@ -6,7 +6,7 @@
         Projects
       </h1>
       <p class="text-lg text-gray-600 dark:text-gray-400">
-        It might be messy under the hood, but hey, it runs. Come see the chaos.
+        Just for fun, but hey, it runs. Come see the chaos.
       </p>
     </div>
 
@@ -17,7 +17,7 @@
     
     <!-- 错误处理 -->
     <div v-else-if="error" class="text-center py-10 text-red-500">
-      获取数据失败，请稍后重试。
+      Failed to fetch projects data. Please try again later.
     </div>
 
     <!-- 作品列表 -->
@@ -133,9 +133,9 @@
                 size="xs"
                 color="gray"
                 variant="soft"
-                icon="i-heroicons-arrow-up-right-solid"
+                icon="i-lucide-arrow-up-right"
                 label="Web"
-                class="ml-auto" 
+                class="hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 ml-auto" 
               />
             </div>
           </UCard>
@@ -144,7 +144,7 @@
 
       <!-- 无限滚动触发器 -->
       <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
-        <UIcon name="i-heroicons-arrow-path" class="w-8 h-8 animate-spin text-gray-400" />
+        <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
       <!-- 到底提示 -->
       <div v-else-if="allProjects.length > 0" class="text-center py-8 text-gray-400 text-sm italic">
@@ -225,7 +225,7 @@ const loadMore = async () => {
       page.value = nextPage
     }
   } catch (err) {
-    console.error('加载更多失败:', err)
+    console.error('Failed to load more projects:', err)
   } finally {
     loadingMore.value = false
   }
@@ -250,11 +250,11 @@ const getAvailabilityText = (project: Project) => {
   const hasGooglePlay = !!project.googlePlayUrl
 
   if (hasAppStore && hasGooglePlay) {
-    return "现已在 App Store, Google Play 上架"
+    return "Now available on App Store and Google Play"
   } else if (hasAppStore) {
-    return "现已在 App Store 上架"
+    return "Now available on App Store"
   } else if (hasGooglePlay) {
-    return "现已在 Google Play 上架"
+    return "Now available on Google Play"
   }
   return ""
 }

@@ -48,19 +48,19 @@
 
           <!-- 好物推荐链接 -->
           <UButton
-            to="/goods"
+            to="/uses"
             :color="isGoodsActive ? 'primary' : 'gray'"
             variant="ghost"
-            label="Goods"
+            label="Uses"
             class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
           <UButton
-            to="/goods"
+            to="/uses"
             :color="isGoodsActive ? 'primary' : 'gray'"
             variant="ghost"
             icon="i-heroicons-shopping-bag"
             class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
-            aria-label="Goods"
+            aria-label="Uses"
           />
 
           <!-- 赞助链接 -->
@@ -96,7 +96,7 @@ const avatarUrl = ref('/avatar.webp') // 使用本地图片替换动态获取 /a
 // 计算属性：根据当前路径判断是否激活
 const isProjectsActive = computed(() => route.path.startsWith('/projects'))
 const isBlogActive = computed(() => route.path.startsWith('/blog'))
-const isGoodsActive = computed(() => route.path.startsWith('/goods'))
+const isGoodsActive = computed(() => route.path.startsWith('/uses'))
 
 const handleImageError = () => {
   if (!avatarUrl.value.includes('github.com')) {

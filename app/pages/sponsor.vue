@@ -47,7 +47,7 @@
                 </h3>
                 <UIcon 
                   v-if="method.type === 'link'"
-                  name="i-heroicons:arrow-up-right-solid"
+                  name="i-lucide:circle-arrow-out-up-right"
                   class="w-4 h-4 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
                 />
               </div>
@@ -68,7 +68,7 @@
                   size="sm"
                   @click.stop="copyAddress(method.address)"
                 >
-                  复制
+                  Copy
                 </UButton>
               </div>
 
@@ -157,7 +157,7 @@ const copyAddress = async (address: string | undefined) => {
     toast.add({
       title: 'Copied Successfully',
       description: 'Wallet address copied to clipboard.',
-      icon: 'i-heroicons-check-circle', // 成功图标
+      icon: 'i-lucide-check-circle', // 成功图标
       color: 'primary', // 使用主题色
       timeout: 3000 // 3秒后自动消失
     })
@@ -168,7 +168,7 @@ const copyAddress = async (address: string | undefined) => {
     toast.add({
       title: 'Copy Failed',
       description: 'Please manually select and copy the text.',
-      icon: 'i-heroicons-exclamation-circle',
+      icon: 'i-lucide-circle-alert',
       color: 'red'
     })
   }

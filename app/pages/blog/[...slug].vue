@@ -15,11 +15,31 @@
     </div>
 
     <!-- 错误/404 状态 -->
-    <div v-else-if="error || !doc" class="text-center py-20">
-      <h1 class="text-4xl font-bold mb-4">404</h1>
-      <p class="text-gray-500 mb-8">文章未找到</p>
-      <UButton to="/blog" color="primary">返回博客首页</UButton>
-    </div>
+    <div v-else-if="error || !doc" class="flex flex-col items-center justify-center py-12 md:py-20 animate-fade-in">
+      <!-- 引入 RetroTv 组件，适当缩小尺寸以适应文章容器 -->
+      <RetroTv 
+        error-code="404" 
+        error-message="NOT FOUND" 
+        class="mb-8 scale-100 md:scale-100 origin-center"
+      />
+      
+      <div class="text-center space-y-6">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+          Article not found
+        </h2>
+        <p class="text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+          The article you are looking for does not exist, or has been removed.
+        </p>
+        <UButton 
+          to="/blog" 
+          size="lg" 
+          color="primary" 
+          variant="solid"
+          icon="i-lucide-corner-up-left" 
+          label="Back to Blog"
+        />
+      </div>
+    </div> 
 
     <!-- 正文内容容器 -->
     <article 
@@ -33,12 +53,12 @@
         <div class="flex-shrink-0 pt-1">
           <UButton 
             to="/blog" 
-            icon="i-heroicons-arrow-left" 
+            icon="i-lucide-corner-up-left" 
             color="gray"
             variant="ghost"
-            aria-label="返回列表"
+            aria-label="Back to Blog"
             :ui="{ rounded: 'rounded-full' }"
-            class="w-10 h-10 ring-1 ring-gray-200 dark:ring-gray-700 flex items-center justify-center bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 hover:ring-primary-500 dark:hover:ring-primary-400 transition-all group"
+            class="rounded-full w-10 h-10 ring-1 ring-gray-200 dark:ring-gray-700 flex items-center justify-center bg-transparent hover:bg-gray-50 dark:hover:bg-gray-800 hover:ring-primary-500 dark:hover:ring-primary-400 transition-all group"
           />
         </div>
 
@@ -72,16 +92,16 @@
           variant="ghost" 
           color="gray"
           size="sm"
-          icon="i-heroicons-arrow-left" 
-          label="返回列表"
+          icon="i-lucide-corner-up-left" 
+          label="Back to Blog"
         />
         <UButton 
           @click="shareArticle"
           variant="soft" 
           color="gray"
           size="sm"
-          icon="i-heroicons-share" 
-          label="分享本文"
+          icon="i-lucide-share-2" 
+          label="Share"
         />
       </div>
     </article>
@@ -102,7 +122,7 @@ const { data: doc, pending, error } = await useAsyncData(route.path, () => {
 // 设置页面元数据
 // 注意：因为是 lazy loading，doc 可能初始为 null，需要使用 getter 函数并做空值保护
 useSeoMeta({
-  title: () => doc.value?.title || '加载中...',
+  title: () => doc.value?.title || 'Loading...',
   description: () => doc.value?.description,
   ogTitle: () => doc.value?.title,
 })
@@ -126,9 +146,9 @@ const shareArticle = () => {
     navigator.clipboard.writeText(location.href)
     const toast = useToast()
     toast.add({
-      title: '复制成功',
-      description: '链接已复制到剪贴板',
-      icon: 'i-heroicons-check-circle',
+      title: 'Copied to Clipboard',
+      description: 'Article URL has been copied to clipboard.',
+      icon: 'i-lucide-check-circle',
       color: 'green'
     })
   }

@@ -15,9 +15,9 @@ const themes = ['system', 'light', 'dark'] as const
 type Theme = typeof themes[number]
 
 const currentIcon = computed(() => {
-  if (colorMode.preference === 'system') return 'i-heroicons-computer-desktop'
-  if (colorMode.preference === 'dark') return 'i-heroicons-moon'
-  return 'i-heroicons-sun'
+  if (colorMode.preference === 'system') return 'i-lucide-palette'
+  if (colorMode.preference === 'dark') return 'i-lucide-moon-star'
+  return 'i-lucide-sun'
 })
 
 const toggleTheme = () => {

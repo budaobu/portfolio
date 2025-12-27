@@ -31,7 +31,15 @@ export default defineNuxtConfig({
       '/blog/Example', // 显式排除 Example 路由
       '/blog/example'  // 以防万一大小写问题
     ],
-    // 动态源：告诉 Sitemap 模块去哪里获取动态生成的博客路由
+    // 1. 静态页面：显式列出核心页面，确保 100% 收录
+    urls: [
+      '/',
+      '/projects',
+      '/blog',
+      '/goods',
+      '/sponsor'
+    ],
+    // 2. 动态源：告诉 Sitemap 模块去哪里获取动态生成的博客路由
     sources: [
       '/api/sitemap_routes'
     ]
@@ -40,7 +48,7 @@ export default defineNuxtConfig({
   routeRules: {
     '/': { prerender: true },
     '/sponsor': { prerender: true },
-    '/goods': { prerender: true },
+    '/uses': { prerender: true },
     '/projects': { prerender: true }, // 确保项目列表页也被预渲染
     '/blog/**': { prerender: true },
     // 显式禁止预渲染 Example，防止生成静态文件
@@ -97,7 +105,7 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Budaobu\'s AI-Stitched Personal Homepage | Portfolio' },
+        { name: 'description', content: 'Non-dev, just vibe coding to stitch stuff together.' },
         { name: 'author', content: 'Budaobu' },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:site_name', content: 'Budaobu Portfolio' },

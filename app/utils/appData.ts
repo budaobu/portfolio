@@ -45,8 +45,14 @@ export const socialLinks = [
     url: '#' // 请替换为您的 Spotify 链接
   }, */
   {
+    name: 'RSS',
+    icon: 'i-lucide-atom',
+    url: '/rss.xml'
+  },
+  {
     name: 'Email',
-    icon: 'i-heroicons-envelope',
-    url: 'mailto:lizhaoshui@duck.com'
+    icon: 'i-lucide-mail',
+    // 特殊处理：此处移除 mailto 链接，设为空字符串
+    url: ''
   }
 ]
