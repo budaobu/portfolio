@@ -20,7 +20,29 @@
             <span>&copy; {{ currentYear }} Budaobu.</span>
             <span class="hidden sm:inline">·</span>
             <span>Vibe with</span>
-            <UIcon name="i-heroicons-heart-solid" class="text-red-500 w-4 h-4" />
+            <!-- <UIcon name="i-heroicons-heart-solid" class="text-red-500 w-4 h-4" /> -->
+            <!-- 
+              修改方案：
+              1. 动效优化: transition-all duration-500 ease-in-out 让展开更柔和
+              2. 交互优化: hover:scale-110 让图标有呼吸感
+              3. 功能增加: 使用 UTooltip 添加悬停提示 (自带 fade 效果)
+            -->
+            <span class="inline-flex items-center -space-x-2 hover:space-x-1 transition-all duration-500 ease-in-out px-1">
+              <UTooltip text="Gemini 3.0 Pro" :popper="{ placement: 'top' }">
+                <img 
+                  src="/gemini-color.svg" 
+                  class="w-5 h-5 rounded-full ring-2 ring-white dark:ring-gray-950 bg-white dark:bg-gray-800 object-cover relative transition-all duration-300 hover:scale-110 hover:z-10" 
+                  alt="Gemini" 
+                />
+              </UTooltip>
+              <UTooltip text="Claude 4.5 Sonnet" :popper="{ placement: 'top' }">
+                <img 
+                  src="/claude-color.svg" 
+                  class="w-5 h-5 rounded-full ring-2 ring-white dark:ring-gray-950 bg-white dark:bg-gray-800 object-cover relative transition-all duration-300 hover:scale-110 hover:z-10" 
+                  alt="Claude" 
+                />
+              </UTooltip>
+            </span>
           </p>
 
           <!-- 右侧：社交媒体图标 (DOM顺序 2 -> 移动端上 / 桌面端右) -->
