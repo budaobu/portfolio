@@ -15,21 +15,22 @@
         Just a quiet non-dev vibe coding with AI. Everything here is stitched together by prompt and intuition. Enjoy.
       </p>
       
-      <!-- 新增：社交媒体图标栏 -->
+      <!-- 社交媒体图标栏 -->
       <div class="flex items-center gap-4 mt-6">
-        <!-- 
-          修改方案：
-          添加 UTooltip 包裹 UButton，text 属性绑定 social.name
-        -->
         <UTooltip 
           v-for="social in socialLinks" 
           :key="social.name" 
           :text="social.name"
           :popper="{ placement: 'top' }"
         >
+          <!-- 
+             核心优化：同步 default.vue 的逻辑
+             使用 UButton 的 to 属性作为 NuxtLink，并添加 SEO 属性
+          -->
           <UButton
-            :to="social.url"
-            target="_blank"
+            :to="social.url || undefined"
+            :target="social.url ? '_blank' : undefined"
+            :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
             color="gray"
             variant="ghost"
             :icon="social.icon"
@@ -251,15 +252,14 @@ const isExternal = (url: string) => {
   return url.startsWith('http')
 }
 
-// 防爬虫点击处理逻辑 (与 default.vue 保持一致)
+// 防爬虫点击处理逻辑 (优化后：只处理 Email)
 const handleSocialClick = (social: SocialLink) => {
   if (social.name === 'Email') {
     const u = 'lizhaoshui'
     const d = 'duck.com'
     window.location.href = `mailto:${u}@${d}`
-  } else if (social.url) {
-    window.open(social.url, '_blank')
   }
+  // 其他链接由 UButton 自动处理
 }
 </script>
 
