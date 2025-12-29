@@ -1,6 +1,5 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
-import { resolve } from 'path'
-import { readdirSync, existsSync } from 'fs'
+import { resolve } from 'node:path'
+import { readdirSync, existsSync } from 'node:fs'
 
 export default defineNuxtConfig({
   modules: [
@@ -28,27 +27,34 @@ export default defineNuxtConfig({
   },
 
   hooks: {
-    // 使用 Nuxt 的 hooks 系统来动态添加预渲染路由
     async 'nitro:config'(nitroConfig) {
-      // 读取 content/blog/ 目录下的所有 Markdown 文件
-      const contentDir = resolve(__dirname, 'content/blog')
+      // 读取 content/blog/ 目录，显式列出所有文章路由
+      const contentDir = resolve(process.cwd(), 'content/blog')
       
       if (!existsSync(contentDir)) {
-        console.warn('Warning: content/blog directory not found')
+        console.warn('⚠️  content/blog directory not found')
         return
       }
       
       const files = readdirSync(contentDir)
       const blogRoutes = files
         .filter(file => file.endsWith('.md'))
+        .filter(file => file !== 'Example.md') // 排除示例文章
         .map(file => `/blog/${file.replace('.md', '')}`)
       
-      // 将博客路由添加到预渲染列表
       nitroConfig.prerender = nitroConfig.prerender || {}
       nitroConfig.prerender.routes = nitroConfig.prerender.routes || []
       nitroConfig.prerender.routes.push(...blogRoutes)
       
-      console.log('📝 Found blog routes for prerender:', blogRoutes)
+      console.log('📝 Explicitly added', blogRoutes.length, 'blog routes')
+      console.log('   Routes:', blogRoutes)
+    }
+  },
+  
+  nitro: {
+    prerender: {
+      crawlLinks: true, // 爬虫作为补充，发现其他页面
+      routes: ['/', '/sitemap.xml'] // 显式指定爬虫入口
     }
   },
 
@@ -77,11 +83,9 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/sponsor': { prerender: true },
     '/uses': { prerender: true },
-    '/projects': { prerender: true }, // 确保项目列表页也被预渲染
+    '/projects': { prerender: true },
     '/blog/**': { prerender: true },
-    // 显式禁止预渲染 Example，防止生成静态文件
-    '/blog/Example': { prerender: false },
-    // --- 新增工具页面的预渲染配置 ---
+    '/blog/Example': { prerender: false }, // 排除示例文章
     '/tinypic': { prerender: true },
     '/meme-slicer': { prerender: true },
     '/video2gif': { prerender: true },
