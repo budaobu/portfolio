@@ -17,19 +17,28 @@
       
       <!-- 新增：社交媒体图标栏 -->
       <div class="flex items-center gap-4 mt-6">
-        <UButton
-          v-for="social in socialLinks"
-          :key="social.name"
-          :to="social.url"
-          target="_blank"
-          color="gray"
-          variant="ghost"
-          :icon="social.icon"
-          size="sm"
-          :aria-label="social.name"
-          class="p-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
-          @click="handleSocialClick(social)"
-        />
+        <!-- 
+          修改方案：
+          添加 UTooltip 包裹 UButton，text 属性绑定 social.name
+        -->
+        <UTooltip 
+          v-for="social in socialLinks" 
+          :key="social.name" 
+          :text="social.name"
+          :popper="{ placement: 'top' }"
+        >
+          <UButton
+            :to="social.url"
+            target="_blank"
+            color="gray"
+            variant="ghost"
+            :icon="social.icon"
+            size="sm"
+            :aria-label="social.name"
+            class="p-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+            @click="handleSocialClick(social)"
+          />
+        </UTooltip>
       </div>
     </section>
 

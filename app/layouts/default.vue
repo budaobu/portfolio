@@ -28,7 +28,7 @@
               3. 图标增加了 active:scale-90，增加移动端点击时的按压手感
             -->
             <span class="inline-flex items-center space-x-1 sm:-space-x-2 sm:hover:space-x-1 transition-all duration-500 ease-in-out px-1">
-              <UTooltip text="Gemini 2.0 Flash" :popper="{ placement: 'top' }">
+              <UTooltip text="Gemini 3.0 Flash" :popper="{ placement: 'top' }">
                 <img 
                   src="/gemini-color.svg" 
                   class="w-5 h-5 rounded-full ring-2 ring-white dark:ring-gray-950 bg-white dark:bg-gray-800 object-cover relative transition-all duration-300 hover:scale-110 hover:z-10 active:scale-90" 
@@ -48,19 +48,28 @@
 
           <!-- 右侧：社交媒体图标 (DOM顺序 2 -> 移动端上 / 桌面端右) -->
           <div class="flex items-center gap-3">
-            <UButton
-              v-for="social in socialLinks"
-              :key="social.name"
-              :to="social.url"
-              target="_blank"
-              color="gray"
-              variant="ghost"
-              :icon="social.icon"
-              size="sm"
-              :aria-label="social.name"
-              class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
-              @click="handleSocialClick(social)"
-            />
+            <!-- 
+              修改方案：
+              添加 UTooltip 包裹 UButton，text 属性绑定 social.name
+            -->
+            <UTooltip 
+              v-for="social in socialLinks" 
+              :key="social.name" 
+              :text="social.name"
+              :popper="{ placement: 'top' }"
+            >
+              <UButton
+                :to="social.url"
+                target="_blank"
+                color="gray"
+                variant="ghost"
+                :icon="social.icon"
+                size="sm"
+                :aria-label="social.name"
+                class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+                @click="handleSocialClick(social)"
+              />
+            </UTooltip>
           </div>
         </div>
       </div>

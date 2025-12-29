@@ -45,7 +45,7 @@ export const socialLinks = [
     url: '#' // 请替换为您的 Spotify 链接
   }, */
   {
-    name: 'RSS',
+    name: 'RSS feed',
     icon: 'i-lucide-atom',
     url: '/rss.xml'
   },

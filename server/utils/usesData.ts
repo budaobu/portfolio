@@ -15,7 +15,7 @@ export const uses: Use[] = [
     brand: 'Spotify',
     name: 'Spotify Premium',
     category: 'Music Service',
-    description: 'My Music Essential: Ad-free, Offline Listening, High Quality Audio.',
+    description: 'I use Spotify because it usually knows what I want to hear, even when I don’t.',
     imageUrl: '',
     linkUrl: 'https://open.spotify.com/',
     isAffiliate: false
@@ -25,7 +25,7 @@ export const uses: Use[] = [
     brand: 'Wise',
     name: 'Wise',
     category: 'Nomad',
-    description: 'My Go-To for Remittance: Transparent Pricing, Fast Transfers, Multi-Currency Support.',
+    description: 'Wise is the service I use when I want international transfers to be simple, transparent, and predictable.',
     imageUrl: '',
     linkUrl: 'https://wise.com/',
     isAffiliate: false
@@ -35,7 +35,7 @@ export const uses: Use[] = [
     brand: 'Giffgaff',
     name: 'Giffgaff SIM',
     category: 'Mobile Service',
-    description: 'Receive SMS for free. No monthly fees, pay-as-you-go, keep number easily.',
+    description: 'giffgaff is how I keep my number alive overseas. Free roaming SMS, no monthly cost.',
     imageUrl: '',
     linkUrl: 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
     isAffiliate: true
