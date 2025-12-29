@@ -20,38 +20,52 @@
             <span>&copy; {{ currentYear }} Budaobu.</span>
             <span class="hidden sm:inline">·</span>
             <span>Vibe with</span>
-            <!-- <UIcon name="i-heroicons-heart-solid" class="text-red-500 w-4 h-4" /> -->
+            
             <!-- 
-              修改方案 (移动端适配):
-              1. 默认 (Mobile): space-x-1 (不堆叠，直接展开，方便手指点击)
+              修改方案 (移动端适配 + 可点击链接 + 视觉层级优化):
+              1. 默认 (Mobile): space-x-1 (不堆叠)
               2. sm (Desktop): -space-x-2 (堆叠) + hover:space-x-1 (悬停展开)
-              3. 图标增加了 active:scale-90，增加移动端点击时的按压手感
+              3. 新增 div 包装层：
+                 - zIndex: 动态计算，实现 index 0 (第一个) 在最上层。
+                 - hover:z-50: 悬停时通过高 z-index 确保当前元素浮起不被遮挡。
             -->
             <span class="inline-flex items-center space-x-1 sm:-space-x-2 sm:hover:space-x-1 transition-all duration-500 ease-in-out px-1">
-              <UTooltip text="Gemini 3.0 Flash" :popper="{ placement: 'top' }">
-                <img 
-                  src="/gemini-color.svg" 
-                  class="w-5 h-5 rounded-full ring-2 ring-white dark:ring-gray-950 bg-white dark:bg-gray-800 object-cover relative transition-all duration-300 hover:scale-110 hover:z-10 active:scale-90" 
-                  alt="Gemini" 
-                />
-              </UTooltip>
-              <UTooltip text="Claude 3.5 Sonnet" :popper="{ placement: 'top' }">
-                <img 
-                  src="/claude-color.svg" 
-                  class="w-5 h-5 rounded-full ring-2 ring-white dark:ring-gray-950 bg-white dark:bg-gray-800 object-cover relative transition-all duration-300 hover:scale-110 hover:z-10 active:scale-90" 
-                  alt="Claude" 
-                />
-              </UTooltip>
+              <div 
+                v-for="(tool, index) in aiTools" 
+                :key="tool.name" 
+                class="relative transition-all duration-500 ease-in-out hover:z-50"
+                :style="{ zIndex: aiTools.length - index }"
+              >
+                <UTooltip 
+                  :text="tool.name" 
+                  :popper="{ placement: 'top' }"
+                >
+                  <!-- 
+                    NuxtLink 
+                    - transition-transform: 仅负责缩放动画
+                    - active:scale-90: 点击反馈
+                  -->
+                  <NuxtLink 
+                    :to="tool.url" 
+                    target="_blank" 
+                    rel="nofollow"
+                    class="block focus:outline-none transition-transform duration-300 hover:scale-110 active:scale-90"
+                    :aria-label="tool.name"
+                  >
+                    <img 
+                      :src="tool.icon" 
+                      class="w-5 h-5 rounded-full ring-2 ring-white dark:ring-gray-950 bg-white dark:bg-gray-800 object-cover" 
+                      :alt="tool.name" 
+                    />
+                  </NuxtLink>
+                </UTooltip>
+              </div>
             </span>
 
           </p>
 
           <!-- 右侧：社交媒体图标 (DOM顺序 2 -> 移动端上 / 桌面端右) -->
           <div class="flex items-center gap-3">
-            <!-- 
-              修改方案：
-              添加 UTooltip 包裹 UButton，text 属性绑定 social.name
-            -->
             <UTooltip 
               v-for="social in socialLinks" 
               :key="social.name" 
@@ -86,6 +100,27 @@ interface SocialLink {
   icon: string
   url: string
 }
+
+// 定义 AI 工具类型
+interface AiTool {
+  name: string
+  icon: string
+  url: string
+}
+
+// AI 工具数据
+const aiTools: AiTool[] = [
+  {
+    name: 'Gemini 3.0 Flash',
+    icon: '/gemini-color.svg',
+    url: 'https://deepmind.google/technologies/gemini/'
+  },
+  {
+    name: 'Claude 3.5 Sonnet',
+    icon: '/claude-color.svg',
+    url: 'https://www.anthropic.com/claude'
+  }
+]
 
 // 防爬虫点击处理逻辑
 const handleSocialClick = (social: SocialLink) => {
