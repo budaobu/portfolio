@@ -4,7 +4,3 @@
 # 头像重定向 (替代 server/api/avatar.png.get.ts 的功能)
 # 这样在纯静态部署模式下，无需云函数也能访问该 API 路径
 /api/avatar.png https://github.com/budaobu.png 307
-# --- 2. SPA Fallback (必须放在最后) ---
-# 告诉 Cloudflare: 任何找不到对应文件的路径 (/*)，都返回 /200.html，并且状态码设为 200
-# 这样 Nuxt 就可以在客户端接管路由并渲染正确的页面
-# /* /200.html  200

@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { resolve } from 'path'
+import { readdirSync, existsSync } from 'fs'
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
@@ -21,6 +24,31 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       siteUrl: 'https://portfolio-2d2.pages.dev/'
+    }
+  },
+
+  hooks: {
+    // 使用 Nuxt 的 hooks 系统来动态添加预渲染路由
+    async 'nitro:config'(nitroConfig) {
+      // 读取 content/blog/ 目录下的所有 Markdown 文件
+      const contentDir = resolve(__dirname, 'content/blog')
+      
+      if (!existsSync(contentDir)) {
+        console.warn('Warning: content/blog directory not found')
+        return
+      }
+      
+      const files = readdirSync(contentDir)
+      const blogRoutes = files
+        .filter(file => file.endsWith('.md'))
+        .map(file => `/blog/${file.replace('.md', '')}`)
+      
+      // 将博客路由添加到预渲染列表
+      nitroConfig.prerender = nitroConfig.prerender || {}
+      nitroConfig.prerender.routes = nitroConfig.prerender.routes || []
+      nitroConfig.prerender.routes.push(...blogRoutes)
+      
+      console.log('📝 Found blog routes for prerender:', blogRoutes)
     }
   },
 
