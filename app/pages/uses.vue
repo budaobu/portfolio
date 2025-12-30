@@ -118,8 +118,8 @@
         </a>
       </div>
 
-      <!-- 核心修改：无限滚动触发器 -->
-      <!-- 只要 hasMore 为 true，这个 div 就会渲染。一旦进入视口，就触发 loadMore -->
+      <!-- 无限滚动触发器 -->
+      <!-- 关键修改：绑定 ref="loadMoreTrigger" -->
       <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
         <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
@@ -143,79 +143,14 @@ useSeoMeta({
   ogDescription: 'My wallet suffered for this list. A collection of things I actually spent money on. (AFF links included at no extra cost)',
 })
 
-// 分页 API 返回结构
-interface ApiResponse {
-  items: Use[]
-  hasMore: boolean
-  total: number
-}
-
-const PAGE_SIZE = 9
-const page = ref(1)
-const allUses = ref<Use[]>([])
-const hasMore = ref(false)
-const loadingMore = ref(false)
-const loadMoreTrigger = ref<HTMLElement | null>(null) // 触发器 DOM 引用
-
-// 1. 初始加载
-const { data, pending, error } = await useFetch<ApiResponse>('/api/uses', {
-  lazy: true,
-  query: { 
-    page: 1, 
-    limit: PAGE_SIZE 
-  }
-})
-
-watch(data, (newVal) => {
-  if (newVal) {
-    allUses.value = newVal.items
-    hasMore.value = newVal.hasMore
-  }
-}, { immediate: true })
-
-// 2. 加载更多逻辑
-const loadMore = async () => {
-  if (loadingMore.value) return
-  loadingMore.value = true
-  
-  try {
-    const nextPage = page.value + 1
-    const response = await $fetch<ApiResponse>('/api/uses', {
-      query: { 
-        page: nextPage, 
-        limit: PAGE_SIZE 
-      }
-    })
-    
-    if (response) {
-      allUses.value.push(...response.items)
-      hasMore.value = response.hasMore
-      page.value = nextPage
-    }
-  } catch (err) {
-    console.error('Failed to load more uses:', err)
-  } finally {
-    loadingMore.value = false
-  }
-}
-
-// 3. 设置 IntersectionObserver 实现无限滚动
-onMounted(() => {
-  const observer = new IntersectionObserver((entries) => {
-    // 如果触发器进入视口，且当前不是正在加载中，且还有更多数据
-    if (entries[0].isIntersecting && !loadingMore.value && hasMore.value) {
-      loadMore()
-    }
-  }, {
-    rootMargin: '200px' // 提前 200px 触发，体验更丝滑
-  })
-
-  // 监听 loadMoreTrigger 元素的变化（因为 v-if 可能会导致它创建/销毁）
-  watch(loadMoreTrigger, (el) => {
-    if (el) observer.observe(el)
-    else observer.disconnect()
-  })
-})
+// 核心修改：使用 useInfiniteScroll
+const { 
+  items: allUses, 
+  pending, 
+  error, 
+  hasMore, 
+  loadMoreTrigger 
+} = await useInfiniteScroll<Use>('/api/uses', 9)
 
 const getFavicon = (url: string) => {
   if (!url) return ''

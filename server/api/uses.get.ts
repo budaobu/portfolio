@@ -7,20 +7,21 @@ export default defineEventHandler((event) => {
   const page = Math.max(1, Number(query.page) || 1)
   const limit = Math.max(1, Number(query.limit) || 9) // 默认每页 9 个
 
-  // 2. 按照 ID 降序排列 (可选，通常新物品排前面)
-  const sortedUses = [...uses].sort((a, b) => b.id - a.id)
+  // 2. 优化：不再需要排序，直接使用有序的 uses
+  // const sortedUses = [...uses].sort((a, b) => b.id - a.id) <--- 删除这行
 
   // 3. 计算切片位置
   const startIndex = (page - 1) * limit
   const endIndex = startIndex + limit
 
   // 4. 切片数据
-  const paginatedItems = sortedUses.slice(startIndex, endIndex)
+  // 直接对 uses 进行切片
+  const paginatedItems = uses.slice(startIndex, endIndex)
 
   // 5. 返回包含元数据的结构
   return {
     items: paginatedItems,
-    hasMore: endIndex < sortedUses.length,
-    total: sortedUses.length
+    hasMore: endIndex < uses.length,
+    total: uses.length
   }
 })

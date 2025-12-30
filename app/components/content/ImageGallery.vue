@@ -83,6 +83,8 @@
 </template>
 
 <script setup lang="ts">
+import { useScrollLock } from '@vueuse/core'
+
 interface Props {
   images: string[]
 }
@@ -92,16 +94,20 @@ const props = defineProps<Props>()
 const isOpen = ref(false)
 const currentIndex = ref(0)
 
+// 使用 useScrollLock 优雅地控制 body 滚动锁定
+// process.client 检查确保只在客户端执行
+const isLocked = useScrollLock(process.client ? document.body : null)
+
 const openLightbox = (index: number) => {
   currentIndex.value = index
   isOpen.value = true
-  document.body.style.overflow = 'hidden' // 禁止背景滚动
+  isLocked.value = true // 锁定滚动
   window.addEventListener('keydown', handleKeydown)
 }
 
 const closeLightbox = () => {
   isOpen.value = false
-  document.body.style.overflow = ''
+  isLocked.value = false // 解锁滚动
   window.removeEventListener('keydown', handleKeydown)
 }
 

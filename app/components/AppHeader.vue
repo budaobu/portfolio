@@ -3,7 +3,7 @@
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16">
         <NuxtLink to="/" class="flex items-center gap-3 group">
-          <img 
+           <img 
             :src="avatarUrl" 
             @error="handleImageError"
             alt="Budaobu" 
@@ -12,59 +12,75 @@
         </NuxtLink>
         
         <div class="flex items-center gap-2 sm:gap-4">
-          <!-- 作品链接 -->
+          <!-- 
+            优化说明：
+            1. 移除了 script 中的路由计算逻辑。
+            2. 使用 active-class 自动处理高亮。
+            3. 对于以 /projects 开头的嵌套路由，NuxtLink 默认支持部分匹配，
+               如果需要精确匹配使用 exact 属性，这里列表页到详情页需要高亮，默认行为即可。
+          -->
+          
+          <!-- Projects -->
           <UButton
             to="/projects"
-            :color="isProjectsActive ? 'primary' : 'gray'"
+            color="gray"
             variant="ghost"
             label="Projects"
+            active-class="text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800"
             class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
+          <!-- Mobile Icon Project -->
           <UButton
             to="/projects"
-            :color="isProjectsActive ? 'primary' : 'gray'"
+            color="gray"
             variant="ghost"
             icon="i-heroicons-rocket-launch"
-            class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            active-class="text-primary-500 dark:text-primary-400"
+            class="sm:hidden"
             aria-label="Projects"
           />
 
-          <!-- 文章链接 -->
+          <!-- Blog -->
           <UButton
             to="/blog"
-            :color="isBlogActive ? 'primary' : 'gray'"
+            color="gray"
             variant="ghost"
             label="Articles"
+            active-class="text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800"
             class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
+          <!-- Mobile Icon Blog -->
           <UButton
             to="/blog"
-            :color="isBlogActive ? 'primary' : 'gray'"
+            color="gray"
             variant="ghost"
             icon="i-heroicons-book-open"
-            class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            active-class="text-primary-500 dark:text-primary-400"
+            class="sm:hidden"
             aria-label="Articles"
           />
 
-          <!-- 好物推荐链接 -->
+          <!-- Uses -->
           <UButton
             to="/uses"
-            :color="isGoodsActive ? 'primary' : 'gray'"
+            color="gray"
             variant="ghost"
             label="Uses"
+            active-class="text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800"
             class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
           />
+          <!-- Mobile Icon Uses -->
           <UButton
             to="/uses"
-            :color="isGoodsActive ? 'primary' : 'gray'"
+            color="gray"
             variant="ghost"
             icon="i-heroicons-shopping-bag"
-            class="sm:hidden hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            active-class="text-primary-500 dark:text-primary-400"
+            class="sm:hidden"
             aria-label="Uses"
           />
 
-          <!-- 赞助链接 -->
-          <!-- 保持 variant="soft" 带有背景色，作为视觉重点 -->
+          <!-- Sponsor  -->
           <UButton
             to="/sponsor"
             color="primary"
@@ -90,13 +106,8 @@
 </template>
 
 <script setup lang="ts">
-const route = useRoute()
-const avatarUrl = ref('/avatar.webp') // 使用本地图片替换动态获取 /api/avatar.png
-
-// 计算属性：根据当前路径判断是否激活
-const isProjectsActive = computed(() => route.path.startsWith('/projects'))
-const isBlogActive = computed(() => route.path.startsWith('/blog'))
-const isGoodsActive = computed(() => route.path.startsWith('/uses'))
+// Script 变得非常干净
+const avatarUrl = ref('/avatar.webp')  // 使用本地图片替换动态获取 /api/avatar.png
 
 const handleImageError = () => {
   if (!avatarUrl.value.includes('github.com')) {

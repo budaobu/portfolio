@@ -9,7 +9,18 @@ export interface Use {
   isAffiliate: boolean // 是否恰饭
 }
 
-export const uses: Use[] = [
+// 原始数据：顺序无所谓，后面会统一排
+const rawUses: Use[] = [
+  {
+    id: 7,
+    brand: 'Google',
+    name: 'Gemini Pro',
+    category: 'AI',
+    description: 'The brain behind this portfolio. I bring the vibe, Gemini stitches the code. My absolute daily driver.',
+    imageUrl: '',
+    linkUrl: 'https://gemini.google.com',
+    isAffiliate: false
+  },
   {
     id: 6,
     brand: 'Spotify',
@@ -71,3 +82,7 @@ export const uses: Use[] = [
     isAffiliate: true
   }
 ]
+
+// 核心优化：统一在此处按 ID 降序排列
+// 导出后，整个应用拿到的 uses 都是有序的
+export const uses = rawUses.sort((a, b) => b.id - a.id)

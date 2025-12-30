@@ -4,16 +4,15 @@ export default defineEventHandler((event) => {
 
   // 1. 获取查询参数
   const query = getQuery(event)
-  const page = Math.max(1, Number(query.page) || 1) // 默认为第 1 页
-  const limit = Math.max(1, Number(query.limit) || 9) // 默认为 9 条
+  const page = Math.max(1, Number(query.page) || 1)
+  const limit = Math.max(1, Number(query.limit) || 9)
 
   // 2. 计算切片位置
   const startIndex = (page - 1) * limit
   const endIndex = startIndex + limit
 
   // 3. 切片并处理数据
-  // Nitro 自动导入 server/utils/projectData.ts 中的 projects
-  // Nitro 自动导入 server/utils/projectProcess.ts 中的 processProject
+  // 此时 projects 已经是有序的，slice(0, 9) 拿到的就是 ID 最大的前 9 个
   const paginatedItems = projects.slice(startIndex, endIndex).map(processProject)
 
   // 4. 返回包含元数据的结构

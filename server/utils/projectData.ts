@@ -12,8 +12,8 @@ export interface Project {
   featured?: boolean
 }
 
-// 单一数据源
-export const projects: Project[] = [
+// 原始数据：你可以随意添加，不用担心顺序
+const rawProjects: Project[] = [
   {
     id: 7,
     title: 'Video to GIF',
@@ -84,3 +84,7 @@ export const projects: Project[] = [
     featured: true
   }
 ]
+
+// 核心优化：在此处统一排序 (ID 倒序，新项目在前)
+// 这样所有引用 projects 的地方拿到的都是有序数据
+export const projects = rawProjects.sort((a, b) => b.id - a.id)

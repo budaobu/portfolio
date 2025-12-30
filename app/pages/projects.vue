@@ -84,9 +84,6 @@
 
             <!-- 底部操作栏 -->
             <div class="flex items-center justify-start flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800 relative z-20">
-              <!-- 顺序：App Store -> Google Play -> GitHub -> Web -->
-
-              <!-- App Store (蓝色主题色) -->
               <UButton
                 v-if="project.appStoreUrl"
                 :to="project.appStoreUrl"
@@ -99,7 +96,6 @@
                 class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-blue-900/20"
               />
 
-              <!-- Google Play (绿色主题色) -->
               <UButton
                 v-if="project.googlePlayUrl"
                 :to="project.googlePlayUrl"
@@ -112,7 +108,6 @@
                 class="text-[#00D363] hover:bg-green-50 dark:hover:bg-green-900/20"
               />
 
-              <!-- GitHub -->
               <UButton
                 v-if="project.githubUrl"
                 :to="project.githubUrl"
@@ -125,7 +120,6 @@
                 class="hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300"
               />
 
-              <!-- Web -->
               <UButton
                 v-if="project.demoUrl"
                 :to="project.demoUrl"
@@ -143,6 +137,7 @@
       </div>
 
       <!-- 无限滚动触发器 -->
+      <!-- 关键修改：绑定 ref="loadMoreTrigger" -->
       <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
         <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
@@ -169,13 +164,6 @@ interface Project {
   featured?: boolean
 }
 
-// API 返回结构
-interface ApiResponse {
-  items: Project[]
-  hasMore: boolean
-  total: number
-}
-
 useSeoMeta({
   title: 'Projects, The AI-Stitched Collection, Vibe Coding',
   description: 'Meet the "Stitched Ones"—a collection of projects entirely stitched together by AI. My philosophy is Vibe Coding: I don\'t care how the code looks; the most important thing is that it runs.',
@@ -184,65 +172,14 @@ useSeoMeta({
   ogDescription: 'Pure Vibe Coding. It might be messy under the hood, but hey, it runs. Come see the chaos.',
 })
 
-const PAGE_SIZE = 9
-const page = ref(1)
-const allProjects = ref<Project[]>([])
-const hasMore = ref(false)
-const loadingMore = ref(false)
-const loadMoreTrigger = ref<HTMLElement | null>(null)
-
-const { data, pending, error } = await useFetch<ApiResponse>('/api/projects', {
-  lazy: true,
-  query: { 
-    page: 1, 
-    limit: PAGE_SIZE 
-  }
-})
-
-watch(data, (newVal) => {
-  if (newVal) {
-    allProjects.value = newVal.items
-    hasMore.value = newVal.hasMore
-  }
-}, { immediate: true })
-
-const loadMore = async () => {
-  if (loadingMore.value) return
-  loadingMore.value = true
-  
-  try {
-    const nextPage = page.value + 1
-    const response = await $fetch<ApiResponse>('/api/projects', {
-      query: { 
-        page: nextPage, 
-        limit: PAGE_SIZE 
-      }
-    })
-    
-    if (response) {
-      allProjects.value.push(...response.items)
-      hasMore.value = response.hasMore
-      page.value = nextPage
-    }
-  } catch (err) {
-    console.error('Failed to load more projects:', err)
-  } finally {
-    loadingMore.value = false
-  }
-}
-
-onMounted(() => {
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !loadingMore.value && hasMore.value) {
-      loadMore()
-    }
-  }, { rootMargin: '200px' })
-
-  watch(loadMoreTrigger, (el) => {
-    if (el) observer.observe(el)
-    else observer.disconnect()
-  })
-})
+// 核心修改：使用 useInfiniteScroll 替代原有逻辑
+const { 
+  items: allProjects, 
+  pending, 
+  error, 
+  hasMore, 
+  loadMoreTrigger 
+} = await useInfiniteScroll<Project>('/api/projects', 9)
 
 // 文案逻辑生成函数
 const getAvailabilityText = (project: Project) => {
