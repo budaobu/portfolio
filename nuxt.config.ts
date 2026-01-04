@@ -54,7 +54,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true, // 爬虫作为补充，发现其他页面
-      routes: ['/', '/sitemap.xml'] // 显式指定爬虫入口
+      routes: ['/', '/sitemap.xml', '/rss.xml'] // 显式指定爬虫入口
     }
   },
 
@@ -86,6 +86,7 @@ export default defineNuxtConfig({
     '/projects': { prerender: true },
     '/blog/**': { prerender: true },
     '/blog/Example': { prerender: false }, // 排除示例文章
+    '/rss.xml': { prerender: true },
     '/tinypic': { prerender: true },
     '/meme-slicer': { prerender: true },
     '/video2gif': { prerender: true },
