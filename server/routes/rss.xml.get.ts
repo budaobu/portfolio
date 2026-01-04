@@ -8,8 +8,11 @@ export default defineEventHandler(async (event) => {
     .order('date', 'DESC')
     .all()
 
-  // 3. 过滤文章
-  const validPosts = posts.filter(post => !post.path.includes('Example') && post.title !== 'Example')
+  // 3. 过滤文章 (忽略大小写)
+  const validPosts = posts.filter(post => 
+    !post.path.toLowerCase().includes('example') && 
+    post.title.toLowerCase() !== 'example'
+  )
 
   // 4. 构建 RSS Item 字符串
   const items = validPosts.map((post) => {
