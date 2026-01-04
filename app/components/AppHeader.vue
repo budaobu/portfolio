@@ -14,10 +14,8 @@
         <div class="flex items-center gap-2 sm:gap-4">
           <!-- 
             优化说明：
-            1. 移除了 script 中的路由计算逻辑。
-            2. 使用 active-class 自动处理高亮。
-            3. 对于以 /projects 开头的嵌套路由，NuxtLink 默认支持部分匹配，
-               如果需要精确匹配使用 exact 属性，这里列表页到详情页需要高亮，默认行为即可。
+            由于 /blog (index.vue) 和 /blog/slug 是平级路由，active-class 无法自动识别包含关系。
+            这里改用 route.path.startsWith() 手动判断高亮状态。
           -->
           
           <!-- Projects -->
@@ -26,8 +24,12 @@
             color="gray"
             variant="ghost"
             label="Projects"
-            active-class="text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800"
-            class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            :class="[
+              'hidden sm:flex transition-colors',
+              route.path.startsWith('/projects') 
+                ? 'text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800' 
+                : 'hover:text-primary-500 dark:hover:text-primary-400'
+            ]"
           />
           <!-- Mobile Icon Project -->
           <UButton
@@ -35,8 +37,12 @@
             color="gray"
             variant="ghost"
             icon="i-heroicons-rocket-launch"
-            active-class="text-primary-500 dark:text-primary-400"
-            class="sm:hidden"
+            :class="[
+              'sm:hidden',
+              route.path.startsWith('/projects')
+                ? 'text-primary-500 dark:text-primary-400'
+                : ''
+            ]"
             aria-label="Projects"
           />
 
@@ -46,8 +52,12 @@
             color="gray"
             variant="ghost"
             label="Articles"
-            active-class="text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800"
-            class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            :class="[
+              'hidden sm:flex transition-colors',
+              route.path.startsWith('/blog') 
+                ? 'text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800' 
+                : 'hover:text-primary-500 dark:hover:text-primary-400'
+            ]"
           />
           <!-- Mobile Icon Blog -->
           <UButton
@@ -55,8 +65,12 @@
             color="gray"
             variant="ghost"
             icon="i-heroicons-book-open"
-            active-class="text-primary-500 dark:text-primary-400"
-            class="sm:hidden"
+            :class="[
+              'sm:hidden',
+              route.path.startsWith('/blog')
+                ? 'text-primary-500 dark:text-primary-400'
+                : ''
+            ]"
             aria-label="Articles"
           />
 
@@ -66,8 +80,12 @@
             color="gray"
             variant="ghost"
             label="Uses"
-            active-class="text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800"
-            class="hidden sm:flex hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
+            :class="[
+              'hidden sm:flex transition-colors',
+              route.path.startsWith('/uses') 
+                ? 'text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800' 
+                : 'hover:text-primary-500 dark:hover:text-primary-400'
+            ]"
           />
           <!-- Mobile Icon Uses -->
           <UButton
@@ -75,8 +93,12 @@
             color="gray"
             variant="ghost"
             icon="i-heroicons-shopping-bag"
-            active-class="text-primary-500 dark:text-primary-400"
-            class="sm:hidden"
+            :class="[
+              'sm:hidden',
+              route.path.startsWith('/uses')
+                ? 'text-primary-500 dark:text-primary-400'
+                : ''
+            ]"
             aria-label="Uses"
           />
 
@@ -106,8 +128,9 @@
 </template>
 
 <script setup lang="ts">
-// Script 变得非常干净
-const avatarUrl = ref('/avatar.webp')  // 使用本地图片替换动态获取 /api/avatar.png
+// 引入 useRoute 用于手动判断路径高亮
+const route = useRoute()
+const avatarUrl = ref('/avatar.webp')
 
 const handleImageError = () => {
   if (!avatarUrl.value.includes('github.com')) {
