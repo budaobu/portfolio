@@ -10,11 +10,11 @@
         No Tech, just ramblings.
       </p>
 
-      <!-- 新增：社交媒体图标栏 (仅显示 RSS) -->
+      <!-- 新增：社交媒体图标栏 (基于 placement 字段筛选) -->
       <div class="flex items-center gap-4 mt-6">
         <template v-for="social in socialLinks" :key="social.name">
           <UTooltip 
-            v-if="social.name === 'RSS feed'"
+            v-if="social.placement?.includes('blog')"
             :text="social.name"
             :popper="{ placement: 'top' }"
           >

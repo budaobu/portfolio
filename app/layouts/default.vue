@@ -46,32 +46,34 @@
           </p>
 
           <!-- 右侧：社交媒体图标 -->
+          <!-- 更新：增加 placement 筛选逻辑 (footer) -->
           <div class="flex items-center gap-3">
-            <UTooltip 
-              v-for="social in socialLinks" 
-              :key="social.name" 
-              :text="social.name"
-              :popper="{ placement: 'top' }"
-            >
-              <!-- 
-                核心优化：
-                1. 动态绑定 to: 如果有 url，UButton 会自动渲染为 <a> (NuxtLink)
-                2. 动态绑定 rel: 只有链接才需要 SEO 属性
-                3. @click: 依然保留，但 JS 内部只处理 Email 逻辑
-              -->
-              <UButton
-                :to="social.url || undefined"
-                :target="social.url ? '_blank' : undefined"
-                :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
-                color="gray"
-                variant="ghost"
-                :icon="social.icon"
-                size="sm"
-                :aria-label="social.name"
-                class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
-                @click="handleSocialClick(social)"
-              />
-            </UTooltip>
+            <template v-for="social in socialLinks" :key="social.name">
+              <UTooltip 
+                v-if="social.placement?.includes('footer')"
+                :text="social.name"
+                :popper="{ placement: 'top' }"
+              >
+                <!-- 
+                  核心优化：
+                  1. 动态绑定 to: 如果有 url，UButton 会自动渲染为 <a> (NuxtLink)
+                  2. 动态绑定 rel: 只有链接才需要 SEO 属性
+                  3. @click: 依然保留，但 JS 内部只处理 Email 逻辑
+                -->
+                <UButton
+                  :to="social.url || undefined"
+                  :target="social.url ? '_blank' : undefined"
+                  :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
+                  color="gray"
+                  variant="ghost"
+                  :icon="social.icon"
+                  size="sm"
+                  :aria-label="social.name"
+                  class="text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+                  @click="handleSocialClick(social)"
+                />
+              </UTooltip>
+            </template>
           </div>
         </div>
       </div>
@@ -86,6 +88,7 @@ interface SocialLink {
   name: string
   icon: string
   url: string
+  placement?: string[]
 }
 
 interface AiTool {

@@ -16,30 +16,32 @@
       </p>
       
       <!-- 社交媒体图标栏 -->
+      <!-- 更新：增加 placement 筛选逻辑 (home) -->
       <div class="flex items-center gap-4 mt-6">
-        <UTooltip 
-          v-for="social in socialLinks" 
-          :key="social.name" 
-          :text="social.name"
-          :popper="{ placement: 'top' }"
-        >
-          <!-- 
-             核心优化：同步 default.vue 的逻辑
-             使用 UButton 的 to 属性作为 NuxtLink，并添加 SEO 属性
-          -->
-          <UButton
-            :to="social.url || undefined"
-            :target="social.url ? '_blank' : undefined"
-            :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
-            color="gray"
-            variant="ghost"
-            :icon="social.icon"
-            size="sm"
-            :aria-label="social.name"
-            class="p-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
-            @click="handleSocialClick(social)"
-          />
-        </UTooltip>
+        <template v-for="social in socialLinks" :key="social.name">
+          <UTooltip 
+            v-if="social.placement?.includes('home')"
+            :text="social.name"
+            :popper="{ placement: 'top' }"
+          >
+            <!-- 
+                核心优化：同步 default.vue 的逻辑
+                使用 UButton 的 to 属性作为 NuxtLink，并添加 SEO 属性
+            -->
+            <UButton
+              :to="social.url || undefined"
+              :target="social.url ? '_blank' : undefined"
+              :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
+              color="gray"
+              variant="ghost"
+              :icon="social.icon"
+              size="sm"
+              :aria-label="social.name"
+              class="p-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
+              @click="handleSocialClick(social)"
+            />
+          </UTooltip>
+        </template>
       </div>
     </section>
 
@@ -205,6 +207,7 @@ interface SocialLink {
   name: string
   icon: string
   url: string
+  placement?: string[]
 }
 
 useSeoMeta({
