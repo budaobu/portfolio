@@ -86,11 +86,7 @@ export default defineNuxtConfig({
     '/projects/**': { prerender: true },
     '/blog/**': { prerender: true },
     '/blog/Example': { prerender: false }, // 排除示例文章
-    '/rss.xml': { prerender: true },
-    '/tinypic': { prerender: true },
-    '/meme-slicer': { prerender: true },
-    '/video2gif': { prerender: true },
-    '/image-watermark': { prerender: true }
+    '/rss.xml': { prerender: true }
   },
 
   ogImage: {
