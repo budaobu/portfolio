@@ -9,6 +9,29 @@
       <p class="text-lg text-gray-600 dark:text-gray-400">
         No Tech, just ramblings.
       </p>
+
+      <!-- 新增：社交媒体图标栏 (仅显示 RSS) -->
+      <div class="flex items-center gap-4 mt-6">
+        <template v-for="social in socialLinks" :key="social.name">
+          <UTooltip 
+            v-if="social.name === 'RSS feed'"
+            :text="social.name"
+            :popper="{ placement: 'top' }"
+          >
+            <UButton
+              :to="social.url || undefined"
+              :target="social.url ? '_blank' : undefined"
+              :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
+              color="gray"
+              variant="ghost"
+              :icon="social.icon"
+              size="sm"
+              :aria-label="social.name"
+              class="p-0 text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors cursor-pointer"
+            />
+          </UTooltip>
+        </template>
+      </div>
     </div>
 
     <!-- 加载状态：骨架屏 -->
