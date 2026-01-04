@@ -83,7 +83,7 @@ export default defineNuxtConfig({
     '/': { prerender: true },
     '/sponsor': { prerender: true },
     '/uses': { prerender: true },
-    '/projects': { prerender: true },
+    '/projects/**': { prerender: true },
     '/blog/**': { prerender: true },
     '/blog/Example': { prerender: false }, // 排除示例文章
     '/rss.xml': { prerender: true },
