@@ -54,6 +54,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true, // 爬虫作为补充，发现其他页面
+      ignore: ['/connect'],
       routes: ['/', '/sitemap.xml', '/rss.xml'] // 显式指定爬虫入口
     }
   },
@@ -70,8 +71,9 @@ export default defineNuxtConfig({
       '/',
       '/projects',
       '/blog',
-      '/goods',
-      '/sponsor'
+      '/uses',
+      '/sponsor',
+
     ],
     // 2. 动态源：告诉 Sitemap 模块去哪里获取动态生成的博客路由
     sources: [
@@ -86,6 +88,7 @@ export default defineNuxtConfig({
     '/projects/**': { prerender: true },
     '/blog/**': { prerender: true },
     '/blog/Example': { prerender: false }, // 排除示例文章
+    '/connect': { ssr: true, prerender: false },
     '/rss.xml': { prerender: true }
   },
 
