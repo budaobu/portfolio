@@ -1,6 +1,8 @@
 <script setup lang="ts">
+// 使用 ssr: false 跳过服务端渲染，改为客户端渲染
+// 这能避免构建时的 500 错误 (通常由 useToast 或其他 UI 组件的 SSR 问题引起)
 defineRouteRules({
-  prerender: true
+  ssr: false
 })
 
 // Page SEO Settings
