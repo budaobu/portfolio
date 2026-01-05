@@ -72,8 +72,7 @@ export default defineNuxtConfig({
       '/projects',
       '/blog',
       '/uses',
-      '/sponsor',
-
+      '/sponsor'
     ],
     // 2. 动态源：告诉 Sitemap 模块去哪里获取动态生成的博客路由
     sources: [
