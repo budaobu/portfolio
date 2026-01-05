@@ -1,8 +1,4 @@
 <script setup lang="ts">
-defineRouteRules({
-  prerender: false
-})
-
 // Page SEO Settings
 useSeoMeta({
   title: 'Connect',
