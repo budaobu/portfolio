@@ -15,24 +15,36 @@
       </p>
       
       <div class="flex items-center gap-4 mt-6">
-        <UTooltip 
-          v-for="social in homeSocialLinks" 
-          :key="social.name"
-          :text="social.name"
-          :popper="{ placement: 'top' }"
-        >
-          <UButton
-            :to="social.url"
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            color="gray"
-            variant="ghost"
-            :icon="social.icon"
-            size="sm"
-            :aria-label="social.name"
-            class="p-0 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-          />
-        </UTooltip>
+        <UButton
+          to="/connect"
+          color="primary"
+          variant="soft"
+          label="Connect"
+          icon="i-lucide-mail"
+          size="lg"
+          class="transition-all rounded-full px-6"
+          :ui="{ rounded: 'rounded-full' }"
+        />
+        
+        <div class="flex items-center gap-2">
+          <UTooltip 
+            v-for="social in homeSocialLinks" 
+            :key="social.name"
+            :text="social.name"
+            :popper="{ placement: 'top' }"
+          >
+            <NuxtLink
+              :to="social.url"
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              :aria-label="social.name"
+              size="lg"
+              class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 text-gray-600 dark:text-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            >
+              <UIcon :name="social.icon" class="w-4 h-4" />
+            </NuxtLink>
+          </UTooltip>
+        </div>
       </div>
     </section>
 
