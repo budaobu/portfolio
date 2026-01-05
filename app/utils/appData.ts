@@ -6,16 +6,10 @@ export const socialLinks = [
     placement: ['home']
   },
   {
-    name: 'GitHub',
-    icon: 'i-simple-icons-github',
-    url: 'https://github.com/budaobu/portfolio',
-    placement: ['footer']
-  },
-  {
     name: 'Telegram',
     icon: 'i-simple-icons-telegram',
-    url: 'https://t.me/joeyhuey', // 请替换为您的 Telegram 链接
-    placement: ['home', 'footer']
+    url: 'https://t.me/joeyhuey',
+    placement: ['home']
   },
   /* {
     name: 'Discord',
@@ -54,10 +48,22 @@ export const socialLinks = [
     placement: ['home', 'footer']
   }, */
   {
+    name: 'Source on GitHub',
+    icon: 'i-simple-icons-github',
+    url: 'https://github.com/budaobu/portfolio',
+    placement: ['footer']
+  },
+  {
     name: 'RSS feed',
     icon: 'i-lucide-atom',
     url: '/rss.xml',
-    placement: ['blog']
+    placement: ['blog', 'footer']
+  },
+  {
+    name: 'Sitemap',
+    icon: 'i-lucide-network',
+    url: '/rss.xml',
+    placement: ['footer']
   },
   {
     name: 'Email',
