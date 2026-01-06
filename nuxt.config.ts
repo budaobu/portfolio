@@ -2,18 +2,34 @@ import { resolve } from 'node:path'
 import { readdirSync, existsSync } from 'node:fs'
 
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/ui',
-    '@nuxtjs/sitemap',
-    'nuxt-og-image',
-    '@nuxt/content' // 新增 Content 模块
-  ],
-  
-  css: ['~/assets/css/main.css'],
+  compatibilityDate: '2024-11-01',
   
   devtools: { enabled: true },
-  
-  compatibilityDate: '2025-12-26',
+
+  future: {
+    compatibilityVersion: 4,
+  },
+
+  modules: [
+    '@nuxt/ui',
+    '@nuxt/content',
+    '@nuxt/image',
+    '@nuxtjs/seo', // 包含 sitemap, og-image 等
+    '@nuxthub/core'
+  ],
+
+  css: ['~/assets/css/main.css'],
+
+  // 1. 关键配置：指定 Cloudflare Pages preset 以支持后端 API
+  // 必须保留此项，否则 API 路由不会生效
+  nitro: {
+    preset: 'cloudflare-pages',
+    prerender: {
+      crawlLinks: true,
+      ignore: ['/connect'],
+      routes: ['/', '/sitemap.xml', '/rss.xml']
+    }
+  },
 
   site: {
     url: 'https://portfolio-2d2.pages.dev/',
@@ -26,9 +42,9 @@ export default defineNuxtConfig({
     }
   },
 
+  // 用于扫描博客文章并添加到预渲染列表
   hooks: {
     async 'nitro:config'(nitroConfig) {
-      // 读取 content/blog/ 目录，显式列出所有文章路由
       const contentDir = resolve(process.cwd(), 'content/blog')
       
       if (!existsSync(contentDir)) {
@@ -39,7 +55,7 @@ export default defineNuxtConfig({
       const files = readdirSync(contentDir)
       const blogRoutes = files
         .filter(file => file.endsWith('.md'))
-        .filter(file => file !== 'Example.md') // 排除示例文章
+        .filter(file => file !== 'Example.md')
         .map(file => `/blog/${file.replace('.md', '')}`)
       
       nitroConfig.prerender = nitroConfig.prerender || {}
@@ -50,23 +66,13 @@ export default defineNuxtConfig({
       console.log('   Routes:', blogRoutes)
     }
   },
-  
-  nitro: {
-    prerender: {
-      crawlLinks: true, // 爬虫作为补充，发现其他页面
-      ignore: ['/connect'],
-      routes: ['/', '/sitemap.xml', '/rss.xml'] // 显式指定爬虫入口
-    }
-  },
 
   sitemap: {
-    // 排除不需要收录的页面
     exclude: [
       '/admin/**',
-      '/blog/Example', // 显式排除 Example 路由
-      '/blog/example'  // 以防万一大小写问题
+      '/blog/Example',
+      '/blog/example'
     ],
-    // 1. 静态页面：显式列出核心页面，确保 100% 收录
     urls: [
       '/',
       '/projects',
@@ -74,7 +80,6 @@ export default defineNuxtConfig({
       '/uses',
       '/sponsor'
     ],
-    // 2. 动态源：告诉 Sitemap 模块去哪里获取动态生成的博客路由
     sources: [
       '/api/sitemap_routes'
     ]
@@ -86,53 +91,48 @@ export default defineNuxtConfig({
     '/uses': { prerender: true },
     '/projects/**': { prerender: true },
     '/blog/**': { prerender: true },
-    '/blog/Example': { prerender: false }, // 排除示例文章
-    '/connect': { ssr: true, prerender: false },
+    '/blog/Example': { prerender: false },
+    // Cloudflare Pages Function 需要 SSR 处理 API 请求，
+    // 在 cloudflare-pages preset 下，此配置应能正常工作。
+    '/connect': { ssr: true, prerender: false }, 
     '/rss.xml': { prerender: true }
   },
 
   ogImage: {
-    prerender: true/* ,
-    fonts: [
-      'Noto Sans SC:400', 
-      'Noto Sans SC:700'
-    ] */
+    prerender: true
   },
 
-  // 配置 @nuxt/fonts 模块 (由 @nuxt/ui 引入)
   fonts: {
-    // 禁用 google 字体提供商，防止它去请求 fonts.google.com
-    /* providers: {
-      google: false
-    }, */
-    // 显式告诉它霞鹜文楷不需要它管理 (虽然禁用 provider 已经足够，加这个更保险)
     families: [
       { name: 'LXGW WenKai Screen', provider: 'none' }
     ]
   },
 
-  // --- 新增 Content 配置 ---
   content: {
-    highlight: {
-      // 使用 Shiki 高亮，主题自动适配暗黑模式
-      theme: {
-        default: 'github-light',
-        dark: 'github-dark'
-      },
-      preload: ['javascript', 'typescript', 'vue', 'bash', 'json', 'python', 'css', 'html']
-    },
-    // 启用 MDC (Markdown Components) 语法，用于支持 ::ImageGallery 这种写法
-    markdown: {
-      mdc: true
+    build: {
+      markdown: {
+        highlight: {
+          theme: {
+            default: 'github-light',
+            dark: 'github-dark'
+          },
+          preload: ['ts', 'js', 'css', 'json', 'vue', 'bash', 'python', 'html']
+        }
+      }
     }
   },
 
   app: {
+    pageTransition: { name: 'page', mode: 'out-in' },
+    layoutTransition: { name: 'layout', mode: 'out-in' },
     head: {
       htmlAttrs: {
         lang: 'zh-CN'
       },
       title: 'Budaobu',
+      templateParams: {
+        separator: '·'
+      },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -143,9 +143,8 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' }
       ],
       link: [
-        { rel: 'icon', type: 'image/webp', href: '/avatar.webp' }, // 使用本地图片替换动态获取 /api/avatar.png
+        { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
         { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' },
-        // 自动发现 RSS
         { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' }
       ]
     }
