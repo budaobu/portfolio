@@ -26,8 +26,8 @@ export const socialLinks = [
   {
     name: 'WhatsApp',
     icon: 'i-simple-icons-whatsapp',
-    url: '#', // 请替换为您的 WhatsApp 链接
-    placement: ['home', 'footer']
+    url: 'https://wa.me/你的号码', // 国际区号(去掉前导0和+号)手机号码
+    placement: ['home']
   },
   {
     name: 'YouTube',
