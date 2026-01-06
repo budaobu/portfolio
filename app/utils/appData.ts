@@ -1,10 +1,10 @@
 export const socialLinks = [
-  {
+  /* {
     name: 'X',
     icon: 'i-simple-icons-x',
     url: 'https://x.com/lizhaoshui',  // 关注链接：https://x.com/intent/follow?screen_name=
     placement: ['home']
-  },
+  }, */
   {
     name: 'Telegram',
     icon: 'i-simple-icons-telegram',
@@ -69,7 +69,7 @@ export const socialLinks = [
     name: 'Email',
     icon: 'i-lucide-mail',
     // 特殊处理：此处移除 mailto 链接，设为空字符串
-    url: 'mailto:lizhaoshui@duck.com',
-    placement: ['home', 'footer']
+    url: '/connect',
+    placement: ['footer']
   }
 ]
