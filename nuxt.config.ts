@@ -2,7 +2,7 @@ import { resolve } from 'node:path'
 import { readdirSync, existsSync } from 'node:fs'
 
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
+  compatibilityDate: '2025-12-26',
   
   devtools: { enabled: true },
 

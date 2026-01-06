@@ -12,6 +12,8 @@
   "dependencies": {
     "@nuxt/image": "^2.0.0",
     "@nuxt/ui": "^4.2.1",
+    "@nuxthub/core": "^0.10.4",
+    "@nuxtjs/seo": "^3.3.0",
     "@unhead/vue": "^2.0.19",
     "nuxt": "^4.2.1",
     "nuxt-og-image": "^5.1.12",
