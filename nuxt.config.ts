@@ -27,7 +27,7 @@ export default defineNuxtConfig({
       crawlLinks: true,
       // 明确告诉预渲染器忽略动态路由，防止生成 404 或空文件
       ignore: ['/connect', '/__nuxt_content', (path) => path.startsWith('/__nuxt_content')],
-      routes: ['/', '/sitemap.xml', '/rss.xml']
+      routes: ['/', '/sitemap.xml', '/rss.xml', '/llms.txt']
     }
   },
 
@@ -106,6 +106,7 @@ export default defineNuxtConfig({
     }, 
     
     '/rss.xml': { prerender: true },
+    '/llms.txt': { prerender: true, headers: { 'content-type': 'text/plain; charset=utf-8' } },
     '/__nuxt_content/**': { prerender: false }
   },
 
@@ -156,7 +157,8 @@ export default defineNuxtConfig({
       link: [
         { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
         { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' },
-        { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' }
+        { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' },
+        { rel: 'help', href: '/llms.txt', title: 'LLM Context' } 
       ]
     }
   }
