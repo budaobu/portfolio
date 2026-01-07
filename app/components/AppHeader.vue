@@ -37,6 +37,7 @@
           variant="soft"
           icon="i-heroicons-heart-solid"
           :label="isMobile ? undefined : 'Sponsor'"
+          :aria-label="isMobile ? 'Sponsor' : undefined"
         />
         
         <ThemeToggle />

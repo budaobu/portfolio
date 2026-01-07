@@ -26,14 +26,14 @@ export default defineNuxtConfig({
     preset: 'cloudflare-pages',
     prerender: {
       crawlLinks: true,
-      ignore: ['/connect', '/__nuxt_content'],
+      ignore: ['/connect', '/__nuxt_content', (path) => path.startsWith('/__nuxt_content')],
       routes: ['/', '/sitemap.xml', '/rss.xml']
     }
   },
 
-  /* linkChecker: {
+  linkChecker: {
     enabled: false
-  }, */
+  },
 
   site: {
     url: 'https://portfolio-2d2.pages.dev/',
