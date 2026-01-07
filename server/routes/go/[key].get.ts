@@ -45,6 +45,7 @@ export default defineEventHandler(async (event) => {
     'giffgaff': 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
     'dlercloud': 'https://dlercloud.com/auth/register?affid=39909',
     'nuxtjs': 'https://nuxt.com',
+    'surge': 'https://nssurge.com/'
   }
 
   // 检查静态映射
