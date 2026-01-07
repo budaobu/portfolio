@@ -131,8 +131,6 @@ useSeoMeta({
   ogDescription: 'Warning: Contains zero technical content. Just me rambling about random stuff. No code, just vibes.',
 })
 
-// 计算属性：筛选出 blog 页面需要显示的社交链接
-// 这里的 socialLinks 来自 app/utils/appData.ts，Nuxt 会自动导入
 const blogSocialLinks = computed(() => 
   socialLinks.filter(link => link.placement?.includes('blog'))
 )
@@ -143,14 +141,37 @@ const loadingMore = ref(false)
 const allLoaded = ref(false)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
 
-const { data: articles, pending, error } = await useAsyncData('blog-list', async () => {
-  return await queryCollection('blog')
-    .order('date', 'DESC')
-    .limit(PAGE_SIZE)
-    .all()
-}, {
-  lazy: true
-})
+// 🔧 核心修复：增加重试逻辑
+const maxRetries = 3
+let retryCount = 0
+
+const fetchBlogList = async (): Promise<any[]> => {
+  try {
+    return await queryCollection('blog')
+      .order('date', 'DESC')
+      .limit(PAGE_SIZE)
+      .all()
+  } catch (error) {
+    // 如果是首次加载失败且未超过重试次数，等待后重试
+    if (retryCount < maxRetries) {
+      retryCount++
+      console.warn(`Blog data fetch failed, retrying (${retryCount}/${maxRetries})...`)
+      await new Promise(resolve => setTimeout(resolve, 300 * retryCount)) // 递增延迟
+      return fetchBlogList()
+    }
+    throw error
+  }
+}
+
+const { data: articles, pending, error } = await useAsyncData(
+  'blog-list', 
+  fetchBlogList,
+  {
+    lazy: true,
+    // 🔧 关键：添加 watch: false，避免路由参数变化时重复触发
+    watch: false
+  }
+)
 
 watch(articles, (newVal) => {
   if (newVal && newVal.length < PAGE_SIZE) {
@@ -207,14 +228,3 @@ const formatDate = (dateStr: string) => {
   })
 }
 </script>
-
-<style scoped>
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-</style>
