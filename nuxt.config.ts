@@ -21,11 +21,11 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   // 1. 关键配置：指定 Cloudflare Pages preset 以支持后端 API
-  // 必须保留此项，否则 API 路由不会生效
   nitro: {
     preset: 'cloudflare-pages',
     prerender: {
       crawlLinks: true,
+      // 明确告诉预渲染器忽略动态路由，防止生成 404 或空文件
       ignore: ['/connect', '/__nuxt_content', (path) => path.startsWith('/__nuxt_content')],
       routes: ['/', '/sitemap.xml', '/rss.xml']
     }
@@ -47,7 +47,6 @@ export default defineNuxtConfig({
     }
   },
 
-  // 用于扫描博客文章并添加到预渲染列表
   hooks: {
     async 'nitro:config'(nitroConfig) {
       const contentDir = resolve(process.cwd(), 'content/blog')
@@ -68,7 +67,6 @@ export default defineNuxtConfig({
       nitroConfig.prerender.routes.push(...blogRoutes)
       
       console.log('📝 Explicitly added', blogRoutes.length, 'blog routes')
-      console.log('   Routes:', blogRoutes)
     }
   },
 
@@ -98,9 +96,15 @@ export default defineNuxtConfig({
     '/projects/**': { prerender: true },
     '/blog/**': { prerender: true },
     '/blog/Example': { prerender: false },
-    // Cloudflare Pages Function 需要 SSR 处理 API 请求，
-    // 在 cloudflare-pages preset 下，此配置应能正常工作。
-    '/connect': { ssr: true, prerender: false }, 
+    
+    // Cloudflare Pages Function SSR 配置
+    // 关键修复：添加 ogImage: false 以防止 Worker 崩溃
+    '/connect': { 
+      ssr: true, 
+      prerender: false,
+      ogImage: false // <--- 禁止在此动态路由上生成 OG Image
+    }, 
+    
     '/rss.xml': { prerender: true },
     '/__nuxt_content/**': { prerender: false }
   },
@@ -134,7 +138,7 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' },
     head: {
       htmlAttrs: {
-        lang: 'zh-CN'
+        lang: 'en-US'
       },
       title: 'Budaobu',
       templateParams: {

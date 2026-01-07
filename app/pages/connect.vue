@@ -1,8 +1,4 @@
 <script setup lang="ts">
-defineRouteRules({
-  prerender: false // 保持 false，这在 build 模式下也是安全的
-})
-
 // Page SEO Settings
 useSeoMeta({
   title: 'Connect',
