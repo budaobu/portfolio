@@ -10,27 +10,25 @@
         No Tech, just ramblings.
       </p>
 
-      <!-- 新增：社交媒体图标栏 (基于 placement 字段筛选) -->
+      <!-- 社交媒体图标栏 -->
+      <!-- 优化：直接遍历 blogSocialLinks，无需在模板中进行 v-if 判断 -->
       <div class="flex items-center gap-4 mt-6">
-        <template v-for="social in socialLinks" :key="social.name">
-          <UTooltip 
-            v-if="social.placement?.includes('blog')"
-            :text="social.name"
-            :popper="{ placement: 'top' }"
+        <UTooltip 
+          v-for="social in blogSocialLinks" 
+          :key="social.name"
+          :text="social.name"
+          :popper="{ placement: 'top' }"
+        >
+          <NuxtLink
+            :to="social.url"
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            :aria-label="social.name"
+            class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-orange-500 dark:hover:text-orange-400 text-gray-600 dark:text-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
-            <UButton
-              :to="social.url || undefined"
-              :target="social.url ? '_blank' : undefined"
-              :rel="social.url ? 'noopener noreferrer nofollow' : undefined"
-              color="gray"
-              variant="ghost"
-              :icon="social.icon"
-              size="sm"
-              :aria-label="social.name"
-              class="p-0 text-gray-400 hover:text-orange-500 dark:hover:text-orange-400 transition-colors cursor-pointer"
-            />
-          </UTooltip>
-        </template>
+            <UIcon :name="social.icon" class="w-4 h-4" />
+          </NuxtLink>
+        </UTooltip>
       </div>
     </div>
 
@@ -132,6 +130,12 @@ useSeoMeta({
   ogTitle: 'Budaobu\'s Blog - No Tech, Just Nonsense',
   ogDescription: 'Warning: Contains zero technical content. Just me rambling about random stuff. No code, just vibes.',
 })
+
+// 计算属性：筛选出 blog 页面需要显示的社交链接
+// 这里的 socialLinks 来自 app/utils/appData.ts，Nuxt 会自动导入
+const blogSocialLinks = computed(() => 
+  socialLinks.filter(link => link.placement?.includes('blog'))
+)
 
 // 分页配置
 const PAGE_SIZE = 10
