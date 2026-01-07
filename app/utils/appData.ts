@@ -2,74 +2,78 @@ export const socialLinks = [
   /* {
     name: 'X',
     icon: 'i-simple-icons-x',
-    url: 'https://x.com/lizhaoshui',  // 关注链接：https://x.com/intent/follow?screen_name=
+    url: '/go/x',  // 使用短链接
     placement: ['home']
   }, */
   {
     name: 'Telegram',
     icon: 'i-simple-icons-telegram',
-    url: 'https://t.me/joeyhuey',
+    // 原始: 'https://t.me/joeyhuey'
+    // 修改为短链接，统一由服务端控制跳转
+    url: '/go/telegram',
     placement: ['home']
   },
   /* {
     name: 'Discord',
     icon: 'i-simple-icons-discord',
-    url: '#', // 请替换为您的 Discord 链接
+    url: '/go/discord', // 预留
     placement: ['home', 'footer']
   },
   {
     name: 'Instagram',
     icon: 'i-simple-icons-instagram',
-    url: '#', // 请替换为您的 Instagram 链接
+    url: '/go/instagram', // 预留
     placement: ['home', 'footer']
   },
   {
     name: 'WhatsApp',
     icon: 'i-simple-icons-whatsapp',
-    url: 'https://wa.me/你的号码', // 国际区号(去掉前导0和+号)手机号码
+    url: '/go/whatsapp', 
     placement: ['home']
   },
   {
     name: 'YouTube',
     icon: 'i-simple-icons-youtube',
-    url: '#', // 请替换为您的 YouTube 链接
+    url: '/go/youtube',
     placement: ['home', 'footer']
   },
   {
     name: 'Apple Music',
     icon: 'i-simple-icons-applemusic',
-    url: '#', // 请替换为您的 Apple Music 链接
+    url: '/go/applemusic',
     placement: ['home', 'footer']
   },
   {
     name: 'Spotify',
     icon: 'i-simple-icons-spotify',
-    url: '#', // 请替换为您的 Spotify 链接
+    url: '/go/spotify',
     placement: ['home', 'footer']
   }, */
   {
     name: 'Source on GitHub',
     icon: 'i-simple-icons-github',
-    url: 'https://github.com/budaobu/portfolio',
+    // 原始: 'https://github.com/budaobu/portfolio'
+    url: '/go/source', 
     placement: ['footer']
   },
   {
     name: 'RSS feed',
     icon: 'i-lucide-atom',
-    url: '/rss.xml',
+    url: '/rss.xml', // 站内资源保持原样
     placement: ['blog', 'footer']
   },
   {
     name: 'Sitemap',
     icon: 'i-lucide-network',
-    url: '/sitemap.xml',
+    url: '/sitemap.xml', // 站内资源保持原样
     placement: ['footer']
   },
   {
     name: 'Email',
     icon: 'i-lucide-mail',
-    // 特殊处理：此处移除 mailto 链接，设为空字符串
-    url: '/connect',
+    // 原始: '/connect'
+    // 也可以统一用 /go/mail，或者保持 /connect
+    url: '/go/mail', 
     placement: ['footer']
   }
 ]
