@@ -1,7 +1,7 @@
 <template>
   <header class="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
     <UContainer class="h-16 flex items-center justify-between">
-      <NuxtLink to="/" class="flex items-center gap-3 group">
+      <NuxtLink to="/" class="flex items-center gap-3 group" aria-label="Back to Home">
         <img 
           :src="avatarUrl" 
           @error="handleImageError"

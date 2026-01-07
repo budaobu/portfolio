@@ -26,10 +26,14 @@ export default defineNuxtConfig({
     preset: 'cloudflare-pages',
     prerender: {
       crawlLinks: true,
-      ignore: ['/connect'],
+      ignore: ['/connect', '/__nuxt_content'],
       routes: ['/', '/sitemap.xml', '/rss.xml']
     }
   },
+
+  /* linkChecker: {
+    enabled: false
+  }, */
 
   site: {
     url: 'https://portfolio-2d2.pages.dev/',
@@ -71,7 +75,8 @@ export default defineNuxtConfig({
     exclude: [
       '/admin/**',
       '/blog/Example',
-      '/blog/example'
+      '/blog/example',
+      '/__nuxt_content/**'
     ],
     urls: [
       '/',
@@ -95,7 +100,8 @@ export default defineNuxtConfig({
     // Cloudflare Pages Function 需要 SSR 处理 API 请求，
     // 在 cloudflare-pages preset 下，此配置应能正常工作。
     '/connect': { ssr: true, prerender: false }, 
-    '/rss.xml': { prerender: true }
+    '/rss.xml': { prerender: true },
+    '/__nuxt_content/**': { prerender: false }
   },
 
   ogImage: {

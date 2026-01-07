@@ -62,7 +62,7 @@ export const socialLinks = [
   {
     name: 'Sitemap',
     icon: 'i-lucide-network',
-    url: '/rss.xml',
+    url: '/sitemap.xml',
     placement: ['footer']
   },
   {
