@@ -41,6 +41,7 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    resendApiKey: '', 
     public: {
       siteUrl: 'https://portfolio-2d2.pages.dev/'
     }

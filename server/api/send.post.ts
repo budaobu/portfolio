@@ -9,14 +9,16 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // 2. 获取 API Key (请在 Cloudflare Pages 后台或 .env 文件中设置 RESEND_API_KEY)
-  const resendApiKey = process.env.RESEND_API_KEY
+  // 2. 获取 API Key (通过 Nuxt Runtime Config)
+  // 对应 nuxt.config.ts 中的 runtimeConfig.resendApiKey
+  const config = useRuntimeConfig()
+  const resendApiKey = config.resendApiKey
 
   if (!resendApiKey) {
-    console.error('RESEND_API_KEY is missing')
+    console.error('RESEND_API_KEY is missing in runtime config')
     throw createError({
       statusCode: 500,
-      statusMessage: 'Server configuration error',
+      statusMessage: 'Server configuration error: API Key missing',
     })
   }
 
@@ -31,7 +33,7 @@ export default defineEventHandler(async (event) => {
       body: {
         // 注意：如果你没有在 Resend 绑定域名，必须使用 'onboarding@resend.dev'
         from: 'Portfolio Contact <onboarding@resend.dev>',
-        // TODO: 这里改成你自己的接收邮箱
+        // TODO: 确保这里是你自己的接收邮箱
         to: ['lizhaoshui@duck.com'], 
         subject: `New Message from ${body.name}`,
         reply_to: body.email,
@@ -47,11 +49,13 @@ export default defineEventHandler(async (event) => {
     })
 
     return { success: true, data }
-  } catch (error) {
+  } catch (error: any) {
     console.error('Resend API Error:', error)
+    // 返回更详细的错误信息以便调试（生产环境可简化）
     throw createError({
       statusCode: 500,
-      statusMessage: 'Failed to send email',
+      statusMessage: error.statusMessage || 'Failed to send email',
+      data: error.data
     })
   }
 })
