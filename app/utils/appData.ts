@@ -71,9 +71,7 @@ export const socialLinks = [
   {
     name: 'Email',
     icon: 'i-lucide-mail',
-    // 原始: '/connect'
-    // 也可以统一用 /go/mail，或者保持 /connect
-    url: '/go/mail', 
+    url: '/connect', 
     placement: ['footer']
   }
 ]

@@ -76,12 +76,12 @@ const aiTools = [
   {
     name: 'Gemini 3.0 Pro',
     icon: '/gemini-color.svg',
-    url: 'https://deepmind.google/technologies/gemini/'
+    url: '/go/gemini'
   },
   {
     name: 'Claude 4.5 Sonnet',
     icon: '/claude-color.svg',
-    url: 'https://www.anthropic.com/claude'
+    url: '/go/claude'
   }
 ]
 

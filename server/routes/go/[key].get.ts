@@ -36,7 +36,15 @@ export default defineEventHandler(async (event) => {
     'coffee': 'https://buymeacoffee.com/lizhaoshui',
     
     // 默认回首页
-    'home': '/'
+    'home': '/',
+
+    // 其他静态映射可继续添加
+    'claude': 'https://claude.ai',
+    'chatgpt': 'https://chat.openai.com/',
+    'gemini': 'https://gemini.google.com/',
+    'giffgaff': 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
+    'dlercloud': 'https://dlercloud.com/auth/register?affid=39909',
+    'nuxtjs': 'https://nuxt.com',
   }
 
   // 检查静态映射
