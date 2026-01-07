@@ -29,5 +29,8 @@
     "@nuxt/content": "^3.10.0",
     "@nuxtjs/sitemap": "^7.5.1",
     "better-sqlite3": "^12.5.0"
+  },
+  "overrides": {
+    "commander": "^13.1.0"
   }
 }
