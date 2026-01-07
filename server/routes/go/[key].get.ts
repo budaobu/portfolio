@@ -42,10 +42,8 @@ export default defineEventHandler(async (event) => {
     'claude': 'https://claude.ai',
     'chatgpt': 'https://chat.openai.com/',
     'gemini': 'https://gemini.google.com/',
-    'giffgaff': 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
-    'dlercloud': 'https://dlercloud.com/auth/register?affid=39909',
     'nuxtjs': 'https://nuxt.com',
-    'surge': 'https://nssurge.com/'
+    'coffee': 'https://buymeacoffee.com/lizhaoshui'
   }
 
   // 检查静态映射

@@ -18,7 +18,7 @@ const rawUses: Use[] = [
     category: 'AI',
     description: 'The brain behind this portfolio. I bring the vibe, Gemini stitches the code. My absolute daily driver.',
     imageUrl: '',
-    linkUrl: '/go/gemini',
+    linkUrl: 'https://gemini.google.com/',
     isAffiliate: false
   },
   {
@@ -48,7 +48,7 @@ const rawUses: Use[] = [
     category: 'Mobile Service',
     description: 'giffgaff is how I keep my number alive overseas. Free roaming SMS, no monthly cost.',
     imageUrl: '',
-    linkUrl: '/go/giffgaff',
+    linkUrl: 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
     isAffiliate: true
   },
   {
@@ -68,7 +68,7 @@ const rawUses: Use[] = [
     category: 'App',
     description: 'Advanced Network Toolbox for Mac & iOS',
     imageUrl: '',
-    linkUrl: '/go/surge',
+    linkUrl: 'https://nssurge.com/',
     isAffiliate: false
   },
   {
@@ -78,7 +78,7 @@ const rawUses: Use[] = [
     category: 'IPLC',
     description: 'Used for 5 Years: Stable, Fast, and Multi-Protocol Support.',
     imageUrl: '',
-    linkUrl: '/go/dlercloud',
+    linkUrl: 'https://dlercloud.com/auth/register?affid=39909',
     isAffiliate: true
   }
 ]
