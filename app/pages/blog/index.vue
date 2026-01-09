@@ -11,7 +11,6 @@
       </p>
 
       <!-- 社交媒体图标栏 -->
-      <!-- 优化：直接遍历 blogSocialLinks，无需在模板中进行 v-if 判断 -->
       <div class="flex items-center gap-4 mt-6">
         <UTooltip 
           v-for="social in blogSocialLinks" 
@@ -62,59 +61,19 @@
       <p class="text-gray-500">No articles yet, stay tuned.</p>
     </div>
 
-    <!-- 文章列表：增加淡入动画 -->
+    <!-- 文章列表：使用新的 BlogCard 组件 -->
     <div v-else class="space-y-6 animate-fade-in">
-      <NuxtLink
+      <BlogCard
         v-for="article in articles"
         :key="article.path"
-        :to="article.path"
-        class="block group outline-none"
-      >
-        <UCard
-          :ui="{
-            body: { padding: 'p-6 sm:p-8' },
-            base: 'transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-2 hover:ring-primary-500/20 dark:hover:ring-primary-400/20',
-            rounded: 'rounded-xl',
-            shadow: 'shadow-sm',
-            divide: '',
-            ring: 'ring-1 ring-gray-200 dark:ring-gray-800'
-          }"
-        >
-          <div class="flex flex-col md:flex-row md:items-baseline gap-4 md:gap-10">
-            
-            <div class="md:w-40 flex-shrink-0">
-              <time 
-                :datetime="article.date" 
-                class="text-sm font-medium text-gray-500 dark:text-gray-400 md:border-l-2 md:border-transparent md:group-hover:border-primary-500 md:group-hover:pl-3 md:transition-all md:duration-300"
-              >
-                {{ formatDate(article.date) }}
-              </time>
-            </div>
-
-            <div class="flex-1 min-w-0">
-              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {{ article.title }}
-              </h2>
-              
-              <p class="text-gray-600 dark:text-gray-400 leading-relaxed mb-6 line-clamp-3">
-                {{ article.description }}
-              </p>
-
-              <div class="flex items-center text-primary-600 dark:text-primary-400 font-medium group-hover:text-primary-700 dark:group-hover:text-primary-300 transition-colors">
-                <span class="mr-1">Read More</span>
-                <UIcon name="i-lucide-arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </div>
-            </div>
-
-          </div>
-        </UCard>
-      </NuxtLink>
+        :article="article"
+      />
 
       <!-- 无限滚动触发器 -->
       <div v-if="!allLoaded" ref="loadMoreTrigger" class="flex justify-center py-8">
         <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
-      <!-- 新增：到底提示 -->
+      <!-- 到底提示 -->
       <div v-else class="text-center py-12 text-gray-400 text-sm italic">
         - All rambled out. -
       </div>
@@ -168,7 +127,6 @@ const { data: articles, pending, error } = await useAsyncData(
   fetchBlogList,
   {
     lazy: true,
-    // 🔧 关键：添加 watch: false，避免路由参数变化时重复触发
     watch: false
   }
 )
@@ -217,14 +175,19 @@ onMounted(() => {
     else observer.disconnect()
   })
 })
-
-const formatDate = (dateStr: string) => {
-  if (!dateStr) return ''
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric'
-  })
-}
 </script>
+
+<style scoped>
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

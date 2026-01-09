@@ -1,5 +1,6 @@
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Hero Section -->
     <section class="mb-20">
       <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
         Hi👋🏻, I'm 
@@ -48,58 +49,12 @@
       </div>
     </section>
 
-    <section>
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Projects</h2>
-        <UButton 
-          to="/projects" 
-          color="gray" 
-          variant="ghost" 
-          icon="i-lucide-arrow-right" 
-          trailing
-          label="View All" 
-        />
-      </div>
-      
-      <div v-if="pending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <USkeleton v-for="i in 3" :key="i" class="h-64 rounded-xl" />
-      </div>
-      
-      <UAlert 
-        v-else-if="error" 
-        color="red" 
-        variant="soft"
-        icon="i-lucide-circle-alert"
-        title="Failed to load"
-        description="Failed to fetch featured projects. Please try again later."
-        class="max-w-2xl mx-auto"
-      />
-
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <ProjectCard 
-          v-for="project in featuredProjects" 
-          :key="project.id"
-          :project="project"
-        />
-      </div>
-    </section>
+    <!-- Featured Projects Section (Componentized) -->
+    <HomeFeaturedProjects />
   </div>
 </template>
 
 <script setup lang="ts">
-interface Project {
-  id: number
-  title: string
-  description: string
-  icon: string
-  demoUrl?: string
-  githubUrl?: string
-  appStoreUrl?: string
-  googlePlayUrl?: string
-  mainUrl?: string
-  featured?: boolean
-}
-
 useSeoMeta({
   title: 'Budaobu | AI-Stitched Personal Portfolio',
   description: 'Non-dev, just vibe coding to stitch stuff together. An introvert\'s playground where everything is built by prompt and intuition.',
@@ -120,10 +75,7 @@ defineOgImageComponent('NuxtSeo', {
   siteLogo: 'https://github.com/budaobu.png'
 })
 
-const { data: featuredProjects, pending, error } = await useFetch<Project[]>('/api/featuredProjects', {
-  lazy: true
-})
-
+// 原本的数据获取逻辑已移至 HomeFeaturedProjects 组件中，首页更轻量
 const homeSocialLinks = computed(() => 
   socialLinks.filter(link => link.placement?.includes('home'))
 )

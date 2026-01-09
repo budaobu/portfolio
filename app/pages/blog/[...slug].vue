@@ -42,56 +42,10 @@
       </div>
     </div> 
 
-    <!-- 核心修改 2：使用 Grid 布局，分为左侧 TOC 和右侧文章 -->
+    <!-- 核心修改 2：使用 Grid 布局 -->
     <div v-else class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
       
-      <!-- 左侧 TOC 侧边栏：仅在 LG 屏幕显示，固定定位 -->
-      <aside class="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 h-fit pr-4">
-        <!-- 返回按钮：移到侧边栏顶部，操作更顺手 -->
-        <div class="mb-6">
-          <UButton 
-            to="/blog" 
-            variant="ghost" 
-            color="gray"
-            size="sm"
-            icon="i-lucide-corner-up-left" 
-            label="Back to Blog"
-            class="-ml-2.5 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-          />
-        </div>
-
-        <!-- TOC 目录 -->
-        <div v-if="doc.body?.toc?.links?.length">
-          <div class="font-semibold text-sm text-gray-900 dark:text-white mb-4 uppercase tracking-wider flex items-center gap-2">
-            <UIcon name="i-lucide-list" class="w-4 h-4" />
-            <span>On this page</span>
-          </div>
-          <nav>
-            <ul class="space-y-3 text-sm">
-              <li v-for="link in doc.body.toc.links" :key="link.id">
-                <a 
-                  :href="`#${link.id}`" 
-                  class="block text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors line-clamp-2"
-                >
-                  {{ link.text }}
-                </a>
-                <!-- 二级标题 (H3) -->
-                <ul v-if="link.children" class="pl-4 mt-2 space-y-2 border-l border-gray-200 dark:border-gray-800 ml-1">
-                   <li v-for="child in link.children" :key="child.id">
-                     <a 
-                      :href="`#${child.id}`" 
-                      class="block text-gray-400 hover:text-primary-600 dark:text-gray-500 dark:hover:text-primary-400 transition-colors line-clamp-1"
-                    >
-                       {{ child.text }}
-                     </a>
-                   </li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </aside>
-
+      <!-- 布局调整：将 <article> 提到前面，使其位于 Grid 的左侧/中间主体位置 -->
       <!-- 右侧正文内容容器 -->
       <article 
         class="lg:col-span-9 bg-white dark:bg-gray-900 rounded-xl ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm p-6 sm:p-10 md:p-12 transition-all duration-300"
@@ -149,6 +103,55 @@
           />
         </div>
       </article>
+
+      <!-- 布局调整：将 <aside> (TOC) 移到后面，使其位于 Grid 的右侧 -->
+      <!-- 右侧 TOC 侧边栏：仅在 LG 屏幕显示，固定定位 -->
+      <aside class="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 h-fit pl-4">
+        <!-- 返回按钮 -->
+        <div class="mb-6">
+          <UButton 
+            to="/blog" 
+            variant="ghost" 
+            color="gray"
+            size="sm"
+            icon="i-lucide-corner-up-left" 
+            label="Back to Blog"
+            class="-ml-2.5 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          />
+        </div>
+
+        <!-- TOC 目录 -->
+        <div v-if="doc.body?.toc?.links?.length">
+          <div class="font-semibold text-sm text-gray-900 dark:text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+            <UIcon name="i-lucide-list" class="w-4 h-4" />
+            <span>On this page</span>
+          </div>
+          <nav>
+            <ul class="space-y-3 text-sm">
+              <li v-for="link in doc.body.toc.links" :key="link.id">
+                <a 
+                  :href="`#${link.id}`" 
+                  class="block text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 transition-colors line-clamp-2"
+                >
+                  {{ link.text }}
+                </a>
+                <!-- 二级标题 (H3) -->
+                <ul v-if="link.children" class="pl-4 mt-2 space-y-2 border-l border-gray-200 dark:border-gray-800 ml-1">
+                    <li v-for="child in link.children" :key="child.id">
+                      <a 
+                      :href="`#${child.id}`" 
+                      class="block text-gray-400 hover:text-primary-600 dark:text-gray-500 dark:hover:text-primary-400 transition-colors line-clamp-1"
+                    >
+                        {{ child.text }}
+                      </a>
+                    </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
     </div>
   </div>
 </template>
