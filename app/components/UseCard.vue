@@ -34,7 +34,7 @@
         </div>
       </component>
 
-      <div :class="item.imageUrl ? 'p-5' : 'p-6 h-full'">
+      <div :class="item.imageUrl ? 'p-2' : 'p-3 h-full'">
         <div v-if="!item.imageUrl" class="flex items-start justify-between gap-4 mb-4">
           <div class="flex items-start gap-3 flex-1 min-w-0">
             <img 
