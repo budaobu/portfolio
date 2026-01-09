@@ -7,6 +7,44 @@
 */
 @theme {
   --font-sans: "LXGW WenKai Screen", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  
+  /* --- 新增：微交互动画注册 --- */
+  
+  /* 1. 幽灵：四处张望 */
+  --animate-look-around: look-around 2.4s ease-in-out infinite;
+  
+  /* 2. 太阳：旋转并呼吸 */
+  --animate-sun-shine: sun-shine 4s linear infinite;
+  
+  /* 3. 月亮：轻轻摇摆 */
+  --animate-moon-rock: moon-rock 2s ease-in-out infinite;
+  
+  /* 4. 星星：闪烁 */
+  --animate-twinkle: twinkle 1.5s ease-in-out infinite;
+
+  /* --- 关键帧定义 --- */
+  @keyframes look-around {
+    0%, 16.6%, 100% { transform: translateX(-1.5px) translateY(0); }
+    25%, 41.6% { transform: translateX(1.5px) translateY(0); }
+    50%, 66.6% { transform: translateX(0) translateY(-1.5px); }
+    75%, 91.6% { transform: translateX(0) translateY(0); }
+  }
+
+  @keyframes sun-shine {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+
+  @keyframes moon-rock {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
 }
 
 /* Markdown 内容排版优化 */

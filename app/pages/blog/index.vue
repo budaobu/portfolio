@@ -26,7 +26,7 @@
             :aria-label="social.name"
             class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-orange-500 dark:hover:text-orange-400 text-gray-600 dark:text-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
-            <UIcon :name="social.icon" class="w-4 h-4" />
+            <UIcon :name="social.icon" class="w-5 h-5" />
           </NuxtLink>
         </UTooltip>
       </div>
