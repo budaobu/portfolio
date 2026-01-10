@@ -64,7 +64,7 @@ export const socialLinks = [
   },
   {
     name: 'Sitemap',
-    icon: 'i-lucide-network',
+    icon: 'i-lucide-list-tree',
     url: '/sitemap.xml', // 站内资源保持原样
     placement: ['footer']
   },
