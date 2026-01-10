@@ -2,17 +2,15 @@
 export interface PageSeoConfig {
   title: string
   description: string
-  ogTitle?: string // 可选，如果不填则默认使用 title
-  ogDescription?: string // 可选，如果不填则默认使用 description
+  ogTitle?: string
+  ogDescription?: string
 }
 
-// 集中管理所有页面的 SEO 文案
-// 移除了 keywords 字段
 export const SEO_DATA = {
   home: {
-    title: 'Budaobu | AI-Stitched Personal Portfolio',
-    description: 'Non-dev, just vibe coding to stitch stuff together. An introvert\'s playground where everything is built by prompt and intuition.',
-    ogTitle: 'Budaobu | AI-Stitched Personal Portfolio',
+    title: 'Budaobu\'s Vibe Coding Portfolio',
+    description: 'Non-developer building things through vibe coding. A collection of experiments and creations born from curiosity and intuition.',
+    ogTitle: 'Budaobu\'s Vibe Coding Portfolio',
     ogDescription: 'Non-dev, just vibe coding to stitch stuff together.',
   },
   projects: {
