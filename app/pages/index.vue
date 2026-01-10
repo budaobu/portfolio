@@ -12,7 +12,7 @@
         </span>
       </h1>
       <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl">
-        Just a quiet non-dev vibe coding with AI. Everything here is stitched together by prompt and intuition. Enjoy.
+        Just building things through vibe coding. A collection of experiments and creations born from curiosity and intuition. Enjoy.
       </p>
       
       <div class="flex items-center gap-4 mt-6">
