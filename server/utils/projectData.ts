@@ -48,7 +48,7 @@ const rawProjects: Project[] = [
     id: 4,
     title: 'Meme Slicer',
     description: 'In browser meme tool, auto-slice images into custom grids (e.g., 6x4, 7x4) and generate GIFs.',
-    icon: 'i-heroicons-squares-2x2',
+    icon: '✂️',
     demoUrl: '/projects/meme-slicer',
     githubUrl: 'https://github.com/budaobu/meme-slicer',
     date: '2025-11-28',

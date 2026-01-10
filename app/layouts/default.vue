@@ -9,10 +9,21 @@
     <footer class="border-t border-gray-200 dark:border-gray-800 py-8 mt-16 bg-white dark:bg-gray-950">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-4">
-          <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
-            <span>&copy; {{ currentYear }} Budaobu.</span>
-            <span class="hidden sm:inline">·</span>
-            <span>Vibe with</span>
+
+          <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+
+            <span>&copy; {{ currentYear }} </span>
+            <!-- <span class="hidden sm:inline">·</span> -->
+            
+            <span class="relative flex h-2 w-2" aria-hidden="true">
+
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400 opacity-85"></span>
+            </span>
+
+            
+            <span>Budaobu vibe with</span>
             
             <span class="inline-flex items-center space-x-1 sm:-space-x-2 sm:hover:space-x-1 transition-all duration-500 ease-in-out px-1">
               <div 
