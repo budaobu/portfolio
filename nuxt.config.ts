@@ -14,8 +14,9 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxt/content',
     '@nuxt/image',
-    '@nuxtjs/seo', // 包含 sitemap, og-image 等
-    '@nuxthub/core'
+    '@nuxtjs/seo',
+    '@nuxthub/core',
+    '@vite-pwa/nuxt'
   ],
 
   css: ['~/assets/css/main.css'],
@@ -76,22 +77,9 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    exclude: [
-      '/admin/**',
-      '/blog/Example',
-      '/blog/example',
-      '/__nuxt_content/**'
-    ],
-    urls: [
-      '/',
-      '/projects',
-      '/blog',
-      '/uses',
-      '/sponsor'
-    ],
-    sources: [
-      '/api/sitemap_routes'
-    ]
+    exclude: ['/admin/**', '/blog/Example', '/blog/example', '/__nuxt_content/**'],
+    urls: ['/', '/projects', '/blog', '/uses', '/sponsor'],
+    sources: ['/api/sitemap_routes']
   },
 
   routeRules: {
@@ -101,28 +89,16 @@ export default defineNuxtConfig({
     '/projects/**': { prerender: true },
     '/blog/**': { prerender: true },
     '/blog/Example': { prerender: false },
-    
-    // Cloudflare Pages Function SSR 配置
-    // 关键修复：添加 ogImage: false 以防止 Worker 崩溃
-    '/connect': { 
-      ssr: true, 
-      prerender: false,
-      ogImage: false // <--- 禁止在此动态路由上生成 OG Image
-    }, 
-    
+    '/connect': { ssr: true, prerender: false, ogImage: false }, 
     '/rss.xml': { prerender: true },
     '/llms.txt': { prerender: true, headers: { 'content-type': 'text/plain; charset=utf-8' } },
     '/__nuxt_content/**': { prerender: false }
   },
 
-  ogImage: {
-    prerender: true
-  },
+  ogImage: { prerender: true },
 
   fonts: {
-    families: [
-      { name: 'LXGW WenKai Screen', provider: 'none' }
-    ]
+    families: [{ name: 'LXGW WenKai Screen', provider: 'none' }]
   },
 
   content: {
@@ -143,13 +119,9 @@ export default defineNuxtConfig({
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: { name: 'layout', mode: 'out-in' },
     head: {
-      htmlAttrs: {
-        lang: 'en-US'
-      },
+      htmlAttrs: { lang: 'en-US' },
       title: 'Budaobu',
-      templateParams: {
-        separator: '·'
-      },
+      templateParams: { separator: '·' },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -157,7 +129,8 @@ export default defineNuxtConfig({
         { name: 'author', content: 'Budaobu' },
         { name: 'robots', content: 'index, follow' },
         { property: 'og:site_name', content: 'Budaobu Portfolio' },
-        { property: 'og:type', content: 'website' }
+        { property: 'og:type', content: 'website' },
+        { name: 'theme-color', content: '#ffffff' }
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
@@ -166,5 +139,78 @@ export default defineNuxtConfig({
         { rel: 'help', href: '/llms.txt', title: 'LLM Context' } 
       ]
     }
+  },
+  pwa: {
+    registerType: 'autoUpdate',
+    manifest: {
+      name: 'Budaobu Portfolio',
+      short_name: 'Budaobu',
+      description: 'Non-dev, just vibe coding to stitch stuff together.',
+      theme_color: '#ffffff',
+      background_color: '#ffffff',
+      display: 'standalone',
+      orientation: 'portrait',
+      lang: 'en-US',
+      start_url: '/',
+      icons: [
+        {
+          src: '/pwa-192x192.webp',
+          sizes: '192x192',
+          type: 'image/png'
+        },
+        {
+          src: '/pwa-512x512.webp',
+          sizes: '512x512',
+          type: 'image/png'
+        },
+        {
+          src: '/pwa-512x512.webp',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable'
+        }
+      ]
+    },
+    workbox: {
+      navigateFallback: '/',
+      navigateFallbackDenylist: [/^\/api\//, /^\/go\//],
+      globPatterns: ['**/*.{js,css,html,png,svg,ico,webp,woff2}'],
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'cdn-fonts-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365 // 1年
+            },
+            cacheableResponse: {
+              statuses: [0, 200]
+            }
+          }
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+          handler: 'StaleWhileRevalidate',
+          options: {
+            cacheName: 'google-fonts-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 365 // 1年
+            }
+          }
+        }
+      ]
+    },
+    client: {
+      installPrompt: true,
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true,
+      navigateFallback: '/',
+      type: 'module',
+    },
   }
 })

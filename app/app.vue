@@ -3,6 +3,9 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
+
+    <!-- PWA 控制组件 (Toast) -->
+    <AppPwaControl />
   </UApp>
 </template>
 

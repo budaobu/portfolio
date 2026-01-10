@@ -9,21 +9,20 @@ export default defineEventHandler(async (event) => {
   }
 
   // 2. 定义静态短链接映射 (优先级最高)
-  // 这里集中管理所有的外部跳转链接
   const staticLinks: Record<string, string> = {
     // --- 社交媒体 ---
     'github': 'https://github.com/budaobu',
     'twitter': 'https://x.com/lizhaoshui',
     'x': 'https://x.com/lizhaoshui',
     'telegram': 'https://t.me/joeyhuey',
-    'whatsapp': 'https://wa.me/你的号码', // 请替换
-    'discord': '#', // 请替换真实链接
-    'instagram': '#', // 请替换真实链接
-    'youtube': '#', // 请替换真实链接
+    'whatsapp': 'https://wa.me/你的号码',
+    'discord': '#',
+    'instagram': '#',
+    'youtube': '#',
     
     // --- 音乐服务 ---
-    'spotify': '#', // 请替换真实链接
-    'applemusic': '#', // 请替换真实链接
+    'spotify': '#',
+    'applemusic': '#',
 
     // --- 站内功能快捷方式 ---
     'mail': '/connect',
@@ -32,7 +31,7 @@ export default defineEventHandler(async (event) => {
     'rss': '/rss.xml',
     
     // --- 特定资源 ---
-    'source': 'https://github.com/budaobu/portfolio', // 本站源码
+    'source': 'https://github.com/budaobu/portfolio',
     'coffee': 'https://buymeacoffee.com/lizhaoshui',
     
     // 默认回首页
@@ -47,7 +46,6 @@ export default defineEventHandler(async (event) => {
 
   // 检查静态映射
   if (staticLinks[key]) {
-    // 注意：如果是 '#' 占位符，说明还没配置，暂时跳回首页避免报错
     if (staticLinks[key] === '#') {
       return sendRedirect(event, '/')
     }
