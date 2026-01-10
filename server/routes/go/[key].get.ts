@@ -42,7 +42,7 @@ export default defineEventHandler(async (event) => {
     'claude': 'https://claude.ai',
     'chatgpt': 'https://chat.openai.com/',
     'gemini': 'https://gemini.google.com/',
-    'nuxtjs': 'https://nuxt.com',
+    'nuxtjs': 'https://nuxt.com'
   }
 
   // 检查静态映射
