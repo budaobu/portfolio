@@ -33,6 +33,24 @@
         />
       </div>
 
+      <!-- 新增：错误状态 UI -->
+      <div v-if="loadMoreError" class="flex flex-col items-center gap-4 py-8">
+        <UAlert 
+          color="orange" 
+          variant="soft"
+          icon="i-lucide-wifi-off"
+          :description="loadMoreError"
+          class="max-w-md"
+        />
+        <UButton
+          @click="retry"
+          color="primary"
+          variant="soft"
+          icon="i-lucide-refresh-cw"
+          label="Try Again"
+        />
+      </div>
+
       <div v-if="hasMore" ref="loadMoreTrigger" class="flex justify-center py-8">
         <UIcon name="i-lucide-loader-circle" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
@@ -66,6 +84,8 @@ const {
   pending, 
   error, 
   hasMore, 
-  loadMoreTrigger 
+  loadMoreTrigger,
+  loadMoreError,
+  retry
 } = await useInfiniteScroll<Project>('/api/projects', 9)
 </script>

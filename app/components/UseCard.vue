@@ -13,11 +13,13 @@
     >
       <component :is="item.imageUrl ? 'div' : 'template'">
         <div v-if="item.imageUrl" class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-800">
-          <img 
+          <NuxtImg 
             :src="item.imageUrl" 
             :alt="item.name"
             loading="lazy"
-            @error="handleImageError"
+            format="webp"
+            quality="80"
+            :placeholder="[50, 25, 75, 5]"
             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           

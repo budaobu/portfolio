@@ -156,24 +156,30 @@ export default defineNuxtConfig({
         {
           src: '/pwa-192x192.webp',
           sizes: '192x192',
-          type: 'image/png'
+          type: 'image/webp'
         },
         {
           src: '/pwa-512x512.webp',
           sizes: '512x512',
-          type: 'image/png'
+          type: 'image/webp'
         },
         {
           src: '/pwa-512x512.webp',
           sizes: '512x512',
-          type: 'image/png',
+          type: 'image/webp',
           purpose: 'any maskable'
         }
       ]
     },
     workbox: {
-      navigateFallback: '/',
-      navigateFallbackDenylist: [/^\/api\//, /^\/go\//],
+      navigateFallbackDenylist: [
+      /^\/api\/.*/,        // 排除所有 API 端点
+      /^\/go\/.*/,         // 排除短链接重定向
+      /^\/__nuxt_content.*/, // 排除内容查询
+      /^\/rss\.xml/,       // 排除 RSS
+      /^\/llms\.txt/,      // 排除 LLM 上下文
+      /^\/sitemap\.xml/    // 排除站点地图
+    ],
       globPatterns: ['**/*.{js,css,html,png,svg,ico,webp,woff2}'],
       runtimeCaching: [
         {
@@ -191,13 +197,24 @@ export default defineNuxtConfig({
           }
         },
         {
-          urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+          urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
           handler: 'StaleWhileRevalidate',
           options: {
             cacheName: 'google-fonts-cache',
             expiration: {
               maxEntries: 10,
-              maxAgeSeconds: 60 * 60 * 24 * 365 // 1年
+              maxAgeSeconds: 60 * 60 * 24 * 365
+            }
+          }
+        },
+        {
+          urlPattern: /^https:\/\/(github\.com|avatars\.githubusercontent\.com)\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'external-images-cache',
+            expiration: {
+              maxEntries: 20,
+              maxAgeSeconds: 60 * 60 * 24 * 7 // 7天
             }
           }
         }

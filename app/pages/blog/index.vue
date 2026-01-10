@@ -1,6 +1,5 @@
 <template>
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <!-- 页面头部 -->
     <div class="mb-12 md:mb-20">
       <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
         <span class="text-primary-500">|</span>
@@ -9,8 +8,6 @@
       <p class="text-lg text-gray-600 dark:text-gray-400">
         No Tech, just ramblings.
       </p>
-
-      <!-- 社交媒体图标栏 -->
       <div class="flex items-center gap-4 mt-6">
         <UTooltip 
           v-for="social in blogSocialLinks" 
@@ -31,7 +28,6 @@
       </div>
     </div>
 
-    <!-- 加载状态：骨架屏 -->
     <div v-if="pending" class="space-y-6">
       <div v-for="i in 3" :key="i">
         <UCard :ui="{ body: { padding: 'p-6 sm:p-8' } }">
@@ -47,7 +43,6 @@
       </div>
     </div>
 
-    <!-- 错误状态 -->
     <div v-else-if="error" class="text-center py-20">
       <div class="inline-flex justify-center items-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/30 mb-4">
         <UIcon name="i-heroicons-exclamation-triangle" class="w-8 h-8 text-red-500" />
@@ -55,25 +50,20 @@
       <p class="text-gray-500">Failed to fetch articles. Please try again later.</p>
     </div>
 
-    <!-- 空状态 -->
     <div v-else-if="!articles?.length" class="text-center py-24 bg-gray-50 dark:bg-gray-900 rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 animate-fade-in">
       <UIcon name="i-heroicons-document-text" class="w-12 h-12 text-gray-400 mb-4" />
       <p class="text-gray-500">No articles yet, stay tuned.</p>
     </div>
 
-    <!-- 文章列表：使用新的 BlogCard 组件 -->
     <div v-else class="space-y-6 animate-fade-in">
       <BlogCard
         v-for="article in articles"
         :key="article.path"
         :article="article"
       />
-
-      <!-- 无限滚动触发器 -->
       <div v-if="!allLoaded" ref="loadMoreTrigger" class="flex justify-center py-8">
         <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-gray-400" />
       </div>
-      <!-- 到底提示 -->
       <div v-else class="text-center py-12 text-gray-400 text-sm italic">
         - All rambled out. -
       </div>
@@ -88,39 +78,23 @@ const blogSocialLinks = computed(() =>
   socialLinks.filter(link => link.placement?.includes('blog'))
 )
 
-// 分页配置
 const PAGE_SIZE = 10
 const loadingMore = ref(false)
 const allLoaded = ref(false)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
 
-// 🔧 核心修复：增加重试逻辑
-const maxRetries = 3
-let retryCount = 0
-
-const fetchBlogList = async (): Promise<any[]> => {
-  try {
-    return await queryCollection('blog')
-      .order('date', 'DESC')
-      .limit(PAGE_SIZE)
-      .all()
-  } catch (error) {
-    // 如果是首次加载失败且未超过重试次数，等待后重试
-    if (retryCount < maxRetries) {
-      retryCount++
-      console.warn(`Blog data fetch failed, retrying (${retryCount}/${maxRetries})...`)
-      await new Promise(resolve => setTimeout(resolve, 300 * retryCount)) // 递增延迟
-      return fetchBlogList()
-    }
-    throw error
-  }
-}
-
+// 核心优化 1：增加 server: false，仅客户端查询
+// 核心优化 2：增加 dedupe: 'cancel'，避免重复请求
 const { data: articles, pending, error } = await useAsyncData(
   'blog-list', 
-  fetchBlogList,
+  () => queryCollection('blog')
+    .order('date', 'DESC')
+    .limit(PAGE_SIZE)
+    .all(),
   {
     lazy: true,
+    server: false,     // 关键：仅客户端执行
+    dedupe: 'cancel',  // 关键：取消重复请求
     watch: false
   }
 )

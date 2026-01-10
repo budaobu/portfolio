@@ -1,20 +1,25 @@
 export default defineEventHandler(async (event) => {
-  // 1. 获取站点配置
   const config = useRuntimeConfig()
   const siteUrl = config.public.siteUrl?.replace(/\/$/, '') || 'https://portfolio-2d2.pages.dev'
 
-  // 2. 获取文章列表 (按时间倒序)
   const posts = await queryCollection(event, 'blog')
     .order('date', 'DESC')
     .all()
 
-  // 3. 过滤文章 (忽略大小写)
   const validPosts = posts.filter(post => 
     !post.path.toLowerCase().includes('example') && 
     post.title.toLowerCase() !== 'example'
   )
 
-  // 4. 构建 RSS Item 字符串
+  const latestDate = validPosts[0]?.date || new Date().toISOString()
+  const etag = `"rss-${new Date(latestDate).getTime()}"`
+  
+  const clientEtag = getRequestHeader(event, 'if-none-match')
+  if (clientEtag === etag) {
+    setResponseStatus(event, 304)
+    return null
+  }
+
   const items = validPosts.map((post) => {
     const link = `${siteUrl}${post.path}`
     return `
@@ -27,7 +32,6 @@ export default defineEventHandler(async (event) => {
     </item>`
   }).join('')
 
-  // 5. 构建完整的 RSS XML 字符串
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
@@ -41,9 +45,9 @@ export default defineEventHandler(async (event) => {
 </channel>
 </rss>`
 
-  // 6. 关键：设置 Content-Type 为 XML
   setResponseHeader(event, 'Content-Type', 'application/xml')
+  setResponseHeader(event, 'ETag', etag)
+  setResponseHeader(event, 'Cache-Control', 'public, max-age=3600, stale-while-revalidate=86400')
   
-  // 7. 返回 XML 字符串
   return rss
 })
