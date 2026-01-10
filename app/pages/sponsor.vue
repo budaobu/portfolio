@@ -113,17 +113,9 @@
 </template>
 
 <script setup lang="ts">
-// 引入 Toast 组合式函数
 const toast = useToast()
 
-// SEO 优化
-useSeoMeta({
-  title: 'Sponsor, Fuel the AI-Stitched Chaos, Donate',
-  description: 'Support Budaobu\'s AI-stitched experiments. Stitching code together is exhausting work (even with AI). If it happens to be Thursday, please V me 50 for a KFC bucket.',
-  keywords: 'Sponsor, Donate, Budaobu, AI-Stitched, KFC Fund, V me 50, Support Creator',
-  ogTitle: 'Sponsor Budaobu - V me 50!',
-  ogDescription: 'The AI writes the code, but I have to do the stitching. Feed the stitcher. V me 50 for KFC Crazy Thursday.',
-})
+useSiteSeo('sponsor')
 
 interface SponsorMethod {
   id: number

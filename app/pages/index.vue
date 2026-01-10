@@ -6,8 +6,8 @@
         Hi👋🏻, I'm 
         <span class="text-roll-wrapper text-primary-600 dark:text-primary-400">
           <span class="text-roll-inner">
-            <span class="block">@Budaobu</span>
-            <span class="block">@Budaobu</span>
+            <span class="block">@{{ siteConfig.author }}</span>
+            <span class="block">@{{ siteConfig.author }}</span>
           </span>
         </span>
       </h1>
@@ -55,27 +55,13 @@
 </template>
 
 <script setup lang="ts">
-useSeoMeta({
-  title: 'Budaobu | AI-Stitched Personal Portfolio',
-  description: 'Non-dev, just vibe coding to stitch stuff together. An introvert\'s playground where everything is built by prompt and intuition.',
-  keywords: 'Budaobu, AI Stitched, Portfolio, Vibe Coding, Non-dev, Personal Website, Web Tools, Prompt Engineering',
-  ogTitle: 'Budaobu | AI-Stitched Personal Portfolio',
-  ogDescription: 'Non-dev, just vibe coding to stitch stuff together.',
-})
+const siteConfig = useSiteConfig()
+useSiteSeo('home')
 
 useHead({
   titleTemplate: '%s'
 })
 
-defineOgImageComponent('NuxtSeo', {
-  title: 'Budaobu | AI-Stitched Personal Portfolio',
-  description: 'Non-dev, just vibe coding to stitch stuff together.',
-  theme: '#3b82f6',
-  colorMode: 'dark',
-  siteLogo: 'https://github.com/budaobu.png'
-})
-
-// 原本的数据获取逻辑已移至 HomeFeaturedProjects 组件中，首页更轻量
 const homeSocialLinks = computed(() => 
   socialLinks.filter(link => link.placement?.includes('home'))
 )

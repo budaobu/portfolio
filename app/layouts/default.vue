@@ -23,7 +23,7 @@
             </span>
 
             
-            <span>Budaobu vibe with</span>
+            <span>{{ siteConfig.author }} vibe with</span>
             
             <span class="inline-flex items-center space-x-1 sm:-space-x-2 sm:hover:space-x-1 transition-all duration-500 ease-in-out px-1">
               <div 
@@ -81,6 +81,7 @@
 </template>
 
 <script setup lang="ts">
+const siteConfig = useSiteConfig()
 const currentYear = new Date().getFullYear()
 
 const aiTools = [

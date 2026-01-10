@@ -1,11 +1,5 @@
 <script setup lang="ts">
-// Page SEO Settings
-useSeoMeta({
-  title: 'Connect with me',
-  description: 'Whether for collaboration, tech talk, or just to say hi, feel free to reach out anytime.',
-  ogTitle: 'Connect with me',
-  ogDescription: 'Let\'s create something amazing together.'
-})
+useSiteSeo('connect')
 
 // Form State
 const state = reactive({

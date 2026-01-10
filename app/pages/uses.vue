@@ -50,13 +50,7 @@
 <script setup lang="ts">
 import type { Use } from '~/server/utils/usesData'
 
-useSeoMeta({
-  title: 'Uses, Goods, Stuff I Paid For',
-  description: 'Everything here is something I actually paid for. Welcome to my personal \'Buy\' list. Note: Links marked with AFF are affiliate links; I may earn a small commission at no extra cost to you.',
-  keywords: 'Uses, Goods, Shopping List, Budaobu, Tech Gear, Affiliate, My Buy List',
-  ogTitle: 'Budaobu\'s \'Buy\' List - Stuff I Paid For',
-  ogDescription: 'My wallet suffered for this list. A collection of things I actually spent money on. (AFF links included at no extra cost)',
-})
+useSiteSeo('uses')
 
 const { 
   items: allUses, 

@@ -82,13 +82,7 @@
 </template>
 
 <script setup lang="ts">
-useSeoMeta({
-  title: 'Blog, No Tech, Just Talking Nonsense',
-  description: 'No technical skills involved, just ramblings. This is a tech-free zone where I talk nonsense and share random thoughts without any professional filter.',
-  keywords: 'Blog, Ramblings, Nonsense, Budaobu, Random Thoughts, Non-Technical, Life Log, Just Talk',
-  ogTitle: 'Budaobu\'s Blog - No Tech, Just Nonsense',
-  ogDescription: 'Warning: Contains zero technical content. Just me rambling about random stuff. No code, just vibes.',
-})
+useSiteSeo('blog')
 
 const blogSocialLinks = computed(() => 
   socialLinks.filter(link => link.placement?.includes('blog'))

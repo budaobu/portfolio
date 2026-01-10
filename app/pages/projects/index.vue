@@ -59,13 +59,7 @@ interface Project {
   featured?: boolean
 }
 
-useSeoMeta({
-  title: 'Projects, The AI-Stitched Collection, Vibe Coding',
-  description: 'Meet the "Stitched Ones"—a collection of projects entirely stitched together by AI. My philosophy is Vibe Coding: I don\'t care how the code looks; the most important thing is that it runs.',
-  keywords: 'Projects, The Stitched Ones, AI-Stitched, Vibe Coding, Budaobu, Web Tools, Experimental Code, MVP',
-  ogTitle: 'Budaobu\'s Projects - The Stitched Collection',
-  ogDescription: 'Pure Vibe Coding. It might be messy under the hood, but hey, it runs. Come see the chaos.',
-})
+useSiteSeo('projects')
 
 const { 
   items: allProjects, 

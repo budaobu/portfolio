@@ -43,7 +43,6 @@ export default defineEventHandler(async (event) => {
     'chatgpt': 'https://chat.openai.com/',
     'gemini': 'https://gemini.google.com/',
     'nuxtjs': 'https://nuxt.com',
-    'coffee': 'https://buymeacoffee.com/lizhaoshui'
   }
 
   // 检查静态映射
