@@ -83,8 +83,8 @@ const loadingMore = ref(false)
 const allLoaded = ref(false)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
 
-// 核心优化 1：增加 server: false，仅客户端查询
-// 核心优化 2：增加 dedupe: 'cancel'，避免重复请求
+// 核心修复：移除 server: false（queryCollection 必须在服务端执行）
+// 保留其他优化：lazy: true + getCachedData 实现智能缓存
 const { data: articles, pending, error } = await useAsyncData(
   'blog-list', 
   () => queryCollection('blog')
@@ -93,8 +93,15 @@ const { data: articles, pending, error } = await useAsyncData(
     .all(),
   {
     lazy: true,
-    server: false,     // 关键：仅客户端执行
-    dedupe: 'cancel',  // 关键：取消重复请求
+    // ✅ 移除 server: false
+    // ✅ 移除 dedupe: 'cancel'（对 queryCollection 无意义）
+    
+    // 新增优化：使用缓存策略减少重复查询
+    getCachedData(key) {
+      // 如果 Nuxt 的 payload 中已有数据（SSR 传递），直接使用
+      const nuxtApp = useNuxtApp()
+      return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+    },
     watch: false
   }
 )
