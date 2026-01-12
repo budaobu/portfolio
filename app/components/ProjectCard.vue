@@ -98,13 +98,13 @@ const availabilityText = computed(() => {
   const hasGooglePlay = !!props.project.googlePlayUrl
 
   if (hasAppStore && hasGooglePlay) {
-    return "Now available on App Store and Google Play"
+    return "Available on App Store & Google Play"
   }
   if (hasAppStore) {
-    return "Now available on App Store"
+    return "Available on App Store"
   }
   if (hasGooglePlay) {
-    return "Now available on Google Play"
+    return "Available on Google Play"
   }
   return ""
 })
