@@ -2,7 +2,7 @@
   <div class="group relative h-full">
     <UCard 
       :ui="{ 
-        body: { padding: 'p-6' },
+        body: { padding: 'p-6' }, 
         base: 'h-full flex flex-col transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1'
       }"
     >
@@ -45,18 +45,19 @@
         <span>{{ availabilityText }}</span>
       </div>
 
-      <div class="relative flex items-center flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+      <div class="relative flex items-center justify-end flex-wrap gap-2 pt-4 border-t border-gray-100 dark:border-gray-800">
+        <!-- 
+          优化点：
+          通过 v-bind 将预计算好的属性直接绑定给 UButton，
+          代码更加干净，无需手动列出 :icon, :label 等
+        -->
         <UButton
           v-for="link in projectLinks"
-          :key="link.type"
+          :key="link.key"
+          v-bind="link.props"
           :to="link.url"
           target="_blank"
           size="xs"
-          color="gray"
-          :variant="link.variant"
-          :icon="link.icon"
-          :label="link.label"
-          :class="link.customClass"
           class="relative z-10"
         />
       </div>
@@ -65,12 +66,15 @@
 </template>
 
 <script setup lang="ts">
+import type { Project } from '~/app/utils/types'
+
 interface Props {
   project: Project
 }
 
 const props = defineProps<Props>()
 
+// --- 图标判断逻辑 ---
 const isImageIcon = computed(() => 
   props.project.icon.startsWith('http') || props.project.icon.startsWith('/')
 )
@@ -83,6 +87,7 @@ const isGithubOnly = computed(() =>
   !props.project.demoUrl && props.project.githubUrl
 )
 
+// --- 样式逻辑 ---
 const iconContainerClass = computed(() => {
   const baseClass = 'flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300'
   
@@ -94,80 +99,85 @@ const iconContainerClass = computed(() => {
 })
 
 const availabilityText = computed(() => {
-  const hasAppStore = !!props.project.appStoreUrl
-  const hasGooglePlay = !!props.project.googlePlayUrl
-
-  if (hasAppStore && hasGooglePlay) {
-    return "Available on App Store & Google Play"
-  }
-  if (hasAppStore) {
-    return "Available on App Store"
-  }
-  if (hasGooglePlay) {
-    return "Available on Google Play"
-  }
+  const { appStoreUrl, googlePlayUrl } = props.project
+  if (appStoreUrl && googlePlayUrl) return "Available on App Store & Google Play"
+  if (appStoreUrl) return "Available on App Store"
+  if (googlePlayUrl) return "Available on Google Play"
   return ""
 })
 
-interface ProjectLink {
-  type: string
-  url: string
-  icon: string
-  label: string
-  variant: 'ghost' | 'soft'
-  customClass: string
+// --- 链接生成逻辑优化 (Configuration Pattern) ---
+
+// 1. 定义配置接口：确保 key 必须是 Project 的属性名
+interface LinkDefinition {
+  key: keyof Project 
+  props: {
+    icon: string
+    label: string
+    variant: 'ghost' | 'soft' | 'solid'
+    color: string
+    class?: string
+  }
 }
 
-const projectLinks = computed(() => {
-  const links: ProjectLink[] = []
-  
-  if (props.project.appStoreUrl) {
-    links.push({
-      type: 'appStore',
-      url: props.project.appStoreUrl,
-      icon: 'i-simple-icons-appstore',
-      label: 'App Store',
-      variant: 'ghost',
-      customClass: 'text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-blue-900/20'
-    })
-  }
-  
-  if (props.project.googlePlayUrl) {
-    links.push({
-      type: 'googlePlay',
-      url: props.project.googlePlayUrl,
-      icon: 'i-simple-icons-googleplay',
-      label: 'Google Play',
-      variant: 'ghost',
-      customClass: 'text-[#00D363] hover:bg-green-50 dark:hover:bg-green-900/20'
-    })
-  }
-  
-  if (props.project.githubUrl) {
-    links.push({
-      type: 'github',
-      url: props.project.githubUrl,
-      icon: 'i-simple-icons-github',
-      label: 'GitHub',
-      variant: 'ghost',
-      customClass: 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300'
-    })
-  }
-  
-  if (props.project.demoUrl) {
-    links.push({
-      type: 'demo',
-      url: props.project.demoUrl,
-      icon: 'i-lucide-arrow-up-right',
+// 2. 静态配置表：易于阅读和扩展
+const LINK_CONFIG: LinkDefinition[] = [
+  {
+    key: 'demoUrl',
+    props: {
       label: 'Web',
+      icon: 'i-lucide-arrow-up-right',
       variant: 'soft',
-      customClass: 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300 ml-auto'
-    })
+      color: 'gray', // Nuxt UI color prop
+      class: 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300'
+    }
+  },
+  {
+    key: 'appStoreUrl',
+    props: {
+      label: 'App Store',
+      icon: 'i-simple-icons-appstore',
+      variant: 'ghost',
+      color: 'gray',
+      class: 'text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-blue-900/20'
+    }
+  },
+  {
+    key: 'googlePlayUrl',
+    props: {
+      label: 'Google Play',
+      icon: 'i-simple-icons-googleplay',
+      variant: 'ghost',
+      color: 'gray',
+      class: 'text-[#00D363] hover:bg-green-50 dark:hover:bg-green-900/20'
+    }
+  },
+  {
+    key: 'githubUrl',
+    props: {
+      label: 'GitHub',
+      icon: 'i-simple-icons-github',
+      variant: 'ghost',
+      color: 'gray',
+      class: 'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-300'
+    }
   }
-  
-  return links
+]
+
+// 3. 计算属性：基于配置生成最终数据
+const projectLinks = computed(() => {
+  return LINK_CONFIG
+    // 过滤：只有当 Project 对象中有对应 key 的值（且不为空）时才保留
+    .filter(def => !!props.project[def.key])
+    // 映射：组合配置属性和实际 URL
+    .map(def => ({
+      key: def.key,
+      url: props.project[def.key] as string,
+      props: def.props
+    }))
 })
 
+// 辅助函数
 const isExternal = (url?: string) => {
   if (!url) return false
   return url.startsWith('http')
