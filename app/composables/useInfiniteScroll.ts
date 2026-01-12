@@ -1,15 +1,12 @@
 import type { UseFetchOptions } from 'nuxt/app'
 
-interface PaginationResponse<T> {
-  items: T[]
-  hasMore: boolean
-  total?: number
-}
+// 移除本地 interface PaginationResponse 定义
+// 自动引用 app/utils/types.ts 中的 PaginatedResponse
 
 export async function useInfiniteScroll<T>(
   apiUrl: string, 
   pageSize: number = 9,
-  options: UseFetchOptions<PaginationResponse<T>> = {}
+  options: UseFetchOptions<PaginatedResponse<T>> = {} // 使用全局类型
 ) {
   const page = ref(1)
   const allItems = ref<T[]>([]) as Ref<T[]>
@@ -17,7 +14,6 @@ export async function useInfiniteScroll<T>(
   const loadingMore = ref(false)
   const loadMoreTrigger = ref<HTMLElement | null>(null)
   
-  // 新增：错误状态管理
   const loadMoreError = ref<string | null>(null)
   const retryCount = ref(0)
   const MAX_RETRIES = 3
@@ -25,13 +21,13 @@ export async function useInfiniteScroll<T>(
   const loadMore = async () => {
     if (loadingMore.value || !hasMore.value) return
     loadingMore.value = true
-    loadMoreError.value = null // 重置错误状态
+    loadMoreError.value = null
 
     try {
       const nextPage = page.value + 1
-      const response = await $fetch<PaginationResponse<T>>(apiUrl, {
+      // 使用全局类型
+      const response = await $fetch<PaginatedResponse<T>>(apiUrl, {
         query: { page: nextPage, limit: pageSize },
-        // 新增：请求超时设置
         timeout: 10000
       })
 
@@ -39,29 +35,26 @@ export async function useInfiniteScroll<T>(
         allItems.value.push(...response.items)
         hasMore.value = response.hasMore
         page.value = nextPage
-        retryCount.value = 0 // 成功后重置重试计数
+        retryCount.value = 0
       }
     } catch (err: any) {
       console.error('Failed to load more data:', err)
       
-      // 新增：详细错误处理
       if (retryCount.value < MAX_RETRIES) {
         retryCount.value++
         loadMoreError.value = `Loading failed. Retrying (${retryCount.value}/${MAX_RETRIES})...`
         
-        // 指数退避重试
         await new Promise(resolve => setTimeout(resolve, 1000 * retryCount.value))
-        return loadMore() // 递归重试
+        return loadMore()
       } else {
         loadMoreError.value = 'Failed to load more items. Please check your connection.'
-        hasMore.value = false // 达到最大重试次数后停止尝试
+        hasMore.value = false
       }
     } finally {
       loadingMore.value = false
     }
   }
 
-  // 新增：手动重试函数
   const retry = () => {
     retryCount.value = 0
     loadMoreError.value = null
@@ -88,10 +81,11 @@ export async function useInfiniteScroll<T>(
     observer?.disconnect()
   })
 
-  const { data, pending, error } = await useFetch<PaginationResponse<T>>(apiUrl, {
+  // 使用全局类型
+  const { data, pending, error } = await useFetch<PaginatedResponse<T>>(apiUrl, {
     lazy: true,
-    server: false, // 新增：仅客户端执行
-    dedupe: 'cancel', // 新增：避免重复请求
+    server: false,
+    dedupe: 'cancel',
     query: { page: 1, limit: pageSize },
     ...options,
     watch: false 
@@ -110,7 +104,7 @@ export async function useInfiniteScroll<T>(
     error,
     hasMore,
     loadMoreTrigger,
-    loadMoreError, // 新增：暴露错误状态
-    retry          // 新增：暴露重试函数
+    loadMoreError,
+    retry         
   }
 }
