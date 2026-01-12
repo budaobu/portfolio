@@ -52,20 +52,6 @@
 </template>
 
 <script setup lang="ts">
-interface Project {
-  id: number
-  title: string
-  description: string
-  icon: string
-  demoUrl?: string
-  githubUrl?: string
-  appStoreUrl?: string
-  googlePlayUrl?: string
-  mainUrl?: string
-  featured?: boolean
-}
-
-// 保持原有的数据获取逻辑
 const { data: featuredProjects, status, refresh } = await useFetch<Project[]>('/api/featuredProjects', {
   lazy: true,
   retry: 3,

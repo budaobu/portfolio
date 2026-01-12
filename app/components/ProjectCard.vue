@@ -65,18 +65,6 @@
 </template>
 
 <script setup lang="ts">
-interface Project {
-  id: number
-  title: string
-  description: string
-  icon: string
-  demoUrl?: string
-  githubUrl?: string
-  appStoreUrl?: string
-  googlePlayUrl?: string
-  mainUrl?: string
-}
-
 interface Props {
   project: Project
 }

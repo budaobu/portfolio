@@ -47,14 +47,6 @@
 </template>
 
 <script setup lang="ts">
-interface Project {
-  id: number
-  title: string
-  description: string
-  icon: string
-  mainUrl: string 
-}
-
 const props = defineProps<{
   project: Project
 }>()
