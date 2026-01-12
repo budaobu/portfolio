@@ -22,17 +22,17 @@ const rawProjects: Project[] = [
     demoUrl: '/projects/video2gif',
     githubUrl: 'https://github.com/budaobu/video2gif',
     date: '2025-12-01',
-    featured: true
+    featured: false
   },
   {
     id: 6,
     title: 'Portfolio',
     description: 'Personal Homepage。',
     icon: '/avatar.webp',
-    demoUrl: '/',
+    demoUrl: '',
     githubUrl: 'https://github.com/budaobu/portfolio',
     date: '2025-12-01',
-    featured: true
+    featured: false
   },
   {
     id: 5,
@@ -77,11 +77,11 @@ const rawProjects: Project[] = [
     id: 1,
     title: 'ASN CN',
     description: 'Fetch ASN CN data from bgp.he.net and whois.ipip.net daily.',
-    icon: '🌐',
+    icon: 'i-simple-icons-github', // 🌐
     demoUrl: '',
     githubUrl: 'https://github.com/budaobu/rules/blob/main/py/cn-asn-scraper.py',
     date: '2024-09-10',
-    featured: true
+    featured: false
   }
 ]
 
