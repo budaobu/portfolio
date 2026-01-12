@@ -130,10 +130,13 @@ export default defineNuxtConfig({
         { name: 'robots', content: 'index, follow' },
         { property: 'og:site_name', content: 'Budaobu Portfolio' },
         { property: 'og:type', content: 'website' },
-        { name: 'theme-color', content: '#ffffff' }
+        { name: 'theme-color', content: '#ffffff' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
+        { rel: 'apple-touch-icon', href: '/avatar.webp' },
         // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' },
         { rel: 'help', href: '/llms.txt', title: 'LLM Context' } 
