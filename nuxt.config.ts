@@ -97,9 +97,9 @@ export default defineNuxtConfig({
 
   ogImage: { prerender: true },
 
-  fonts: {
+  /* fonts: {
     families: [{ name: 'LXGW WenKai Screen', provider: 'none' }]
-  },
+  }, */
 
   content: {
     build: {
@@ -134,7 +134,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
-        { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' },
+        // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' },
         { rel: 'help', href: '/llms.txt', title: 'LLM Context' } 
       ]

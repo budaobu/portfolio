@@ -6,9 +6,9 @@
   而不是使用 tailwind.config.ts
 */
 @theme {
-  --font-sans: "LXGW WenKai Screen", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* --font-sans: "LXGW WenKai Screen", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
   
-  /* --- 新增：微交互动画注册 --- */
+  /* --- 微交互动画注册 --- */
   
   /* 1. 幽灵：四处张望 */
   --animate-look-around: look-around 2.4s ease-in-out infinite;
