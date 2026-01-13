@@ -4,9 +4,10 @@
     class="block group outline-none"
   >
     <UCard
+      class="transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-2 hover:ring-primary-500/50 dark:hover:ring-primary-400/50"
       :ui="{
         body: { padding: 'p-6 sm:p-8' },
-        base: 'transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-2 hover:ring-primary-500/20 dark:hover:ring-primary-400/20',
+        // base: 'transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:ring-2 hover:ring-primary-500/20 dark:hover:ring-primary-400/20',
         rounded: 'rounded-xl',
         shadow: 'shadow-sm',
         divide: '',

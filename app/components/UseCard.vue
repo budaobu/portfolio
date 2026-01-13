@@ -6,8 +6,9 @@
     class="group block h-full focus:outline-none focus:ring-2 focus:ring-primary-500 rounded-lg transition-all"
   >
     <UCard
+      class="transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50"
       :ui="{
-        base: 'h-full flex flex-col transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden',
+        base: 'h-full flex flex-col',
         body: { padding: 'p-0', base: 'flex-1 flex flex-col' }
       }"
     >
@@ -42,7 +43,7 @@
             <img 
               :src="getFavicon(item.linkUrl)" 
               :alt="item.brand"
-              class="w-12 h-12 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-1 object-contain flex-shrink-0" 
+              class="w-12 h-12 rounded-xl bg-white dark:bg-gray-800 p-1 object-contain flex-shrink-0 transition-transform duration-500 group-hover:scale-110" 
               @error="handleIconError"
             />
             <div class="flex-1 min-w-0">

@@ -24,13 +24,12 @@
           class="group block text-left focus:outline-none cursor-pointer"
         >
           <UCard
+            class="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50"
             :ui="{
-              body: { padding: 'p-6' },
-              base: 'transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ring-1 ring-gray-200 dark:ring-gray-800'
+              body: { padding: 'p-6' }
             }"
           >
             <div class="flex items-start gap-4">
-              <!-- 图标：Link 类型有 hover 放大效果 -->
               <div 
                 class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-2xl bg-primary-100 dark:bg-primary-900/30 group-hover:scale-110 transition-transform duration-300"
               >
@@ -60,7 +59,12 @@
           v-else
           class="group block text-left focus:outline-none"
         >
-          <UCard :ui="{ body: { padding: 'p-6' } }">
+          <UCard 
+            class="ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50 transition-all duration-300"
+            :ui="{ 
+              body: { padding: 'p-6' }
+            }"
+          >
             <div class="flex items-start gap-4">
               <!-- 图标：普通类型无特殊交互 -->
               <div 

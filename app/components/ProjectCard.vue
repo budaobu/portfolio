@@ -1,9 +1,10 @@
 <template>
   <div class="group relative h-full">
     <UCard 
+      class="transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1 ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50"
       :ui="{ 
-        body: { padding: 'p-6' }, 
-        base: 'h-full flex flex-col transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1'
+        body: { padding: 'p-6' },
+        base: 'h-full flex flex-col'
       }"
     >
       <div class="flex items-center gap-3 mb-4">
