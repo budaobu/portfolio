@@ -29,7 +29,7 @@
         </div>
 
         <div class="flex-1 flex flex-col transition-transform duration-300 ease-out group-hover:-translate-y-6">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 truncate">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
             {{ project.title }}
           </h3>
           <p class="text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 text-sm">

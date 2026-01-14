@@ -1,10 +1,7 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-/* Tailwind v4 主题配置覆盖 
-  在 v4 中，我们需要通过 @theme 块来覆盖默认的 CSS 变量，
-  而不是使用 tailwind.config.ts
-*/
+/* Tailwind v4 主题配置覆盖 */
 @theme {
   /* --font-sans: "LXGW WenKai Screen", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
   
@@ -21,6 +18,10 @@
   
   /* 4. 星星：闪烁 */
   --animate-twinkle: twinkle 1.5s ease-in-out infinite;
+
+  /* 5. 头像呼吸波：短距离 Ping (New!) */
+  /* scale(1.4) 确保 40px 的头像向外扩散 8px (40*1.4 = 56px) */
+  --animate-ping-short: ping-short 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 
   /* --- 关键帧定义 --- */
   @keyframes look-around {
@@ -44,6 +45,13 @@
   @keyframes twinkle {
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  @keyframes ping-short {
+    75%, 100% {
+      transform: scale(1.4);
+      opacity: 0;
+    }
   }
 }
 
