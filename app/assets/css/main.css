@@ -74,3 +74,16 @@
 .prose h2, .prose h3 {
   @apply scroll-mt-20;
 }
+
+/* --- View Transitions API 自定义 --- */
+/* 禁用默认的淡入淡出 (cross-fade)，让我们的 clip-path 动画接管 */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* 确保新视图在顶层，以便覆盖旧视图 */
+::view-transition-new(root) {
+  z-index: 2147483646;
+}
