@@ -384,7 +384,7 @@ const drawWatermark = () => {
 
   ctx.restore()
 
-  previewUrl.value = canvas.toDataURL('image/png')
+  previewUrl.value = canvas.toDataURL('image/jpeg', 0.95)
 }
 
 // 下载图片
@@ -393,7 +393,7 @@ const downloadImage = () => {
   
   const link = document.createElement('a')
   link.href = previewUrl.value
-  link.download = `watermarked_${Date.now()}.png`
+  link.download = `watermarked_${Date.now()}.jpg`
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
