@@ -18,7 +18,7 @@ const rawProjects: Project[] = [
     id: 8,
     title: 'Markitdown',
     description: 'Powerful file-to-markdown converter. Supporting PDF, DOCX, XLSX, and images. Processed with Microsoft’s MarkItDown engine.',
-    icon: '🎥',
+    icon: '📄',
     demoUrl: '/projects/markitdown',
     githubUrl: 'https://github.com/budaobu/portfolio/blob/master/app/pages/projects/markitdown.vue',
     date: '2026-01-26',
