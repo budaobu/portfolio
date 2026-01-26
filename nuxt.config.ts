@@ -31,9 +31,9 @@ export default defineNuxtConfig({
       routes: ['/', '/sitemap.xml', '/rss.xml', '/llms.txt']
     },
     alias: {
-      '@aws-sdk/client-s3': 'unenv/runtime/mock/proxy',
-      '@aws-sdk/lib-storage': 'unenv/runtime/mock/proxy',
-      'aws-sdk': 'unenv/runtime/mock/proxy'
+      '@aws-sdk/client-s3': 'unenv/mock/proxy',
+      '@aws-sdk/lib-storage': 'unenv/mock/proxy',
+      'aws-sdk': 'unenv/mock/proxy'
     }
   },
 
