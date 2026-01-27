@@ -14,7 +14,7 @@ export interface Project {
 
 // 原始数据：你可以随意添加，不用担心顺序
 const rawProjects: Project[] = [
-  {
+  /* {
     id: 8,
     title: 'Markitdown',
     description: 'Powerful file-to-markdown converter. Supporting PDF, DOCX, XLSX, and images. Processed with Microsoft MarkItDown engine.',
@@ -23,7 +23,7 @@ const rawProjects: Project[] = [
     githubUrl: 'https://github.com/budaobu/portfolio/blob/master/app/pages/projects/markitdown.vue',
     date: '2026-01-26',
     featured: true
-  },
+  }, */
   {
     id: 7,
     title: 'Video to GIF',
