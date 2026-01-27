@@ -29,11 +29,6 @@ export default defineNuxtConfig({
       // 明确告诉预渲染器忽略动态路由，防止生成 404 或空文件
       ignore: ['/connect', '/__nuxt_content', (path) => path.startsWith('/__nuxt_content')],
       routes: ['/', '/sitemap.xml', '/rss.xml', '/llms.txt']
-    },
-    alias: {
-      '@aws-sdk/client-s3': 'unenv/mock/proxy',
-      '@aws-sdk/lib-storage': 'unenv/mock/proxy',
-      'aws-sdk': 'unenv/mock/proxy'
     }
   },
 
