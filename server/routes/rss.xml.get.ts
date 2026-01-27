@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig()
-  const siteUrl = config.public.siteUrl?.replace(/\/$/, '') || 'https://portfolio-2d2.pages.dev'
+  const siteUrl = config.public.siteUrl?.replace(/\/$/, '')
 
   const posts = await queryCollection(event, 'blog')
     .order('date', 'DESC')

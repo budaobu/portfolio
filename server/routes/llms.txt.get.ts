@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   // 2. 获取基础配置
   const config = useRuntimeConfig()
   // 确保移除末尾斜杠
-  const siteUrl = config.public.siteUrl?.replace(/\/$/, '') || 'https://portfolio-2d2.pages.dev'
+  const siteUrl = config.public.siteUrl?.replace(/\/$/, '')
 
   // 3. 获取博客文章 (复用 Content Collection)
   // 获取最近的 10 篇文章

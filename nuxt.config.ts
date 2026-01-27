@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: 'https://portfolio-2d2.pages.dev',
+    url: process.env.NUXT_PUBLIC_SITE_URL || 'https://portfolio-2d2.pages.dev',
     name: 'Budaobu Portfolio',
     author: 'Budaobu',
     description: 'Non-dev, just vibe coding to stitch stuff together.'
@@ -46,7 +46,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     resendApiKey: '', 
     public: {
-      siteUrl: 'https://portfolio-2d2.pages.dev',
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://portfolio-2d2.pages.dev',
       siteName: 'Budaobu Portfolio',
       siteAuthor: 'Budaobu',
       siteDescription: 'Non-dev, just vibe coding to stitch stuff together.'
