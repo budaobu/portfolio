@@ -49,7 +49,7 @@ const rawProjects: Project[] = [
     title: 'Tinypic',
     description: 'In browser compression, process images locally without uploading.',
     icon: '🖼',
-    demoUrl: '/projects/tinypic',
+    demoUrl: 'https://tinypic-013.pages.dev/',
     githubUrl: 'https://github.com/budaobu/tinypic',
     date: '2025-11-29',
     featured: true
