@@ -68,7 +68,7 @@ const rawProjects: Project[] = [
     id: 3,
     title: 'ID Photo Watermarker',
     description: 'In browser watermarker, add text watermarks to ID photos. Customize position, opacity, and size for professional results.',
-    icon: '💻',
+    icon: '🪪',
     demoUrl: 'https://image-watermark-at5.pages.dev/',
     githubUrl: 'https://github.com/budaobu/image-watermark',
     date: '2025-01-05',
