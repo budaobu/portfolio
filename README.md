@@ -1,6 +1,6 @@
 # Budaobu Portfolio
 
-![Nuxt](https://img.shields.io/badge/Nuxt-4.2-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white)
+![Nuxt](https://img.shields.io/badge/Nuxt-4.3-00DC82?style=for-the-badge&logo=nuxt.js&logoColor=white)
 ![Vue.js](https://img.shields.io/badge/Vue.js-3.5-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
@@ -16,7 +16,7 @@ This is the source code for my personal portfolio, built on the **bleeding edge*
 
 ## ✨ Key Features
 
-* **⚡️ Bleeding Edge Stack**: Built with **Nuxt 4.2**, **Nuxt UI v4.3**, and **Tailwind CSS v4** (configured via `@theme` in CSS).
+* **⚡️ Bleeding Edge Stack**: Built with **Nuxt 4.3**, **Nuxt UI v4.4**, and **Tailwind CSS v4** (configured via `@theme` in CSS).
 * **🎨 AI-Stitched UI**: Clean, minimalist design with "Vibe Coding" aesthetics, featuring a custom Retro TV 404 page and CSS animations like the "Looking Around" ghost.
 * **📨 Serverless Contact Form**: Fully functional `/connect` page powered by Nitro server API (`/api/send`) and **Resend**, running seamlessly on Cloudflare Pages.
 * **📝 Content System**: Markdown-based blogging powered by **Nuxt Content**, featuring auto-generated TOCs, Shiki highlighting, and metadata handling.
@@ -31,9 +31,9 @@ This is the source code for my personal portfolio, built on the **bleeding edge*
 
 | Package | Version | Description |
 | :--- | :--- | :--- |
-| **Framework** | `nuxt v4.2.2` | The Intuitive Vue Framework |
-| **UI Library** | `@nuxt/ui v4.3.0` | UI components based on Tailwind 4 |
-| **Core** | `vue v3.5.26` | The Progressive JavaScript Framework |
+| **Framework** | `nuxt v4.3.0` | The Intuitive Vue Framework |
+| **UI Library** | `@nuxt/ui v4.4.0` | UI components based on Tailwind 4 |
+| **Core** | `vue v3.5.27` | The Progressive JavaScript Framework |
 | **Build Tool** | `vite v7.3.0` | Next Generation Frontend Tooling |
 | **Engine** | `nitro v2.12.9` | Server side rendering engine |
 | **Styling** | `tailwindcss v4` | Utility-first CSS framework |
