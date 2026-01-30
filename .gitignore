@@ -1,25 +1,76 @@
-# Nuxt dev/build outputs
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Nuxt outputs
 .output
 .data
 .nuxt
 .nitro
 .cache
 dist
-.wrangler
 
-# Node dependencies
-node_modules
+# Next.js outputs
+.next/
+out/
+build/
+
+# Deployment platforms
+.vercel
+.vercel/
+.netlify
+.wrangler
+.wrangler/
+.mf/
+
+# Environment files
+.env
+.env.*
+!.env.example
+.env.production
+.env.development
+.dev.vars
 
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Testing
+coverage/
+.nyc_output
+
+# IDE & Editors
+.vscode/
+.idea/
+.fleet
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+.Spotlight-V100
+.Trashes
+
+# Package manager
+.yarn/
+.pnpm-store/
+
+# Temporary
+*.tmp
+.temp/
+tmp/
 
 # Misc
-.DS_Store
-.fleet
-.idea
-
-# Local env files
-.env
-.env.*
-!.env.example
+.turbo
+tsconfig.tsbuildinfo
+vercel.json.local
+wrangler.toml.local
