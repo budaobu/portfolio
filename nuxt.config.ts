@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxt/content',
+    '@nuxtjs/mdc',
     '@nuxt/image',
     '@nuxtjs/seo',
     '@nuxthub/core',
