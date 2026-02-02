@@ -152,18 +152,13 @@
       <div class="lg:col-span-2 flex flex-col h-full">
         <!-- 状态1: 未上传图片 -->
         <div 
-          v-if="!previewUrl"
+          v-if="!hasImage"
           ref="dropZoneRef"
           @click="triggerFileSelect"
           @dragover.prevent="isDragging = true"
           @dragleave.prevent="isDragging = false"
           @drop.prevent="handleDrop"
-          :class="[
-            'flex-1 border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all duration-200 cursor-pointer min-h-[400px] shadow-sm group',
-            isDragging 
-              ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/10' 
-              : 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-primary-400'
-          ]"
+          :class="[baseDropClass, isDragging ? dragClass : idleClass]"
         >
           <div class="w-20 h-20 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200 shadow-sm">
             <UIcon name="i-heroicons-photo" class="w-10 h-10" />
@@ -180,16 +175,44 @@
           />
         </div>
 
-        <!-- 状态2: 图片预览 -->
+        <!-- 状态2: 图片预览 (DOM 实时渲染水印) -->
         <div v-else class="flex flex-col gap-4 animate-fade-in">
           <div class="relative bg-gray-100 dark:bg-gray-900 rounded-xl overflow-hidden ring-1 ring-gray-200 dark:ring-gray-800 shadow-sm group">
-            <!-- Canvas 实际绘制结果预览 -->
-            <img 
-              :src="previewUrl" 
-              class="w-full h-auto max-h-[70vh] object-contain mx-auto" 
-              alt="Watermarked Preview"
-            >
-            
+            <!-- 图片容器，图片按宽度自适应 -->
+            <div ref="previewWrapRef" class="w-full flex items-center justify-center p-6">
+              <div ref="previewContainerRef" class="relative overflow-hidden" :style="previewContainerStyle">
+                <img 
+                  ref="imgRef"
+                  :src="imageSrc"
+                  :alt="'Preview image'"
+                  class="block max-w-full h-auto object-contain"
+                  @load="onImageLoad"
+                />
+
+                <!-- 覆盖层：通过绝对定位的文本元素实现水印 -->
+                <div class="absolute inset-0 pointer-events-none">
+                  <!-- 平铺模式：渲染多个 text 元素 -->
+                  <template v-if="config.tiled">
+                    <span 
+                      v-for="(p, idx) in scaledTiles"
+                      :key="idx"
+                      class="watermark-text absolute whitespace-nowrap font-bold leading-none"
+                      :style="tileStyle(p)"
+                    >{{ config.text }}</span>
+                  </template>
+
+                  <!-- 单点模式：渲染单个 text 元素 -->
+                  <template v-else>
+                    <span 
+                      v-if="singlePos"
+                      class="watermark-text absolute whitespace-nowrap font-bold leading-none"
+                      :style="singleStyle"
+                    >{{ config.text }}</span>
+                  </template>
+                </div>
+              </div>
+            </div>
+
             <!-- 重新上传遮罩 -->
             <div 
               @click="triggerFileSelect"
@@ -225,14 +248,15 @@
           @change="handleFileChange"
         >
         
-        <!-- 隐藏的 Canvas 用于绘图 -->
-        <canvas ref="canvasRef" class="hidden"></canvas>
+        <!-- 离屏 Canvas 仅在下载时临时创建，不放在 DOM 中 -->
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, reactive, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
+
 // SEO
 useSeoMeta({
   title: '证件照加水印',
@@ -242,17 +266,30 @@ useSeoMeta({
 
 const toast = useToast()
 
-// --- 状态定义 ---
+// --- refs & state ---
 const fileInputRef = ref<HTMLInputElement | null>(null)
-const canvasRef = ref<HTMLCanvasElement | null>(null)
+const dropZoneRef = ref<HTMLElement | null>(null)
+const imgRef = ref<HTMLImageElement | null>(null)
+const previewWrapRef = ref<HTMLElement | null>(null)
+const previewContainerRef = ref<HTMLElement | null>(null)
+
 const isDragging = ref(false)
 
-// 原始图片对象
-const originalImage = ref<HTMLImageElement | null>(null)
-// 预览图 URL
-const previewUrl = ref('')
+const imageSrc = ref('')
+const naturalWidth = ref(0)
+const naturalHeight = ref(0)
+const displayedWidth = ref(0)
+const displayedHeight = ref(0)
 
-// 配置项 - 明确类型
+// measurement canvas context for text metrics
+let measureCtx: CanvasRenderingContext2D | null = null
+
+onMounted(() => {
+  const c = document.createElement('canvas')
+  measureCtx = c.getContext('2d')
+})
+
+// --- 配置类型与默认值 ---
 interface WatermarkConfig {
   text: string
   color: string
@@ -279,19 +316,17 @@ const defaultConfig: WatermarkConfig = {
 
 const config = reactive<WatermarkConfig>({ ...defaultConfig })
 
-// --- 方法 ---
-
-// 重置设置
 const resetSettings = () => {
   Object.assign(config, { ...defaultConfig })
 }
 
-// 触发文件选择
+// --- file / drag handlers ---
+const hasImage = computed(() => !!imageSrc.value)
+
 const triggerFileSelect = () => {
   fileInputRef.value?.click()
 }
 
-// 处理文件上传
 const handleFiles = (fileList: FileList | null) => {
   if (!fileList || fileList.length === 0) return
   
@@ -303,12 +338,8 @@ const handleFiles = (fileList: FileList | null) => {
 
   const reader = new FileReader()
   reader.onload = (e) => {
-    const img = new Image()
-    img.onload = () => {
-      originalImage.value = img
-      drawWatermark()
-    }
-    img.src = e.target?.result as string
+    imageSrc.value = e.target?.result as string
+    // image load will set natural size via onImageLoad
   }
   reader.readAsDataURL(file)
 }
@@ -324,89 +355,316 @@ const handleDrop = (e: DragEvent) => {
   handleFiles(e.dataTransfer?.files || null)
 }
 
-// 核心:绘制水印
-const drawWatermark = () => {
-  if (!originalImage.value || !canvasRef.value) return
+// --- preview style classes ---
+const baseDropClass = 'flex-1 border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all duration-200 cursor-pointer min-h-[400px] shadow-sm group'
+const dragClass = 'border-primary-500 bg-primary-50 dark:bg-primary-900/10'
+const idleClass = 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-primary-400'
 
-  const canvas = canvasRef.value
-  const ctx = canvas.getContext('2d')
-  if (!ctx) return
+// --- 辅助函数 ---
+const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v))
 
-  const img = originalImage.value
-  
-  canvas.width = img.naturalWidth
-  canvas.height = img.naturalHeight
+function hexToRgba(hex: string, alpha = 1) {
+  // 支持 #rrggbb 与 #rgb
+  let h = hex.replace('#', '')
+  if (h.length === 3) {
+    h = h.split('').map(ch => ch + ch).join('')
+  }
+  const bigint = parseInt(h, 16)
+  const r = (bigint >> 16) & 255
+  const g = (bigint >> 8) & 255
+  const b = bigint & 255
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
 
-  ctx.drawImage(img, 0, 0)
-
-  ctx.save()
-
-  const baseFontSize = Math.max(20, img.naturalWidth / 20)
-  const scaleFactor = 0.5 + (config.size / 100) * 2.5
+// 计算基础字号与字体度量，返回 {fontSize, textWidth}
+function calcFontMetrics(nw: number, cfg: WatermarkConfig) {
+  const baseFontSize = Math.max(20, nw / 20)
+  const scaleFactor = 0.5 + (cfg.size / 100) * 2.5
   const fontSize = baseFontSize * scaleFactor
+  if (measureCtx) {
+    measureCtx.font = `bold ${fontSize}px sans-serif`
+    const metrics = measureCtx.measureText(cfg.text || '')
+    const textWidth = metrics.width
+    return { fontSize, textWidth }
+  }
+  // fallback
+  return { fontSize, textWidth: fontSize * (cfg.text.length || 1) * 0.6 }
+}
 
-  ctx.font = `bold ${fontSize}px sans-serif`
-  ctx.fillStyle = config.color
-  ctx.globalAlpha = config.opacity / 100
-  ctx.textBaseline = 'middle'
-  ctx.textAlign = 'center'
+// 旋转点 (x,y) 绕原点旋转 angle (弧度)
+function rotateVec(x: number, y: number, angle: number) {
+  const cos = Math.cos(angle)
+  const sin = Math.sin(angle)
+  return {
+    x: x * cos - y * sin,
+    y: x * sin + y * cos
+  }
+}
 
-  if (config.tiled) {
-    const angle = (config.rotate * Math.PI) / 180
-    
-    ctx.translate(canvas.width / 2, canvas.height / 2)
-    ctx.rotate(angle)
+// 生成平铺模式下的文本位置，返回自然像素坐标数组 [{x,y}]
+function generateTilePositions(nw: number, nh: number, cfg: WatermarkConfig) {
+  const { fontSize, textWidth } = calcFontMetrics(nw, cfg)
+  const angle = (cfg.rotate * Math.PI) / 180
 
-    const textMetrics = ctx.measureText(config.text)
-    const textWidth = textMetrics.width
-    
-    const gapX = textWidth + fontSize * (0.5 + (config.gap / 100) * 4)
-    const gapY = fontSize + fontSize * (0.5 + (config.gap / 100) * 4)
+  const gapX = textWidth + fontSize * (0.5 + (cfg.gap / 100) * 4)
+  const gapY = fontSize + fontSize * (0.5 + (cfg.gap / 100) * 4)
 
-    const diag = Math.sqrt(Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2))
-    const limit = diag / 2 + Math.max(gapX, gapY)
+  const diag = Math.sqrt(nw * nw + nh * nh)
+  const limit = diag / 2 + Math.max(gapX, gapY)
 
-    for (let x = -limit; x < limit; x += gapX) {
-      for (let y = -limit; y < limit; y += gapY) {
-        const offsetX = (Math.floor(y / gapY) % 2 === 0) ? 0 : gapX / 2
-        ctx.fillText(config.text, x + offsetX, y)
-      }
+  const centerX = nw / 2
+  const centerY = nh / 2
+
+  const positions: Array<{ x: number; y: number }> = []
+
+  for (let x = -limit; x < limit; x += gapX) {
+    for (let y = -limit; y < limit; y += gapY) {
+      const offsetX = (Math.floor(y / gapY) % 2 === 0) ? 0 : gapX / 2
+      const vec = rotateVec(x + offsetX, y, angle)
+      const px = centerX + vec.x
+      const py = centerY + vec.y
+      // 过滤掉完全远离画布的点
+      if (px < -fontSize || px > nw + fontSize || py < -fontSize || py > nh + fontSize) continue
+      positions.push({ x: px, y: py })
     }
-  } else {
-    const posX = (img.naturalWidth * config.x) / 100
-    const posY = (img.naturalHeight * config.y) / 100
-
-    ctx.translate(posX, posY)
-    ctx.rotate((config.rotate * Math.PI) / 180)
-
-    ctx.fillText(config.text, 0, 0)
   }
 
-  ctx.restore()
-
-  previewUrl.value = canvas.toDataURL('image/png')
+  return { positions, fontSize, angle, textWidth }
 }
 
-// 下载图片
-const downloadImage = () => {
-  if (!previewUrl.value) return
-  
-  const link = document.createElement('a')
-  link.href = previewUrl.value
-  link.download = `watermarked_${Date.now()}.png`
-  document.body.appendChild(link)
-  link.click()
-  document.body.removeChild(link)
-  
-  toast.add({ title: '下载成功', description: '图片已保存到本地', color: 'green' })
+// 生成单点模式下的位置
+function generateSinglePosition(nw: number, nh: number, cfg: WatermarkConfig) {
+  const { fontSize } = calcFontMetrics(nw, cfg)
+  const angle = (cfg.rotate * Math.PI) / 180
+  const px = (nw * cfg.x) / 100
+  const py = (nh * cfg.y) / 100
+  return { x: px, y: py, fontSize, angle }
 }
 
-// 监听配置变化，实时重绘
-watch(config, () => {
-  if (originalImage.value) {
-    requestAnimationFrame(drawWatermark)
+// --- 预览数据 (基于自然像素计算，然后缩放到显示尺寸) ---
+const tilesNatural = ref<Array<{ x: number; y: number }>>([])
+const tileFontSizeNatural = ref(24)
+const tileAngle = ref(0)
+const singleNatural = ref<{ x: number; y: number; fontSize: number; angle: number } | null>(null)
+
+// scaled for DOM (px)
+const scaledTiles = ref<Array<{ x: number; y: number }>>([])
+const singlePos = ref<{ x: number; y: number; fontSize: number; angle: number } | null>(null)
+const displayScale = computed(() => {
+  if (!naturalWidth.value || !displayedWidth.value) return 1
+  return displayedWidth.value / naturalWidth.value
+})
+
+// container style to ensure wrapper size equals image displayed size
+const previewContainerStyle = computed(() => {
+  // we keep container width equal to displayedWidth; height auto
+  return {
+    width: displayedWidth.value ? `${displayedWidth.value}px` : 'auto',
+    height: displayedHeight.value ? `${displayedHeight.value}px` : 'auto'
   }
 })
+
+// compute per-element style for tiles (DOM)
+function tileStyle(p: { x: number; y: number }) {
+  const fs = tileFontSizeNatural.value * displayScale.value
+  const transform = `translate(-50%, -50%) rotate(${(tileAngle.value * 180 / Math.PI).toFixed(2)}deg)`
+  return {
+    left: `${(p.x * displayScale.value).toFixed(2)}px`,
+    top: `${(p.y * displayScale.value).toFixed(2)}px`,
+    fontSize: `${fs.toFixed(2)}px`,
+    color: hexToRgba(config.color, 1),
+    opacity: `${(config.opacity / 100).toFixed(2)}`,
+    transform
+  }
+}
+
+// single element style
+const singleStyle = computed(() => {
+  if (!singlePos.value) return {}
+  const fs = singlePos.value.fontSize * displayScale.value
+  const transform = `translate(-50%, -50%) rotate(${(singlePos.value.angle * 180 / Math.PI).toFixed(2)}deg)`
+  return {
+    left: `${(singlePos.value.x * displayScale.value).toFixed(2)}px`,
+    top: `${(singlePos.value.y * displayScale.value).toFixed(2)}px`,
+    fontSize: `${fs.toFixed(2)}px`,
+    color: hexToRgba(config.color, 1),
+    opacity: `${(config.opacity / 100).toFixed(2)}`,
+    transform
+  }
+})
+
+// 计算自然像素与 scaled DOM 数据，使用 rAF 节流
+let rafId = 0
+function recomputePositions() {
+  cancelAnimationFrame(rafId)
+  rafId = requestAnimationFrame(() => {
+    if (!naturalWidth.value || !naturalHeight.value) {
+      tilesNatural.value = []
+      scaledTiles.value = []
+      singleNatural.value = null
+      singlePos.value = null
+      return
+    }
+    if (config.tiled) {
+      const res = generateTilePositions(naturalWidth.value, naturalHeight.value, config)
+      tilesNatural.value = res.positions
+      tileFontSizeNatural.value = res.fontSize
+      tileAngle.value = res.angle
+      // scaled
+      scaledTiles.value = res.positions.map(p => ({ x: p.x, y: p.y }))
+      // singlePos cleared
+      singleNatural.value = null
+      singlePos.value = null
+    } else {
+      const res = generateSinglePosition(naturalWidth.value, naturalHeight.value, config)
+      singleNatural.value = res
+      singlePos.value = { ...res }
+      // clear tiles
+      tilesNatural.value = []
+      scaledTiles.value = []
+    }
+  })
+}
+
+// watch configuration and image natural size
+watch([() => config.text, () => config.color, () => config.opacity, () => config.size, () => config.rotate, () => config.x, () => config.y, () => config.tiled, () => config.gap, () => naturalWidth.value, () => naturalHeight.value], () => {
+  recomputePositions()
+}, { deep: true })
+
+// image load handler to capture natural size and displayed size
+function onImageLoad() {
+  const img = imgRef.value
+  if (!img) return
+  naturalWidth.value = img.naturalWidth
+  naturalHeight.value = img.naturalHeight
+
+  // measure displayed size via client bounding
+  nextTick(() => {
+    updateDisplayedSize()
+    // attach ResizeObserver to respond to layout changes
+    attachResizeObserver()
+    recomputePositions()
+  })
+}
+
+// get displayed size
+function updateDisplayedSize() {
+  const img = imgRef.value
+  if (!img) return
+  displayedWidth.value = img.clientWidth
+  displayedHeight.value = img.clientHeight
+}
+
+// ResizeObserver to handle responsive layout
+let ro: ResizeObserver | null = null
+function attachResizeObserver() {
+  if (!imgRef.value) return
+  if (ro) {
+    ro.disconnect()
+    ro = null
+  }
+  ro = new ResizeObserver(() => {
+    updateDisplayedSize()
+  })
+  ro.observe(imgRef.value)
+}
+
+onBeforeUnmount(() => {
+  if (ro) {
+    ro.disconnect()
+    ro = null
+  }
+  cancelAnimationFrame(rafId)
+})
+
+// --- 下载：在离屏 Canvas 上绘制，与 DOM 计算使用同一套算法，保证 1:1 对齐 ---
+async function downloadImage() {
+  if (!naturalWidth.value || !naturalHeight.value || !imgRef.value) {
+    toast.add({ title: '错误', description: '请先上传图片', color: 'red' })
+    return
+  }
+
+  // 创建离屏 canvas
+  const canvas = document.createElement('canvas')
+  canvas.width = naturalWidth.value
+  canvas.height = naturalHeight.value
+  const ctx = canvas.getContext('2d')
+  if (!ctx) {
+    toast.add({ title: '错误', description: 'Canvas 初始化失败', color: 'red' })
+    return
+  }
+
+  // draw original image at natural size
+  // 如果 imageSrc 是 dataURL，直接用 imgRef 的 natural size
+  await new Promise<void>((resolve) => {
+    // 如果图片已经加载完毕，直接 drawImage
+    if (imgRef.value && imgRef.value.complete) {
+      ctx.drawImage(imgRef.value, 0, 0, naturalWidth.value, naturalHeight.value)
+      resolve()
+    } else {
+      // precaution
+      const tmp = new Image()
+      tmp.onload = () => {
+        ctx.drawImage(tmp, 0, 0, naturalWidth.value, naturalHeight.value)
+        resolve()
+      }
+      tmp.src = imageSrc.value
+    }
+  })
+
+  // 绘制文本的共同设置
+  ctx.textBaseline = 'middle'
+  ctx.textAlign = 'center'
+  ctx.fillStyle = hexToRgba(config.color, config.opacity / 100)
+
+  if (config.tiled) {
+    // reuse generation on natural sizes
+    const { positions, fontSize, angle } = (() => {
+      const { positions, fontSize, angle } = (() => {
+        const res = generateTilePositions(naturalWidth.value, naturalHeight.value, config)
+        return { positions: res.positions, fontSize: res.fontSize, angle: res.angle }
+      })()
+      return { positions, fontSize, angle }
+    })()
+
+    ctx.save()
+    // for each position, translate to px and rotate before drawing
+    positions.forEach(p => {
+      ctx.save()
+      ctx.translate(p.x, p.y)
+      ctx.rotate(angle)
+      ctx.font = `bold ${fontSize}px sans-serif`
+      ctx.fillText(config.text, 0, 0)
+      ctx.restore()
+    })
+    ctx.restore()
+  } else {
+    const single = generateSinglePosition(naturalWidth.value, naturalHeight.value, config)
+    ctx.save()
+    ctx.translate(single.x, single.y)
+    ctx.rotate(single.angle)
+    ctx.font = `bold ${single.fontSize}px sans-serif`
+    ctx.fillText(config.text, 0, 0)
+    ctx.restore()
+  }
+
+  // 导出为 blob，触发下载
+  canvas.toBlob((blob) => {
+    if (!blob) {
+      toast.add({ title: '错误', description: '图片导出失败', color: 'red' })
+      return
+    }
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = `watermarked_${Date.now()}.png`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+    toast.add({ title: '下载成功', description: '图片已保存到本地', color: 'green' })
+  }, 'image/png')
+}
 </script>
 
 <style scoped>
@@ -417,5 +675,19 @@ watch(config, () => {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* 水印文本样式，所有变换在内联 style 中控制 */
+.watermark-text {
+  pointer-events: none;
+  user-select: none;
+  transform-origin: center center;
+  white-space: nowrap;
+}
+
+/* 让文字更清晰（避免子像素模糊），在需要时可调整 */
+.watermark-text {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 </style>
