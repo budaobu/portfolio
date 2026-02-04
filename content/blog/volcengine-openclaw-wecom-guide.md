@@ -1,8 +1,8 @@
 ---
-title: '火山引擎OpenClaw+火山方舟+企业微信机器人 一站式踩坑实战指南'
-date: '2026-02-03'
-description: '从ClawdBot迁移至OpenClaw，解决企业微信机器人连接失败、公网访问异常、配置不生效等全流程问题，附完整可复用命令'
-category: 'OpenClaw/Wecom'
+title: "火山引擎OpenClaw+火山方舟+企业微信机器人 一站式踩坑实战指南"
+date: "2026-02-03"
+description: "从ClawdBot迁移至OpenClaw，解决企业微信机器人连接失败、公网访问异常、配置不生效等全流程问题，附完整可复用命令"
+category: "OpenClaw/Wecom"
 ---
 
 # 火山引擎OpenClaw+火山方舟+WeCom企微机器人 踩坑记

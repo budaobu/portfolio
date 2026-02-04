@@ -58,22 +58,25 @@ export default defineNuxtConfig({
     async 'nitro:config'(nitroConfig) {
       const contentDir = resolve(process.cwd(), 'content/blog')
       
-      if (!existsSync(contentDir)) {
-        console.warn('⚠️  content/blog directory not found')
-        return
-      }
+      if (!existsSync(contentDir)) return
       
       const files = readdirSync(contentDir)
       const blogRoutes = files
         .filter(file => file.endsWith('.md'))
-        .filter(file => file !== 'Example.md')
-        .map(file => `/blog/${file.replace('.md', '')}`)
+        .filter(file => !['Example.md', 'example.md'].includes(file))
+        .map(file => {
+          // 移除 .md 后缀
+          const slug = file.replace(/\.md$/, '')
+          // 关键：对可能存在的中文或特殊字符文件名进行 URL 编码
+          // 即使建议使用英文文件名，这层保护也能防止部署崩溃
+          return `/blog/${encodeURI(slug)}`
+        })
       
       nitroConfig.prerender = nitroConfig.prerender || {}
       nitroConfig.prerender.routes = nitroConfig.prerender.routes || []
       nitroConfig.prerender.routes.push(...blogRoutes)
       
-      console.log('📝 Explicitly added', blogRoutes.length, 'blog routes')
+      console.log('📝 Prerendering', blogRoutes.length, 'blog articles')
     }
   },
 
