@@ -5,7 +5,7 @@ export default defineEventHandler((event) => {
   // 1. 获取查询参数
   const query = getQuery(event)
   const page = Math.max(1, Number(query.page) || 1)
-  const limit = Math.max(1, Number(query.limit) || 9) // 默认每页 9 个
+  const limit = Math.max(1, Number(query.limit) || 8) // 默认每页 8 个
 
   // 2. 优化：不再需要排序，直接使用有序的 uses
   // const sortedUses = [...uses].sort((a, b) => b.id - a.id) <--- 删除这行
