@@ -70,7 +70,7 @@ const rawUses: Use[] = [
     imageUrl: '',
     linkUrl: 'https://nssurge.com/',
     isAffiliate: false
-  },
+  }/* ,
   {
     id: 1,
     brand: 'Dler Cloud',
@@ -80,7 +80,7 @@ const rawUses: Use[] = [
     imageUrl: '',
     linkUrl: 'https://dlercloud.com/auth/register?affid=39909',
     isAffiliate: true
-  }
+  } */
 ]
 
 // 核心优化：统一在此处按 ID 降序排列
