@@ -86,12 +86,12 @@ const currentYear = new Date().getFullYear()
 
 const aiTools = [
   {
-    name: 'Gemini 3.0 Pro',
+    name: 'Gemini',
     icon: '/gemini-color.svg',
     url: '/go/gemini'
   },
   {
-    name: 'Claude 4.5 Sonnet',
+    name: 'Claude',
     icon: '/claude-color.svg',
     url: '/go/claude'
   }
