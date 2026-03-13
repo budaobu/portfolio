@@ -147,8 +147,6 @@ const copyAddress = async (address: string | undefined) => {
       timeout: 3000 // 3秒后自动消失
     })
   } catch (err) {
-    console.error('Copy failed:', err)
-    
     // 错误处理提示
     toast.add({
       title: 'Copy Failed',

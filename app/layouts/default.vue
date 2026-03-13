@@ -13,8 +13,7 @@
           <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
 
             <span>&copy; {{ currentYear }} </span>
-            <!-- <span class="hidden sm:inline">·</span> -->
-            
+
             <span class="relative flex h-2 w-2" aria-hidden="true">
 
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>

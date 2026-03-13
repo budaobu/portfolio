@@ -87,14 +87,6 @@ useHead({
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
   opacity: 0;
-  transform: translateY(20px);
   animation-delay: 0.2s;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>

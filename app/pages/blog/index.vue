@@ -20,7 +20,7 @@
             target="_blank"
             rel="noopener noreferrer nofollow"
             :aria-label="social.name"
-            class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-orange-500 dark:hover:text-orange-400 text-gray-600 dark:text-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
+            class="w-9 h-9 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600 dark:hover:text-primary-400 text-gray-600 dark:text-gray-400 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500"
           >
             <UIcon :name="social.icon" class="w-5 h-5" />
           </NuxtLink>
@@ -132,7 +132,7 @@ const loadMore = async () => {
       articles.value.push(...moreArticles)
     }
   } catch (err) {
-    console.error('Failed to load more:', err)
+    // Silent fail - user can retry via scroll
   } finally {
     loadingMore.value = false
   }
@@ -156,13 +156,5 @@ onMounted(() => {
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
   opacity: 0;
-  transform: translateY(20px);
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>

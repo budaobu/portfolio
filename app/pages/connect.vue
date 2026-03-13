@@ -50,7 +50,6 @@ const onSubmit = async () => {
     state.message = ''
     
   } catch (error: any) {
-    console.error('Form submission error:', error)
     toast.add({
       title: 'Submission Failed',
       description: error.statusMessage || 'Something went wrong. Please try again later.',

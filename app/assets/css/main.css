@@ -23,6 +23,9 @@
   /* scale(1.4) 确保 40px 的头像向外扩散 8px (40*1.4 = 56px) */
   --animate-ping-short: ping-short 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 
+  /* 6. 通用淡入动画 */
+  --animate-fade-in: fadeIn 0.8s ease-out forwards;
+
   /* --- 关键帧定义 --- */
   @keyframes look-around {
     0%, 16.6%, 100% { transform: translateX(-1.5px) translateY(0); }
@@ -51,6 +54,17 @@
     75%, 100% {
       transform: scale(1.4);
       opacity: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }

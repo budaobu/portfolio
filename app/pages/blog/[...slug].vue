@@ -206,10 +206,11 @@ const shareArticle = () => {
 <style scoped>
 /* 简单的淡入动画，让内容出现时更平滑 */
 .animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
+  animation: fadeInQuick 0.5s ease-out forwards;
+  opacity: 0;
 }
 
-@keyframes fadeIn {
+@keyframes fadeInQuick {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }

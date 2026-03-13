@@ -63,10 +63,6 @@ const { data: featuredProjects, status, refresh } = await useFetch<Project[]>('/
 <style scoped>
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  opacity: 0;
 }
 </style>
