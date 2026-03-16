@@ -12,6 +12,16 @@ export interface Use {
 // 原始数据：顺序无所谓，后面会统一排
 const rawUses: Use[] = [
   {
+    id: 8,
+    brand: 'MiniMax',
+    name: 'MiniMax Coding Plan',
+    category: 'AI',
+    description: '🎁 MiniMax 跨年福利来袭！邀好友享 Coding Plan 双重好礼，助力开发体验！好友立享 9折 专属优惠 + Builder 权益，你赢返利 + 社区特权！',
+    imageUrl: '',
+    linkUrl: 'https://platform.minimaxi.com/subscribe/coding-plan?code=JlyAP7koQk&source=link',
+    isAffiliate: true
+  },
+  {
     id: 7,
     brand: 'Google',
     name: 'Gemini Pro',
