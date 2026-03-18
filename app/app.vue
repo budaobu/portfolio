@@ -10,12 +10,12 @@
 <script setup lang="ts">
 useHead({
   titleTemplate: (titleChunk) => {
-    return titleChunk && titleChunk !== 'Budaobu' 
-      ? `${titleChunk} - Budaobu` 
+    return titleChunk && titleChunk !== 'Budaobu'
+      ? `${titleChunk} - Budaobu`
       : 'Budaobu'
   },
   bodyAttrs: {
-    class: 'bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 antialiased'
+    class: 'bg-warm-50 dark:bg-olive-950 text-warm-900 dark:text-warm-100 antialiased font-sans'
   }
 })
 </script>

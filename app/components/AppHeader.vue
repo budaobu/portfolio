@@ -1,20 +1,21 @@
 <template>
-  <header class="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md">
+  <header class="sticky top-0 z-50 border-b border-warm-200 dark:border-warm-800 bg-warm-50/90 dark:bg-olive-950/90 backdrop-blur-md">
     <UContainer class="h-16 flex items-center justify-between">
       <NuxtLink to="/" class="flex items-center gap-3 group" aria-label="Back to Home">
         <div class="relative flex items-center justify-center">
-          <span class="absolute inset-0 rounded-full bg-primary-500/30 dark:bg-primary-400/30 z-0 opacity-0 group-hover:opacity-100 group-hover:animate-ping-short group-active:opacity-100 group-active:animate-ping-short" aria-hidden="true"></span>
-          
-          <img 
-            :src="avatarUrl" 
+          <span class="absolute inset-0 rounded-sm bg-coral-500/20 z-0 opacity-0 group-hover:opacity-100 group-hover:animate-ping-short" aria-hidden="true"></span>
+
+          <img
+            :src="avatarUrl"
             @error="handleImageError"
             alt="Budaobu"
-            class="relative z-10 w-10 h-10 rounded-full ring-2 ring-gray-200 dark:ring-gray-800 group-hover:ring-primary-500 transition-all object-cover bg-white dark:bg-gray-950"
+            class="relative z-10 w-9 h-9 rounded-sm ring-2 ring-warm-300 dark:ring-warm-700 group-hover:ring-coral-500 transition-all object-cover bg-white dark:bg-warm-950"
           />
         </div>
+        <span class="font-serif font-medium text-warm-900 dark:text-warm-100 hidden sm:block">Budaobu</span>
       </NuxtLink>
-      
-      <div class="flex items-center gap-2 sm:gap-4">
+
+      <div class="flex items-center gap-1 sm:gap-2">
         <template v-for="item in navItems" :key="item.path">
           <UButton
             v-if="!isMobile"
@@ -23,6 +24,7 @@
             variant="ghost"
             :label="item.label"
             :class="getNavClass(item.path)"
+            class="rounded-sm"
           />
           <UButton
             v-else
@@ -32,18 +34,20 @@
             :icon="item.icon"
             :class="getMobileNavClass(item.path)"
             :aria-label="item.label"
+            class="rounded-sm"
           />
         </template>
 
         <UButton
           to="/sponsor"
-          color="primary"
-          variant="soft"
+          color="coral"
+          variant="ghost"
           icon="i-heroicons-heart-solid"
           :label="isMobile ? undefined : 'Sponsor'"
           :aria-label="isMobile ? 'Sponsor' : undefined"
+          class="rounded-sm"
         />
-        
+
         <ThemeToggle />
       </div>
     </UContainer>
@@ -78,16 +82,16 @@ onUnmounted(() => {
 const getNavClass = (path: string) => {
   const isActive = route.path.startsWith(path)
   return [
-    'transition-colors',
-    isActive 
-      ? 'text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800' 
-      : 'hover:text-primary-500 dark:hover:text-primary-400'
+    'transition-colors rounded-sm',
+    isActive
+      ? 'text-coral-600 dark:text-coral-400 bg-warm-200 dark:bg-warm-800'
+      : 'hover:text-coral-600 dark:hover:text-coral-400'
   ]
 }
 
 const getMobileNavClass = (path: string) => {
-  return route.path.startsWith(path) 
-    ? 'text-primary-500 dark:text-primary-400 bg-gray-100 dark:bg-gray-800' 
+  return route.path.startsWith(path)
+    ? 'text-coral-600 dark:text-coral-400 bg-warm-200 dark:bg-warm-800'
     : ''
 }
 

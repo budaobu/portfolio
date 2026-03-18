@@ -3,8 +3,61 @@
 
 /* Tailwind v4 主题配置覆盖 */
 @theme {
-  /* --font-sans: "LXGW WenKai Screen", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
-  
+  /* 字体配置 - 使用 Playfair Display + Outfit */
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+
+  /* 自定义颜色 - 温暖的大地色调 */
+  --color-warm-50: #FAF9F6;
+  --color-warm-100: #F5F3EE;
+  --color-warm-200: #E8E4DB;
+  --color-warm-300: #D4CFC2;
+  --color-warm-400: #B8B2A4;
+  --color-warm-500: #9A9282;
+  --color-warm-600: #7D7668;
+  --color-warm-700: #5F5950;
+  --color-warm-800: #423D36;
+  --color-warm-900: #252220;
+
+  /* 珊瑚色强调色 */
+  --color-coral-50: #FEF3EF;
+  --color-coral-100: #FDE4DB;
+  --color-coral-200: #FBC9B7;
+  --color-coral-300: #F8A590;
+  --color-coral-400: #F47D66;
+  --color-coral-500: #E85A3F;
+  --color-coral-600: #D94A2B;
+  --color-coral-700: #B53B23;
+  --color-coral-800: #912F1E;
+  --color-coral-900: #6E2419;
+  --color-coral-950: #3B130E;
+
+  /* 深橄榄色作为深色模式的强调 */
+  --color-olive-50: #F4F3F0;
+  --color-olive-100: #E5E2DB;
+  --color-olive-200: #CBC5B7;
+  --color-olive-300: #A9A08E;
+  --color-olive-400: #85806B;
+  --color-olive-500: #686152;
+  --color-olive-600: #544D41;
+  --color-olive-700: #423D36;
+  --color-olive-800: #352F29;
+  --color-olive-900: #2A2621;
+  --color-olive-950: #151311;
+
+  /* 覆盖 Nuxt UI 的主色调 */
+  --color-primary-50: var(--color-coral-50);
+  --color-primary-100: var(--color-coral-100);
+  --color-primary-200: var(--color-coral-200);
+  --color-primary-300: var(--color-coral-300);
+  --color-primary-400: var(--color-coral-400);
+  --color-primary-500: var(--color-coral-500);
+  --color-primary-600: var(--color-coral-600);
+  --color-primary-700: var(--color-coral-700);
+  --color-primary-800: var(--color-coral-800);
+  --color-primary-900: var(--color-coral-900);
+  --color-primary-950: var(--color-coral-950);
+
   /* --- 微交互动画注册 --- */
   
   /* 1. 幽灵：四处张望 */

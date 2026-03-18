@@ -3,7 +3,7 @@
     color="gray"
     variant="ghost"
     aria-label="Toggle Theme"
-    class="group relative overflow-hidden"
+    class="group relative overflow-hidden rounded-sm"
     @click="toggleTheme"
   >
     <Transition

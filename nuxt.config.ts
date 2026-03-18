@@ -134,16 +134,18 @@ export default defineNuxtConfig({
         { name: 'robots', content: 'index, follow' },
         { property: 'og:site_name', content: 'Budaobu Portfolio' },
         { property: 'og:type', content: 'website' },
-        { name: 'theme-color', content: '#ffffff' },
+        { name: 'theme-color', content: '#FAF9F6' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
       ],
       link: [
         { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
         { rel: 'apple-touch-icon', href: '/avatar.webp' },
-        // { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.7.0/style.min.css' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' },
-        { rel: 'help', href: '/llms.txt', title: 'LLM Context' } 
+        { rel: 'help', href: '/llms.txt', title: 'LLM Context' }
       ]
     }
   },

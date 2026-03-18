@@ -2,48 +2,54 @@
   <NuxtLink
     :to="project.mainUrl"
     :target="isExternal(project.mainUrl) ? '_blank' : '_self'"
-    class="group block h-full focus:outline-none"
+    class="group block h-full bg-warm-50 dark:bg-olive-900 p-6 sm:p-8 focus:outline-none transition-colors duration-300 hover:bg-warm-100 dark:hover:bg-olive-800"
   >
-    <UCard 
-      class="overflow-hidden transition-all duration-300 group-hover:shadow-lg bg-white dark:bg-gray-900 ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50"
-      :ui="{ 
-        body: { padding: 'p-0' },
-        base: 'h-full flex flex-col'
-      }"
-    >
-      <div class="relative h-full p-6 flex flex-col">
-        
-        <div class="mb-4 transition-transform duration-300 ease-out origin-top-left group-hover:scale-60">
-          <img 
+    <div class="h-full flex flex-col">
+      <!-- Icon area -->
+      <div class="mb-6">
+        <div
+          :class="iconContainerClass"
+          class="w-14 h-14 flex items-center justify-center"
+        >
+          <img
             v-if="isImageIcon"
-            :src="project.icon" 
-            class="w-12 h-12 object-contain rounded-xl bg-gray-50 dark:bg-gray-800/50 shadow-sm ring-1 ring-gray-100 dark:ring-gray-700" 
-            alt="icon" 
+            :src="project.icon"
+            class="w-10 h-10 object-contain"
+            alt="Project icon"
           />
-          <UIcon 
-            v-else-if="isIconifyIcon" 
-            :name="project.icon" 
-            class="w-12 h-12 text-gray-900 dark:text-white" 
+          <UIcon
+            v-else-if="isIconifyIcon"
+            :name="project.icon"
+            class="w-8 h-8 text-warm-900 dark:text-warm-100"
           />
-          <span v-else class="text-4xl">{{ project.icon }}</span>
+          <span v-else class="text-3xl">{{ project.icon }}</span>
         </div>
-
-        <div class="flex-1 flex flex-col transition-transform duration-300 ease-out group-hover:-translate-y-6">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2 truncate group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-            {{ project.title }}
-          </h3>
-          <p class="text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 text-sm">
-            {{ project.description }}
-          </p>
-        </div>
-
-        <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between opacity-0 translate-y-4 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0">
-          <span class="font-bold text-gray-900 dark:text-white text-sm">Visit</span>
-          <UIcon name="i-lucide-arrow-up-right" class="w-4 h-4 text-gray-900 dark:text-white" />
-        </div>
-
       </div>
-    </UCard>
+
+      <!-- Content -->
+      <div class="flex-1">
+        <h3 class="text-xl font-serif font-medium text-warm-900 dark:text-warm-100 mb-3 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
+          {{ project.title }}
+        </h3>
+        <p class="text-warm-600 dark:text-warm-400 leading-relaxed line-clamp-3 text-sm">
+          {{ project.description }}
+        </p>
+      </div>
+
+      <!-- Arrow accent -->
+      <div class="mt-6 flex items-center justify-between">
+        <span v-if="availabilityText" class="text-xs font-medium text-coral-600 dark:text-coral-400">
+          {{ availabilityText }}
+        </span>
+        <span v-else class="text-sm font-medium text-warm-500 group-hover:text-coral-500 transition-colors">
+          Explore
+        </span>
+        <UIcon
+          name="i-lucide-arrow-up-right"
+          class="w-5 h-5 text-warm-400 group-hover:text-coral-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+        />
+      </div>
+    </div>
   </NuxtLink>
 </template>
 
@@ -52,13 +58,32 @@ const props = defineProps<{
   project: Project
 }>()
 
-const isImageIcon = computed(() => 
+const isImageIcon = computed(() =>
   props.project.icon.startsWith('http') || props.project.icon.startsWith('/')
 )
 
-const isIconifyIcon = computed(() => 
+const isIconifyIcon = computed(() =>
   props.project.icon.startsWith('i-')
 )
+
+const isGithubOnly = computed(() =>
+  !props.project.demoUrl && props.project.githubUrl
+)
+
+const iconContainerClass = computed(() => {
+  if (isGithubOnly.value) {
+    return 'bg-warm-200 dark:bg-warm-800'
+  }
+  return 'bg-coral-100 dark:bg-coral-900/30'
+})
+
+const availabilityText = computed(() => {
+  const { appStoreUrl, googlePlayUrl } = props.project
+  if (appStoreUrl && googlePlayUrl) return "App Store & Google Play"
+  if (appStoreUrl) return "App Store"
+  if (googlePlayUrl) return "Google Play"
+  return ""
+})
 
 const isExternal = (url?: string) => {
   if (!url) return false
