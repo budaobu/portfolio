@@ -7,7 +7,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-warm-200 dark:border-warm-800 py-10 mt-16 bg-warm-100 dark:bg-olive-900">
+    <footer class="border-t border-warm-200 dark:border-warm-800 bg-warm-50/90 dark:bg-olive-950/90 backdrop-blur-md py-10 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-6">
 
