@@ -127,19 +127,27 @@
   @apply max-w-none;
 }
 
-/* 需求 4: 文章内的普通图片居中 */
+/* 文章内的普通图片居中 */
 .prose img {
-  @apply mx-auto rounded-lg shadow-sm my-8;
+  @apply mx-auto rounded-sm shadow-sm my-8;
 }
 
-/* 链接样式 */
-.prose a {
-  @apply text-primary-600 dark:text-primary-400 no-underline hover:underline;
+/* 链接样式 - warm theme */
+.prose-warm a {
+  @apply text-coral-600 dark:text-coral-400 no-underline hover:underline;
 }
 
 /* 标题锚点微调 */
 .prose h2, .prose h3 {
   @apply scroll-mt-20;
+}
+
+/* 标题使用衬线字体 */
+.prose-warm h1,
+.prose-warm h2,
+.prose-warm h3,
+.prose-warm h4 {
+  @apply font-serif;
 }
 
 /* --- View Transitions API 自定义 --- */
