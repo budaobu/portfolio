@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { socialLinks as socialLinksData } from '~/utils/appData'
+
 useSiteSeo('connect')
 
 // Form State
@@ -11,11 +13,9 @@ const state = reactive({
 const isLoading = ref(false)
 const toast = useToast()
 
-const socialLinks = [
-  { name: 'GitHub', url: 'https://github.com/budaobu', icon: 'i-simple-icons-github' },
-  { name: 'Twitter', url: 'https://x.com/budaobu', icon: 'i-simple-icons-x' },
-  { name: 'Telegram', url: 'https://t.me/budaobu', icon: 'i-simple-icons-telegram' }
-]
+const socialLinks = computed(() =>
+  socialLinksData.filter(link => link.placement?.includes('connect'))
+)
 
 // Real Form Submission via local API (Resend)
 const onSubmit = async () => {

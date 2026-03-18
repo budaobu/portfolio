@@ -11,7 +11,7 @@ export const socialLinks = [
     // 原始: 'https://t.me/joeyhuey'
     // 修改为短链接，统一由服务端控制跳转
     url: '/go/telegram',
-    placement: ['home']
+    placement: ['home', 'connect']
   },
   /* {
     name: 'Discord',
@@ -28,7 +28,7 @@ export const socialLinks = [
   {
     name: 'WhatsApp',
     icon: 'i-simple-icons-whatsapp',
-    url: '/go/whatsapp', 
+    url: '/go/whatsapp',
     placement: ['home']
   },
   {
@@ -50,11 +50,17 @@ export const socialLinks = [
     placement: ['home', 'footer']
   }, */
   {
-    name: 'Source on GitHub',
+    name: 'GitHub',
     icon: 'i-simple-icons-github',
     // 原始: 'https://github.com/budaobu/portfolio'
-    url: '/go/source', 
-    placement: ['footer']
+    url: '/go/github',
+    placement: ['footer', 'connect']
+  },
+  {
+    name: 'X',
+    icon: 'i-simple-icons-x',
+    url: '/go/x',
+    placement: ['connect']
   },
   {
     name: 'RSS feed',
@@ -71,7 +77,7 @@ export const socialLinks = [
   {
     name: 'Email',
     icon: 'i-lucide-mail',
-    url: '/connect', 
+    url: '/connect',
     placement: ['footer']
   }
 ]
