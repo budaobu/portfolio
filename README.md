@@ -17,7 +17,7 @@ This is the source code for my personal portfolio, built on the **bleeding edge*
 ## ✨ Key Features
 
 * **⚡️ Bleeding Edge Stack**: Built with **Nuxt 4.3**, **Nuxt UI v4.4**, and **Tailwind CSS v4** (configured via `@theme` in CSS).
-* **🎨 AI-Stitched UI**: Clean, minimalist design with "Vibe Coding" aesthetics, featuring a custom Retro TV 404 page and CSS animations like the "Looking Around" ghost.
+* **🎨 Editorial Design**: Neo-Editorial aesthetic with warm earth tones, Playfair Display + Outfit typography, and coral accents.
 * **📨 Serverless Contact Form**: Fully functional `/connect` page powered by Nitro server API (`/api/send`) and **Resend**, running seamlessly on Cloudflare Pages.
 * **📝 Content System**: Markdown-based blogging powered by **Nuxt Content**, featuring auto-generated TOCs, Shiki highlighting, and metadata handling.
 * **🖼️ Media Handling**: Custom lightbox component (`ImageGallery`) and optimized image delivery.
@@ -99,10 +99,11 @@ When connecting your repository to **Cloudflare Pages**, use the following setti
 
 ### Environment Variables
 
-| Variable | Description |
-| :--- | :--- |
-| `NUXT_PUBLIC_SITE_URL` | `https://your-domain.com` (Recommended for SEO/Sitemap) |
-| `NUXT_RESEND_API_KEY` | Your **Resend** API key (Required for Contact Form) |
+| Variable | Description | Where to Configure |
+| :--- | :--- | :--- |
+| `NUXT_PUBLIC_SITE_URL` | `https://your-domain.com` (Recommended for SEO/Sitemap) | wrangler.toml or Dashboard |
+| `NUXT_RESEND_API_KEY` | Your **Resend** API key (Required for Contact Form) | Dashboard (Secrets) |
+| `NUXT_RESEND_TO_EMAIL` | Target email address for contact form messages | Dashboard (Secrets) |
 
 ---
 
