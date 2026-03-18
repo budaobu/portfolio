@@ -2,14 +2,12 @@ export const socialLinks = [
   /* {
     name: 'X',
     icon: 'i-simple-icons-x',
-    url: '/go/x',  // 使用短链接
-    placement: ['home']
+    url: '/go/x',
+    placement: ['home', 'connect']
   }, */
   {
     name: 'Telegram',
     icon: 'i-simple-icons-telegram',
-    // 原始: 'https://t.me/joeyhuey'
-    // 修改为短链接，统一由服务端控制跳转
     url: '/go/telegram',
     placement: ['home', 'connect']
   },
@@ -52,15 +50,8 @@ export const socialLinks = [
   {
     name: 'GitHub',
     icon: 'i-simple-icons-github',
-    // 原始: 'https://github.com/budaobu/portfolio'
-    url: '/go/github',
-    placement: ['footer', 'connect']
-  },
-  {
-    name: 'X',
-    icon: 'i-simple-icons-x',
-    url: '/go/x',
-    placement: ['connect']
+    url: '/go/source',
+    placement: ['footer']
   },
   {
     name: 'RSS feed',
