@@ -9,16 +9,25 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // 2. 获取 API Key (通过 Nuxt Runtime Config)
-  // 对应 nuxt.config.ts 中的 runtimeConfig.resendApiKey
+  // 2. 获取 API Key 和收件人邮箱 (通过 Nuxt Runtime Config)
+  // 对应 nuxt.config.ts 中的 runtimeConfig.resendApiKey 和 resendToEmail
   const config = useRuntimeConfig()
   const resendApiKey = config.resendApiKey
+  const resendToEmail = config.resendToEmail
 
   if (!resendApiKey) {
     console.error('RESEND_API_KEY is missing in runtime config')
     throw createError({
       statusCode: 500,
-      statusMessage: 'Server configuration error: API Key missing',
+      statusMessage: 'Server configuration error: API Key missing'
+    })
+  }
+
+  if (!resendToEmail) {
+    console.error('RESEND_TO_EMAIL is missing in runtime config')
+    throw createError({
+      statusCode: 500,
+      statusMessage: 'Server configuration error: Target email missing'
     })
   }
 
@@ -33,8 +42,7 @@ export default defineEventHandler(async (event) => {
       body: {
         // 注意：如果你没有在 Resend 绑定域名，必须使用 'onboarding@resend.dev'
         from: 'Portfolio Contact <onboarding@resend.dev>',
-        // TODO: 确保这里是你自己的接收邮箱
-        to: ['lizhaoshui@duck.com'], 
+        to: [resendToEmail], 
         subject: `New Message from ${body.name}`,
         reply_to: body.email,
         html: `

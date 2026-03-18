@@ -45,7 +45,8 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    resendApiKey: '', 
+    resendApiKey: process.env.NUXT_RESEND_API_KEY || '',
+    resendToEmail: process.env.NUXT_RESEND_TO_EMAIL || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://portfolio-2d2.pages.dev',
       siteName: 'Budaobu Portfolio',

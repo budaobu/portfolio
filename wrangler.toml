@@ -4,3 +4,4 @@ pages_build_output_dir = "dist"
 
 [vars]
 NUXT_PUBLIC_SITE_URL = "https://0m0.dev"
+NUXT_RESEND_TO_EMAIL = "lizhaoshui@duck.com"
