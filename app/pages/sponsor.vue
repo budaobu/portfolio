@@ -1,99 +1,92 @@
 <template>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="mb-12">
-      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-        <span class="text-primary-500">|</span>
-        Sponsor
-      </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+    <!-- Page Header -->
+    <div class="mb-16">
+      <div class="relative inline-block">
+        <!-- Decorative accent -->
+        <span class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-16 bg-coral-500"></span>
+        <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-medium text-warm-900 dark:text-warm-100">
+          Sponsor
+        </h1>
+      </div>
+      <p class="mt-6 text-xl text-warm-600 dark:text-warm-400 max-w-2xl leading-relaxed">
         V me 50 for KFC Crazy Thursday.
       </p>
     </div>
 
-    <div class="space-y-6">
+    <!-- Sponsor Methods Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <template v-for="method in sponsorMethods" :key="method.id">
-        <!-- 
-          分支 1: 链接类型 
-          使用 NuxtLink 包裹卡片，确保整个卡片可点击
-          添加 block 类确保填满宽度
-        -->
+        <!-- Link Type -->
         <NuxtLink
           v-if="method.type === 'link'"
           :to="method.url"
           target="_blank"
-          class="group block text-left focus:outline-none cursor-pointer"
+          class="group block focus:outline-none"
         >
-          <UCard
-            class="transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50"
-            :ui="{
-              body: { padding: 'p-6' }
-            }"
-          >
+          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-all duration-300 hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
             <div class="flex items-start gap-4">
-              <div 
-                class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-2xl bg-primary-100 dark:bg-primary-900/30 group-hover:scale-110 transition-transform duration-300"
+              <div
+                class="flex-shrink-0 w-12 h-12 flex items-center justify-center text-2xl"
+                :class="method.icon.includes('K') ? 'bg-coral-100 dark:bg-coral-900/30' : 'bg-warm-200 dark:bg-warm-800'"
               >
                 {{ method.icon }}
               </div>
 
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-2">
-                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  <h3 class="text-xl font-medium text-warm-900 dark:text-warm-100 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
                     {{ method.title }}
                   </h3>
-                  <UIcon 
-                    name="i-lucide-circle-arrow-out-up-right"
-                    class="w-4 h-4 text-gray-400 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+                  <UIcon
+                    name="i-lucide-arrow-up-right"
+                    class="w-4 h-4 text-warm-400 group-hover:text-coral-500 transition-colors"
                   />
                 </div>
-                <p class="text-gray-600 dark:text-gray-400 mb-3">
+                <p class="text-warm-600 dark:text-warm-400">
                   {{ method.description }}
                 </p>
               </div>
             </div>
-          </UCard>
+          </div>
         </NuxtLink>
 
-        <!-- 分支 2: 非链接类型 (如二维码、地址) -->
+        <!-- Address or QRCode Type -->
         <div
           v-else
-          class="group block text-left focus:outline-none"
+          class="group block focus:outline-none"
         >
-          <UCard 
-            class="ring-1 ring-gray-200 dark:ring-gray-800 group-hover:!ring-2 group-hover:!ring-primary-500/50 dark:group-hover:!ring-primary-400/50 transition-all duration-300"
-            :ui="{ 
-              body: { padding: 'p-6' }
-            }"
-          >
+          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-all duration-300 hover:border-coral-500/50">
             <div class="flex items-start gap-4">
-              <!-- 图标：普通类型无特殊交互 -->
-              <div 
+              <!-- Icon: regular type -->
+              <div
                 v-if="method.type !== 'qrcode'"
-                class="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center text-2xl bg-gray-100 dark:bg-gray-800"
+                class="flex-shrink-0 w-12 h-12 flex items-center justify-center text-2xl bg-warm-200 dark:bg-warm-800"
               >
                 {{ method.icon }}
               </div>
 
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-2 mb-2">
-                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h3 class="text-xl font-medium text-warm-900 dark:text-warm-100">
                     {{ method.title }}
                   </h3>
                 </div>
 
-                <p class="text-gray-600 dark:text-gray-400 mb-3">
+                <p class="text-warm-600 dark:text-warm-400 mb-3">
                   {{ method.description }}
                 </p>
 
                 <div v-if="method.type === 'address'" class="flex items-center gap-2">
-                  <code class="flex-1 px-3 py-2 bg-gray-100 dark:bg-gray-800 rounded text-sm text-gray-900 dark:text-white font-mono break-all">
+                  <code class="flex-1 px-3 py-2 bg-warm-200 dark:bg-warm-800 rounded-sm text-sm text-warm-900 dark:text-warm-100 font-mono break-all">
                     {{ method.address }}
                   </code>
                   <UButton
                     icon="i-heroicons-clipboard-document"
                     color="gray"
-                    variant="soft"
+                    variant="outline"
                     size="sm"
+                    class="rounded-sm"
                     @click.stop="copyAddress(method.address)"
                   >
                     Copy
@@ -104,12 +97,12 @@
                   <img
                     :src="method.qrcode"
                     :alt="method.title"
-                    class="w-48 h-full rounded-lg border border-gray-200 dark:border-gray-700"
+                    class="w-48 h-auto rounded-sm border border-warm-200 dark:border-warm-700"
                   />
                 </div>
               </div>
             </div>
-          </UCard>
+          </div>
         </div>
       </template>
     </div>
@@ -137,17 +130,15 @@ const copyAddress = async (address: string | undefined) => {
 
   try {
     await navigator.clipboard.writeText(address)
-    
-    // 使用 Nuxt UI 的 Toast 进行优雅提示
+
     toast.add({
       title: 'Copied Successfully',
       description: 'Wallet address copied to clipboard.',
-      icon: 'i-lucide-check-circle', // 成功图标
-      color: 'primary', // 使用主题色
-      timeout: 3000 // 3秒后自动消失
+      icon: 'i-lucide-check-circle',
+      color: 'coral',
+      timeout: 3000
     })
   } catch (err) {
-    // 错误处理提示
     toast.add({
       title: 'Copy Failed',
       description: 'Please manually select and copy the text.',
