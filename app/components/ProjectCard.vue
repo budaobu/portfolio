@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-300 hover:border-coral-500/50 dark:hover:border-coral-500/50 over:bg-warm-100 dark:hover:bg-olive-800">
+  <div class="group relative h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-300 hover:border-coral-500/50 dark:hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
     <div class="flex items-center gap-4 mb-5">
       <div :class="iconContainerClass" class="w-14 h-14 flex items-center justify-center flex-shrink-0">
         <img
