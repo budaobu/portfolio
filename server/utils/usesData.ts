@@ -12,37 +12,17 @@ export interface Use {
 // 原始数据：顺序无所谓，后面会统一排
 const rawUses: Use[] = [
   {
-    id: 8,
-    brand: 'MiniMax',
-    name: 'MiniMax Coding Plan',
-    category: 'AI',
-    description: '🎁 MiniMax 跨年福利来袭！邀好友享 Coding Plan 双重好礼，助力开发体验！好友立享 9折 专属优惠 + Builder 权益，你赢返利 + 社区特权！',
+    id: 4,
+    brand: 'DMIT',
+    name: 'LAX.AS3.Pro.Tiny',
+    category: 'VPS',
+    description: 'DMIT 三网回程不分家，电信、联通、移动全部强制走 CN2 GIA (AS4809) 高阶精品线路直连回国。',
     imageUrl: '',
-    linkUrl: 'https://platform.minimaxi.com/subscribe/coding-plan?code=JlyAP7koQk&source=link',
+    linkUrl: 'https://www.dmit.io/aff.php?aff=24826',
     isAffiliate: true
   },
   {
-    id: 7,
-    brand: 'Google',
-    name: 'Gemini Pro',
-    category: 'AI',
-    description: 'The brain behind this portfolio. I bring the vibe, Gemini stitches the code. My absolute daily driver.',
-    imageUrl: '',
-    linkUrl: 'https://gemini.google.com/',
-    isAffiliate: false
-  },
-  {
-    id: 6,
-    brand: 'Spotify',
-    name: 'Spotify Premium',
-    category: 'Music Service',
-    description: 'I use Spotify because it usually knows what I want to hear, even when I don’t.',
-    imageUrl: '',
-    linkUrl: 'https://open.spotify.com/',
-    isAffiliate: false
-  },
-  {
-    id: 5,
+    id: 3,
     brand: 'Wise',
     name: 'Wise',
     category: 'Nomad',
@@ -52,7 +32,7 @@ const rawUses: Use[] = [
     isAffiliate: false
   },
   {
-    id: 4,
+    id: 2,
     brand: 'Giffgaff',
     name: 'Giffgaff SIM',
     category: 'Mobile Service',
@@ -62,7 +42,7 @@ const rawUses: Use[] = [
     isAffiliate: true
   },
   {
-    id: 3,
+    id: 1,
     brand: 'DAREU',
     name: 'EK87 Pro',
     category: 'Accessories',
@@ -70,27 +50,7 @@ const rawUses: Use[] = [
     imageUrl: 'https://cloudflare-imgbed-88m.pages.dev/file/AgACAgEAAyEGAASJ9vGyAAMWaUpXuCHVEHGtJIYgB_XXJAbKEwwAAkcLaxvZZVBGSXU8KRoTkbcBAAMCAAN5AAM2BA.png',
     linkUrl: 'https://item.jd.com/10101796526513.html',
     isAffiliate: false
-  },
-  {
-    id: 2,
-    brand: 'Surge',
-    name: 'Surge',
-    category: 'App',
-    description: 'Advanced Network Toolbox for Mac & iOS',
-    imageUrl: '',
-    linkUrl: 'https://nssurge.com/',
-    isAffiliate: false
-  }/* ,
-  {
-    id: 1,
-    brand: 'Dler Cloud',
-    name: 'Proxy Provider',
-    category: 'IPLC',
-    description: 'Used for 5 Years: Stable, Fast, and Multi-Protocol Support.',
-    imageUrl: '',
-    linkUrl: 'https://dlercloud.com/auth/register?affid=39909',
-    isAffiliate: true
-  } */
+  }
 ]
 
 // 核心优化：统一在此处按 ID 降序排列
