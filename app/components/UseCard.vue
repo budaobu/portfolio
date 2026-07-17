@@ -49,6 +49,10 @@
           <UBadge v-if="item.isAffiliate" color="orange" variant="solid" size="xs" class="flex-shrink-0">AFF</UBadge>
         </div>
 
+        <div v-if="!item.imageUrl && item.price" class="mb-4 text-sm font-medium text-warm-900 dark:text-warm-100">
+          {{ item.price }}
+        </div>
+
         <div v-if="item.imageUrl" class="flex items-center justify-between mb-2">
           <span class="text-xs font-medium text-coral-600 dark:text-coral-400 uppercase tracking-wider">
             {{ item.brand }}
@@ -65,6 +69,10 @@
         <h3 v-if="item.imageUrl" class="text-base font-medium text-warm-900 dark:text-warm-100 mb-2 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
           {{ item.name }}
         </h3>
+
+        <div v-if="item.imageUrl && item.price" class="mb-2 text-sm font-medium text-warm-900 dark:text-warm-100">
+          {{ item.price }}
+        </div>
 
         <p class="text-sm text-warm-600 dark:text-warm-400 leading-relaxed" :class="{ 'mb-4 flex-1': !item.imageUrl }">
           {{ item.description }}
