@@ -12,13 +12,23 @@ export interface Use {
 // 原始数据：顺序无所谓，后面会统一排
 const rawUses: Use[] = [
   {
-    id: 4,
+    id: 6,
     brand: 'DMIT',
     name: 'LAX.AS3.Pro.Tiny',
     category: 'VPS',
     description: 'DMIT 三网回程不分家，电信、联通、移动全部强制走 CN2 GIA (AS4809) 高阶精品线路直连回国。',
     imageUrl: '',
     linkUrl: 'https://www.dmit.io/aff.php?aff=24826',
+    isAffiliate: true
+  },
+  {
+    id: 5,
+    brand: 'EVOXT',
+    name: '马来西亚(优质网络+) VM-0.5',
+    category: 'VPS',
+    description: '可能是目前最便宜的亚太 VPS，电信走 CTG GIA 精品直连，联通走 AS9929 高阶直连，移动走 CMI 骨干。',
+    imageUrl: '',
+    linkUrl: 'https://console.evoxt.com/aff.php?aff=4733',
     isAffiliate: true
   },
   {
