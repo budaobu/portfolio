@@ -37,5 +37,10 @@
   },
   "overrides": {
     "commander": "^13.1.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "better-sqlite3"
+    ]
   }
 }
