@@ -32,6 +32,16 @@ const rawUses: Use[] = [
     isAffiliate: true
   },
   {
+    id: 4,
+    brand: 'DEDIROCK',
+    name: 'Promo VPS Saver LA BF',
+    category: 'VPS',
+    description: '你就说是不是便宜的美西',
+    imageUrl: '',
+    linkUrl: 'https://billing.dedirock.com/aff.php?aff=794',
+    isAffiliate: true
+  },
+  {
     id: 3,
     brand: 'Wise',
     name: 'Wise',
