@@ -24,7 +24,7 @@
           target="_blank"
           class="group block focus:outline-none"
         >
-          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-all duration-300 hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
+          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-200 ease-out hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
             <div class="flex items-start gap-4">
               <div
                 class="flex-shrink-0 w-12 h-12 flex items-center justify-center text-2xl"
@@ -56,7 +56,7 @@
           v-else
           class="group block focus:outline-none"
         >
-          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-all duration-300 hover:border-coral-500/50">
+          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-200 ease-out hover:border-coral-500/50">
             <div class="flex items-start gap-4">
               <!-- Icon: regular type -->
               <div

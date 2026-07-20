@@ -145,14 +145,14 @@
           >
             <label 
               v-if="!hasImage"
-              class="cursor-pointer w-full h-96 border-2 border-dashed rounded-xl flex flex-col items-center justify-center transition-all duration-200 group"
+              class="cursor-pointer w-full h-96 border-2 border-dashed rounded-xl flex flex-col items-center justify-center transition-colors duration-150 ease-out group"
               :class="[
                 isDragging 
                   ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/10' 
                   : 'border-gray-300 dark:border-gray-700 hover:border-primary-400 hover:bg-gray-50 dark:hover:bg-gray-800'
               ]"
             >
-              <div class="w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <div class="upload-icon w-16 h-16 rounded-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center mb-4 transition-transform">
                 <UIcon name="i-heroicons-cloud-arrow-up" class="w-8 h-8 text-gray-500 dark:text-gray-400 group-hover:text-primary-500" />
               </div>
               <p class="text-lg font-medium text-gray-700 dark:text-gray-200">点击或拖拽上传图片</p>
@@ -559,3 +559,9 @@ const downloadBlob = (blob: Blob, filename: string) => {
   document.body.removeChild(link)
 }
 </script>
+
+<style scoped>
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .upload-icon { transform: scale(1.1); }
+}
+</style>

@@ -80,4 +80,15 @@ const { data: featuredProjects, status, refresh } = await useFetch<Project[]>('/
     transform: translateY(0);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in {
+    animation: fadeInReduced 0.3s ease-out forwards;
+  }
+}
+
+@keyframes fadeInReduced {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 </style>

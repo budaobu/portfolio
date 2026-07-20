@@ -271,7 +271,7 @@ const formatSize = (bytes: number) => {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[600px]">
           
           <!-- Upload Section -->
-          <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 flex flex-col relative transition-all duration-300 hover:shadow-2xl">
+          <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 flex flex-col relative transition-shadow duration-300 ease-out hover:shadow-2xl">
             <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
                <h3 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                  Source File

@@ -22,6 +22,6 @@ useHead({
 
 <style>
 body {
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease-out;
 }
 </style>

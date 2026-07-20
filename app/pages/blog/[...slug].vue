@@ -1,5 +1,4 @@
 <template>
-  <!-- Container -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
     <!-- Loading state -->
@@ -47,7 +46,7 @@
 
       <!-- Main article -->
       <article
-        class="lg:col-span-9 bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 sm:p-10 md:p-12 transition-all duration-300"
+        class="lg:col-span-9 bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 sm:p-10 md:p-12"
       >
         <!-- Header -->
         <header class="mb-10 flex flex-col gap-6">

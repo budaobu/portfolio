@@ -28,7 +28,7 @@
 
       <!-- Content -->
       <div class="flex-1">
-        <h3 class="text-xl font-serif font-medium text-warm-900 dark:text-warm-100 mb-3 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
+        <h3 class="text-xl font-serif font-medium text-warm-900 dark:text-warm-100 mb-3 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors duration-150 ease-out">
           {{ project.title }}
         </h3>
         <p class="text-warm-600 dark:text-warm-400 leading-relaxed line-clamp-3 text-sm">
@@ -46,7 +46,7 @@
         </span>
         <UIcon
           name="i-lucide-arrow-up-right"
-          class="w-5 h-5 text-warm-400 group-hover:text-coral-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all"
+          class="w-5 h-5 text-warm-400 group-hover:text-coral-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[transform,color] duration-200 ease-out"
         />
       </div>
     </div>

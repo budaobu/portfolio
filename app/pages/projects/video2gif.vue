@@ -225,7 +225,7 @@ onMounted(() => {
           </template>
 
           <div 
-            class="relative border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-8 text-center hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all cursor-pointer group"
+            class="relative border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-xl p-8 text-center hover:border-primary-500 dark:hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-colors duration-150 ease-out cursor-pointer group"
             @click="triggerFileInput"
             @dragover.prevent
             @drop.prevent="handleDrop"

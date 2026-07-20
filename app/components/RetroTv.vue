@@ -391,4 +391,9 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   .main { transform: scale(0.6); }
   .text_404 { font-size: 5rem; gap: 80px; }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .notfound_text { animation: none; }
+  .screenM { animation: none; }
+}
 </style>

@@ -5,7 +5,7 @@
     rel="nofollow noopener noreferrer"
     class="group block h-full focus:outline-none"
   >
-    <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-4 transition-all duration-300 hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
+    <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-4 transition-colors duration-200 ease-out hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
       <component :is="item.imageUrl ? 'div' : 'template'">
         <div v-if="item.imageUrl" class="relative aspect-[4/3] overflow-hidden bg-warm-200 dark:bg-warm-800 mb-4">
           <NuxtImg
@@ -15,7 +15,7 @@
             format="webp"
             quality="80"
             :placeholder="[50, 25, 75, 5]"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            class="w-full h-full object-cover transition-transform duration-200 ease-out group-hover:scale-110"
           />
 
           <div class="absolute top-3 right-3">
