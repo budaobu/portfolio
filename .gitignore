@@ -41,6 +41,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Plans md
+plans
+
 # Testing
 coverage/
 .nyc_output
