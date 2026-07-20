@@ -10,13 +10,13 @@
       >
         <img 
           :src="img" 
-          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+          class="h-full w-full object-cover transition-transform duration-200 ease-out group-hover:scale-110"
           alt="Gallery image"
           loading="lazy"
         />
         <!-- 悬停时的遮罩 -->
-        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-          <UIcon name="i-heroicons-magnifying-glass-plus" class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-md" />
+        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-150 ease-out flex items-center justify-center">
+          <UIcon name="i-heroicons-magnifying-glass-plus" class="w-8 h-8 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-150 ease-out drop-shadow-md" />
         </div>
       </div>
     </div>
@@ -25,11 +25,11 @@
     <Teleport to="body">
       <Transition
         enter-active-class="transition duration-200 ease-out"
-        enter-from-class="opacity-0"
-        enter-to-class="opacity-100"
-        leave-active-class="transition duration-150 ease-in"
-        leave-from-class="opacity-100"
-        leave-to-class="opacity-0"
+        enter-from-class="opacity-0 scale-95"
+        enter-to-class="opacity-100 scale-100"
+        leave-active-class="transition duration-150 ease-out"
+        leave-from-class="opacity-100 scale-100"
+        leave-to-class="opacity-0 scale-95"
       >
         <div 
           v-if="isOpen" 

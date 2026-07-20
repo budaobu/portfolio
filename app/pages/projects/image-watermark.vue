@@ -160,7 +160,7 @@
           @drop.prevent="handleDrop"
           :class="[baseDropClass, isDragging ? dragClass : idleClass]"
         >
-          <div class="w-20 h-20 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200 shadow-sm">
+          <div class="upload-icon w-20 h-20 bg-primary-50 dark:bg-primary-900/30 text-primary-500 rounded-full flex items-center justify-center mb-4 transition-transform duration-150 ease-out shadow-sm">
             <UIcon name="i-heroicons-photo" class="w-10 h-10" />
           </div>
           <h2 class="text-xl font-bold text-gray-700 dark:text-white mb-2">点击或拖拽图片到这里</h2>
@@ -356,7 +356,7 @@ const handleDrop = (e: DragEvent) => {
 }
 
 // --- preview style classes ---
-const baseDropClass = 'flex-1 border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all duration-200 cursor-pointer min-h-[400px] shadow-sm group'
+const baseDropClass = 'flex-1 border-2 border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center transition-colors duration-150 ease-out cursor-pointer min-h-[400px] shadow-sm group'
 const dragClass = 'border-primary-500 bg-primary-50 dark:bg-primary-900/10'
 const idleClass = 'border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-50 dark:hover:bg-gray-800 hover:border-primary-400'
 
@@ -689,5 +689,9 @@ async function downloadImage() {
 .watermark-text {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .group:hover .upload-icon { transform: scale(1.1); }
 }
 </style>

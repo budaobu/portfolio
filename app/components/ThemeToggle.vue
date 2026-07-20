@@ -6,17 +6,7 @@
     class="group relative overflow-hidden rounded-sm"
     @click="toggleTheme"
   >
-    <Transition
-      mode="out-in"
-      enter-active-class="transition-all duration-300 ease-out"
-      enter-from-class="opacity-0 scale-50 rotate-90"
-      enter-to-class="opacity-100 scale-100 rotate-0"
-      leave-active-class="transition-all duration-200 ease-in"
-      leave-from-class="opacity-100 scale-100 rotate-0"
-      leave-to-class="opacity-0 scale-50 -rotate-90"
-    >
-      <component :is="CurrentIconComponent" :key="colorMode.preference" />
-    </Transition>
+    <component :is="CurrentIconComponent" :key="colorMode.preference" />
   </UButton>
 </template>
 
@@ -86,7 +76,7 @@ const toggleTheme = (event: MouseEvent) => {
       },
       {
         duration: 400, // 动画时长 400ms
-        easing: 'ease-in', // 加速扩散，视觉更有冲击力
+        easing: 'cubic-bezier(0.23, 1, 0.32, 1)', // 强 ease-out，起步快、收尾稳
         pseudoElement: '::view-transition-new(root)'
       }
     )

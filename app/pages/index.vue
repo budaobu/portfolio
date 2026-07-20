@@ -53,7 +53,7 @@
                 rel="noopener noreferrer nofollow"
                 :aria-label="social.name"
                 size="lg"
-                class="w-11 h-11 rounded-none flex items-center justify-center bg-warm-200 dark:bg-warm-800 hover:bg-coral-500 hover:text-warm-50 text-warm-700 dark:text-warm-300 transition-all duration-200"
+                class="w-11 h-11 rounded-none flex items-center justify-center bg-warm-200 dark:bg-warm-800 hover:bg-coral-500 hover:text-warm-50 text-warm-700 dark:text-warm-300 transition-colors duration-150 ease-out"
               >
                 <UIcon :name="social.icon" class="w-5 h-5" />
               </NuxtLink>
@@ -111,6 +111,12 @@ const homeSocialLinks = computed(() =>
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-roll-inner {
+    animation: none;
   }
 }
 </style>

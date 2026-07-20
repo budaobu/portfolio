@@ -9,43 +9,32 @@
             :src="avatarUrl"
             @error="handleImageError"
             alt="Budaobu"
-            class="relative z-10 w-9 h-9 rounded-sm ring-2 ring-warm-300 dark:ring-warm-700 group-hover:ring-coral-500 transition-all object-cover bg-white dark:bg-warm-950"
+            class="relative z-10 w-9 h-9 rounded-sm ring-2 ring-warm-300 dark:ring-warm-700 group-hover:ring-coral-500 transition-colors duration-200 ease-out object-cover bg-white dark:bg-warm-950"
           />
         </div>
         <span class="font-serif font-medium text-warm-900 dark:text-warm-100 hidden sm:block">Budaobu</span>
       </NuxtLink>
 
       <div class="flex items-center gap-1 sm:gap-2">
-        <template v-for="item in navItems" :key="item.path">
-          <UButton
-            v-if="!isMobile"
-            :to="item.path"
-            color="gray"
-            variant="ghost"
-            :label="item.label"
-            :class="getNavClass(item.path)"
-            class="rounded-sm"
-          />
-          <UButton
-            v-else
-            :to="item.path"
-            color="gray"
-            variant="ghost"
-            :icon="item.icon"
-            :class="getMobileNavClass(item.path)"
-            :aria-label="item.label"
-            class="rounded-sm"
-          />
-        </template>
+        <UButton
+          v-for="item in navItems"
+          :key="item.path"
+          :to="item.path"
+          color="gray"
+          variant="ghost"
+          :icon="item.icon"
+          :label="item.label"
+          :class="getNavClass(item.path)"
+          class="rounded-sm nav-btn"
+        />
 
         <UButton
           to="/sponsor"
           color="coral"
           variant="ghost"
           icon="i-heroicons-heart-solid"
-          :label="isMobile ? undefined : 'Sponsor'"
-          :aria-label="isMobile ? 'Sponsor' : undefined"
-          class="rounded-sm"
+          label="Sponsor"
+          class="rounded-sm nav-btn"
         />
 
         <ThemeToggle />
@@ -64,21 +53,6 @@ const navItems = [
   { path: '/uses', label: 'Uses', icon: 'i-heroicons-shopping-bag' }
 ]
 
-const isMobile = ref(false)
-
-const updateScreenSize = () => {
-  isMobile.value = window.innerWidth < 640
-}
-
-onMounted(() => {
-  updateScreenSize()
-  window.addEventListener('resize', updateScreenSize)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', updateScreenSize)
-})
-
 const getNavClass = (path: string) => {
   const isActive = route.path.startsWith(path)
   return [
@@ -89,15 +63,18 @@ const getNavClass = (path: string) => {
   ]
 }
 
-const getMobileNavClass = (path: string) => {
-  return route.path.startsWith(path)
-    ? 'text-coral-600 dark:text-coral-400 bg-warm-200 dark:bg-warm-800'
-    : ''
-}
-
 const handleImageError = () => {
   if (avatarUrl.value === '/avatar.webp') {
     avatarUrl.value = 'https://github.com/budaobu.png'
   }
 }
 </script>
+
+<style scoped>
+/* 移动端隐藏 label，只显示 icon */
+@media (max-width: 639px) {
+  .nav-btn :deep([data-slot="label"]) {
+    display: none;
+  }
+}
+</style>

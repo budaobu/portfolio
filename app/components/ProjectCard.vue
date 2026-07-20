@@ -1,5 +1,5 @@
 <template>
-  <div class="group relative h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-300 hover:border-coral-500/50 dark:hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
+  <div class="group relative h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-200 ease-out hover:border-coral-500/50 dark:hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
     <div class="flex items-center gap-4 mb-5">
       <div :class="iconContainerClass" class="w-14 h-14 flex items-center justify-center flex-shrink-0">
         <img
@@ -16,7 +16,7 @@
         <span v-else class="text-3xl">{{ project.icon }}</span>
       </div>
 
-      <h3 class="text-xl font-serif font-medium text-warm-900 dark:text-warm-100 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
+      <h3 class="text-xl font-serif font-medium text-warm-900 dark:text-warm-100 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors duration-150 ease-out">
         <NuxtLink
           v-if="project.mainUrl"
           :to="project.mainUrl"

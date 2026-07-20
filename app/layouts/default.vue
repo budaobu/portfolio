@@ -12,7 +12,7 @@
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-6">
 
           <!-- Copyright + AI tools -->
-          <p class="text-sm text-warm-500 dark:text-warm-400 flex items-center gap-3 flex-wrap justify-center">
+          <div class="text-sm text-warm-500 dark:text-warm-400 flex items-center gap-3 flex-wrap justify-center">
 
             <span>&copy; {{ currentYear }} {{ siteConfig.author }}</span>
 
@@ -48,7 +48,7 @@
                 </div>
               </span>
             </span>
-          </p>
+          </div>
 
           <!-- Social links -->
           <div class="flex items-center gap-2">
