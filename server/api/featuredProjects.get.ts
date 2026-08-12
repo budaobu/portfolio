@@ -10,7 +10,7 @@ export default defineEventHandler(async (event): Promise<Project[]> => {
   // 2. 限制最多显示 3 个
   // 3. 数据加工
   return projects
-    .filter(p => p.featured === true)
+    .filter(p => p.featured === true && p.archived !== true)
     .slice(0, 3)
     .map(processProject)
 })

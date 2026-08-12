@@ -20,6 +20,7 @@ export interface Project {
   // 元数据
   date?: string
   featured?: boolean
+  archived?: boolean
 }
 
 /**

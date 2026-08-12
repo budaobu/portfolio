@@ -1,18 +1,13 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
     <!-- Page Header -->
-    <div class="mb-16 md:mb-20">
-      <div class="relative inline-block">
-        <!-- Decorative accent -->
-        <span class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-16 bg-coral-500"></span>
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-medium text-warm-900 dark:text-warm-100">
-          Blog
-        </h1>
-      </div>
-      <p class="mt-6 text-xl text-warm-600 dark:text-warm-400">
-        No Tech, just ramblings.
-      </p>
-      <div class="flex items-center gap-3 mt-6">
+    <SectionHeading
+      large
+      eyebrow="Writing"
+      title="Blog"
+      description="No Tech, just ramblings."
+    >
+      <div class="flex items-center gap-2.5 mt-5">
         <UTooltip
           v-for="social in blogSocialLinks"
           :key="social.name"
@@ -24,26 +19,17 @@
             target="_blank"
             rel="noopener noreferrer nofollow"
             :aria-label="social.name"
-            class="w-11 h-11 rounded-sm flex items-center justify-center bg-warm-200 dark:bg-warm-800 hover:bg-coral-500 hover:text-warm-50 text-warm-700 dark:text-warm-300 transition-colors duration-150 ease-out"
+            class="w-10 h-10 rounded-sm flex items-center justify-center bg-warm-200 dark:bg-warm-800 hover:bg-coral-500 hover:text-warm-50 text-warm-700 dark:text-warm-300 transition-colors duration-150 ease-out"
           >
             <UIcon :name="social.icon" class="w-5 h-5" />
           </NuxtLink>
         </UTooltip>
       </div>
-    </div>
+    </SectionHeading>
 
     <!-- Loading state -->
-    <div v-if="pending" class="space-y-4">
-      <div v-for="i in 3" :key="i" class="bg-warm-100 dark:bg-warm-800 p-8 animate-pulse">
-        <div class="flex gap-10">
-          <div class="w-32 h-5 bg-warm-200 dark:bg-warm-700 rounded"></div>
-          <div class="flex-1 space-y-4">
-            <div class="h-8 bg-warm-200 dark:bg-warm-700 rounded w-3/4"></div>
-            <div class="h-4 bg-warm-200 dark:bg-warm-700 rounded w-full"></div>
-            <div class="h-4 bg-warm-200 dark:bg-warm-700 rounded w-2/3"></div>
-          </div>
-        </div>
-      </div>
+    <div v-if="pending" class="flex flex-col gap-1">
+      <USkeleton v-for="i in 5" :key="i" class="h-16 rounded-lg" />
     </div>
 
     <!-- Error state -->
@@ -55,18 +41,20 @@
     </div>
 
     <!-- Empty state -->
-    <div v-else-if="!articles?.length" class="text-center py-24 bg-warm-100 dark:bg-warm-900 border border-warm-200 dark:border-warm-800 animate-fade-in">
-      <UIcon name="i-heroicons-document-text" class="w-12 h-12 text-warm-400 mb-4" />
-      <p class="text-warm-500">No articles yet, stay tuned.</p>
+    <div v-else-if="!articles?.length" class="text-center py-16 animate-fade-in">
+      <UIcon name="i-heroicons-document-text" class="w-10 h-10 text-warm-400 mb-3" />
+      <p class="text-sm text-warm-500">No articles yet, stay tuned.</p>
     </div>
 
     <!-- Articles list -->
-    <div v-else class="space-y-4 animate-fade-in">
-      <BlogCard
-        v-for="article in articles"
-        :key="article.path"
-        :article="article"
-      />
+    <div v-else class="animate-fade-in">
+      <div class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
+        <BlogCard
+          v-for="article in articles"
+          :key="article.path"
+          :article="article"
+        />
+      </div>
       <div v-if="!allLoaded" ref="loadMoreTrigger" class="flex justify-center py-8">
         <UIcon name="i-lucide-refresh-cw" class="w-8 h-8 animate-spin text-warm-400" />
       </div>

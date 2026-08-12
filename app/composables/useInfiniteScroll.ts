@@ -91,10 +91,15 @@ export async function useInfiniteScroll<T>(
     watch: false 
   })
 
+  // server:false 下服务端永远不请求，pending 在两端不一致；
+  // 用 loaded 作为骨架屏/数据分支的统一判断依据，避免 hydration mismatch
+  const loaded = ref(false)
+
   watch(data, (newVal) => {
     if (newVal) {
       allItems.value = newVal.items
       hasMore.value = newVal.hasMore
+      loaded.value = true
     }
   }, { immediate: true })
 
@@ -102,9 +107,10 @@ export async function useInfiniteScroll<T>(
     items: allItems,
     pending,
     error,
+    loaded,
     hasMore,
     loadMoreTrigger,
     loadMoreError,
-    retry         
+    retry
   }
 }

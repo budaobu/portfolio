@@ -1,14 +1,12 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
     <!-- Hero Section - Editorial Style -->
-    <section class="mb-24 md:mb-32">
+    <section class="mb-14 md:mb-20">
       <div class="relative">
         <!-- Decorative geometric element -->
         <div class="absolute -top-8 -left-4 w-24 h-24 border-[3px] border-coral-500/30 rotate-12 hidden sm:block"></div>
 
-        <h1 class="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-serif font-medium text-warm-900 dark:text-warm-100 leading-[0.95] tracking-tight mb-8">
-          <span class="block">Hi<span class="text-coral-500">👋</span>,</span>
-          <span class="block ml-0 md:ml-16">I'm</span>
+        <h1 class="relative text-4xl sm:text-5xl md:text-6xl font-serif font-medium text-warm-900 dark:text-warm-100 leading-[0.95] tracking-tight mb-6">
           <span class="block relative">
             <span class="relative z-10 text-roll-wrapper text-coral-600 dark:text-coral-400">
               <span class="text-roll-inner">
@@ -22,8 +20,8 @@
         </h1>
       </div>
 
-      <div class="mt-10 max-w-2xl ml-auto">
-        <p class="text-xl md:text-2xl text-warm-700 dark:text-warm-300 leading-relaxed font-light">
+      <div class="mt-8">
+        <p class="text-base md:text-lg text-warm-700 dark:text-warm-300 leading-relaxed font-light">
           Building things through
           <span class="font-medium text-warm-900 dark:text-warm-100">vibe coding</span>.
           A collection of experiments and creations born from curiosity and intuition.
@@ -62,16 +60,44 @@
         </div>
       </div>
 
-      <!-- Geometric accent -->
-      <div class="mt-16 flex items-center gap-4">
-        <div class="h-px bg-warm-300 dark:bg-warm-700 flex-1 max-w-xs"></div>
-        <span class="text-sm font-medium text-warm-500 uppercase tracking-widest">Portfolio</span>
-        <div class="h-px bg-warm-300 dark:bg-warm-700 flex-1"></div>
-      </div>
     </section>
 
     <!-- Featured Projects Section -->
-    <HomeFeaturedProjects />
+    <section>
+      <SectionHeading
+        index="01"
+        eyebrow="Selected Works"
+        title="Projects"
+        description="Most recent experiments and creations."
+        to="/projects"
+      />
+      <HomeFeaturedProjects />
+    </section>
+
+    <!-- Recent Blog Section -->
+    <section class="mt-14 md:mt-20">
+      <SectionHeading
+        index="02"
+        eyebrow="Latest Writing"
+        title="Blog"
+        description="No Tech, just ramblings."
+        to="/blog"
+      />
+
+      <div v-if="blogPending" class="flex flex-col gap-1">
+        <USkeleton v-for="i in 3" :key="i" class="h-16 rounded-lg" />
+      </div>
+
+      <div v-else-if="recentPosts?.length" class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
+        <BlogCard
+          v-for="article in recentPosts"
+          :key="article.path"
+          :article="article"
+        />
+      </div>
+
+      <p v-else class="text-sm text-warm-500">No articles yet, stay tuned.</p>
+    </section>
   </div>
 </template>
 
@@ -85,6 +111,21 @@ useHead({
 
 const homeSocialLinks = computed(() =>
   socialLinks.filter(link => link.placement?.includes('home'))
+)
+
+const { data: recentPosts, pending: blogPending } = await useAsyncData(
+  'home-recent-posts',
+  () => queryCollection('blog')
+    .order('date', 'DESC')
+    .limit(3)
+    .all(),
+  {
+    lazy: true,
+    getCachedData(key) {
+      const nuxtApp = useNuxtApp()
+      return nuxtApp.payload.data[key] || nuxtApp.static.data[key]
+    }
+  }
 )
 </script>
 

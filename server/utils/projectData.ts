@@ -10,6 +10,7 @@ export interface Project {
   googlePlayUrl?: string
   date?: string // 可选：用于 RSS 的发布时间，如果不填则使用当前时间
   featured?: boolean
+  archived?: boolean // 已归档：从主列表移至底部折叠区
 }
 
 // 原始数据：你可以随意添加，不用担心顺序
@@ -81,7 +82,8 @@ const rawProjects: Project[] = [
     icon: '🚗',
     demoUrl: 'https://car-calculator.pages.dev/',
     githubUrl: 'https://github.com/budaobu/car-calculator',
-    date: '2024-11-27'
+    date: '2024-11-27',
+    archived: true
   },
   {
     id: 1,

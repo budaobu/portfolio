@@ -1,24 +1,19 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
     <!-- Page Header -->
-    <div class="mb-16">
-      <div class="relative inline-block">
-        <!-- Decorative accent -->
-        <span class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-16 bg-coral-500"></span>
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-medium text-warm-900 dark:text-warm-100">
-          Buy List
-        </h1>
-      </div>
-      <p class="mt-6 text-xl text-warm-600 dark:text-warm-400 max-w-2xl leading-relaxed">
-        My wallet suffered for this list.
-      </p>
+    <SectionHeading
+      large
+      eyebrow="Gear"
+      title="Buy List"
+      description="My wallet suffered for this list."
+    >
       <p class="mt-3 text-sm text-warm-500">
         Links marked with <UBadge color="orange" variant="solid" size="xs" class="mx-1" label="AFF" /> are affiliate — I may earn a small commission at no extra cost to you.
       </p>
-    </div>
+    </SectionHeading>
 
-    <div v-if="pending && allUses.length === 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      <USkeleton v-for="i in 8" :key="i" class="h-80 rounded-none" />
+    <div v-if="!loaded && !error" class="flex flex-col gap-1">
+      <USkeleton v-for="i in 8" :key="i" class="h-14 rounded-lg" />
     </div>
 
     <UAlert
@@ -32,7 +27,7 @@
     />
 
     <div v-else class="space-y-16">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
         <UseCard
           v-for="item in allUses"
           :key="item.id"
@@ -62,8 +57,8 @@ useSiteSeo('uses')
 
 const {
   items: allUses,
-  pending,
   error,
+  loaded,
   hasMore,
   loadMoreTrigger
 } = await useInfiniteScroll<Use>('/api/uses', 9)

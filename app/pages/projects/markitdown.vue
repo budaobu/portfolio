@@ -258,7 +258,7 @@ const formatSize = (bytes: number) => {
   <div>
     <div class="min-h-[calc(100vh-64px)] bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
-      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="text-center mb-16">
           <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
             Convert Any File <br class="sm:hidden" /> to <span class="text-primary-600">Markdown</span> in Seconds.

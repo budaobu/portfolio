@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="text-center mb-12">
       <h1 class="text-3xl font-bold text-gray-900 dark:text-white flex items-center justify-center gap-3 mb-4">
         <UIcon name="i-heroicons-squares-2x2" class="w-8 h-8 text-primary-500" />

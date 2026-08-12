@@ -1,6 +1,6 @@
 <template>
   <header class="sticky top-0 z-50 border-b border-warm-200 dark:border-warm-800 bg-warm-50/90 dark:bg-olive-950/90 backdrop-blur-md">
-    <UContainer class="h-16 flex items-center justify-between">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <NuxtLink to="/" class="flex items-center gap-3 group" aria-label="Back to Home">
         <div class="relative flex items-center justify-center">
           <span class="absolute inset-0 rounded-sm bg-coral-500/20 z-0 opacity-0 group-hover:opacity-100 group-hover:animate-ping-short" aria-hidden="true"></span>
@@ -39,7 +39,7 @@
 
         <ThemeToggle />
       </div>
-    </UContainer>
+    </div>
   </header>
 </template>
 

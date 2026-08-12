@@ -1,21 +1,15 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
     <!-- Page Header - Editorial Style -->
-    <div class="mb-16">
-      <div class="relative inline-block">
-        <!-- Decorative accent -->
-        <span class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-16 bg-coral-500"></span>
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-medium text-warm-900 dark:text-warm-100">
-          Projects
-        </h1>
-      </div>
-      <p class="mt-6 text-xl text-warm-600 dark:text-warm-400 max-w-2xl leading-relaxed">
-        Just for fun, but hey, it runs. Come see the chaos.
-      </p>
-    </div>
+    <SectionHeading
+      large
+      eyebrow="Playground"
+      title="Projects"
+      description="Just for fun, but hey, it runs. Come see the chaos."
+    />
 
-    <div v-if="pending && allProjects.length === 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <USkeleton v-for="i in 6" :key="i" class="h-72 rounded-none" />
+    <div v-if="!loaded && !error" class="flex flex-col gap-1">
+      <USkeleton v-for="i in 6" :key="i" class="h-14 rounded-lg" />
     </div>
 
     <UAlert
@@ -29,12 +23,68 @@
     />
 
     <div v-else class="space-y-16">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <ProjectCard
-          v-for="project in allProjects"
-          :key="project.id"
-          :project="project"
-        />
+      <div>
+        <div class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
+          <ProjectCard
+            v-for="project in allProjects"
+            :key="project.id"
+            :project="project"
+          />
+        </div>
+
+        <!-- Archived Projects - 默认折叠，参考 nooc.me work 页 -->
+        <details v-if="archivedItems.length > 0" class="group/archive mt-10">
+          <summary class="flex items-center gap-3 mb-3 cursor-pointer select-none list-none [&::-webkit-details-marker]:hidden">
+            <span class="inline-flex items-center gap-1.5 text-[11px] font-medium tracking-[0.2em] uppercase text-warm-500 dark:text-warm-400 bg-warm-200/70 dark:bg-warm-800 px-2 py-1 rounded-sm">
+              <UIcon name="i-lucide-archive" class="w-3 h-3 flex-shrink-0" />
+              Archive
+            </span>
+            <span class="h-px flex-1 bg-warm-300 dark:bg-warm-700"></span>
+            <span class="inline-flex items-center gap-1 text-[11px] text-warm-400 dark:text-warm-500 tabular-nums">
+              {{ archivedItems.length }} {{ archivedItems.length === 1 ? 'entry' : 'entries' }}
+              <UIcon name="i-lucide-chevron-right" class="w-3.5 h-3.5 transition-transform duration-200 group-open/archive:rotate-90" />
+            </span>
+          </summary>
+
+          <div class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
+            <NuxtLink
+              v-for="project in archivedItems"
+              :key="project.id"
+              :to="project.mainUrl"
+              :target="project.mainUrl?.startsWith('http') ? '_blank' : '_self'"
+              class="group flex items-center gap-3 -mx-3 px-3 py-2.5 rounded-lg focus:outline-none transition-colors duration-150 ease-out hover:bg-warm-100 dark:hover:bg-olive-800"
+            >
+              <div class="w-8 h-8 rounded-lg border border-warm-200 dark:border-warm-800 bg-warm-200 dark:bg-warm-800 flex items-center justify-center flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-150">
+                <img
+                  v-if="project.icon.startsWith('http') || project.icon.startsWith('/')"
+                  :src="project.icon"
+                  class="w-5 h-5 object-contain"
+                  alt="Project icon"
+                />
+                <UIcon
+                  v-else-if="project.icon.startsWith('i-')"
+                  :name="project.icon"
+                  class="w-4 h-4 text-warm-900 dark:text-warm-100"
+                />
+                <span v-else class="text-sm">{{ project.icon }}</span>
+              </div>
+
+              <div class="min-w-0 flex-1">
+                <h3 class="text-xs font-medium text-warm-600 dark:text-warm-400 truncate group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors duration-150 ease-out">
+                  {{ project.title }}
+                </h3>
+                <p class="mt-0.5 text-[11px] text-warm-400 dark:text-warm-500 line-clamp-1">
+                  {{ project.description }}
+                </p>
+              </div>
+
+              <UIcon
+                name="i-lucide-arrow-up-right"
+                class="w-3.5 h-3.5 flex-shrink-0 text-warm-400 group-hover:text-coral-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[transform,color] duration-200 ease-out"
+              />
+            </NuxtLink>
+          </div>
+        </details>
       </div>
 
       <!-- Error state -->
@@ -75,11 +125,17 @@ useSiteSeo('projects')
 
 const {
   items: allProjects,
-  pending,
   error,
+  loaded,
   hasMore,
   loadMoreTrigger,
   loadMoreError,
   retry
 } = await useInfiniteScroll<Project>('/api/projects', 9)
+
+// 已归档项目：SSR 直取，不进无限滚动
+const { data: archivedData } = await useFetch<PaginatedResponse<Project>>('/api/projects', {
+  query: { archived: 1 }
+})
+const archivedItems = computed(() => archivedData.value?.items ?? [])
 </script>

@@ -1,106 +1,95 @@
 <template>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
     <!-- Page Header -->
-    <div class="mb-16">
-      <div class="relative inline-block">
-        <!-- Decorative accent -->
-        <span class="absolute -left-6 top-1/2 -translate-y-1/2 w-2 h-16 bg-coral-500"></span>
-        <h1 class="text-5xl sm:text-6xl md:text-7xl font-serif font-medium text-warm-900 dark:text-warm-100">
-          Sponsor
-        </h1>
-      </div>
-      <p class="mt-6 text-xl text-warm-600 dark:text-warm-400 max-w-2xl leading-relaxed">
-        V me 50 for KFC Crazy Thursday.
-      </p>
-    </div>
+    <SectionHeading
+      large
+      eyebrow="Support"
+      title="Sponsor"
+      description="V me 50 for KFC Crazy Thursday."
+    />
 
-    <!-- Sponsor Methods Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Sponsor Methods List -->
+    <div class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
       <template v-for="method in sponsorMethods" :key="method.id">
         <!-- Link Type -->
         <NuxtLink
           v-if="method.type === 'link'"
           :to="method.url"
-          target="_blank"
-          class="group block focus:outline-none"
+          class="group flex items-center gap-3 -mx-3 px-3 py-3 rounded-lg focus:outline-none transition-colors duration-150 ease-out hover:bg-warm-100 dark:hover:bg-olive-800"
         >
-          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-200 ease-out hover:border-coral-500/50 hover:bg-warm-100 dark:hover:bg-olive-800">
-            <div class="flex items-start gap-4">
-              <div
-                class="flex-shrink-0 w-12 h-12 flex items-center justify-center text-2xl"
-                :class="method.icon.includes('K') ? 'bg-coral-100 dark:bg-coral-900/30' : 'bg-warm-200 dark:bg-warm-800'"
-              >
-                {{ method.icon }}
-              </div>
-
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-2">
-                  <h3 class="text-xl font-medium text-warm-900 dark:text-warm-100 group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors">
-                    {{ method.title }}
-                  </h3>
-                  <UIcon
-                    name="i-lucide-arrow-up-right"
-                    class="w-4 h-4 text-warm-400 group-hover:text-coral-500 transition-colors"
-                  />
-                </div>
-                <p class="text-warm-600 dark:text-warm-400">
-                  {{ method.description }}
-                </p>
-              </div>
-            </div>
+          <div class="w-10 h-10 rounded-lg border border-warm-200 dark:border-warm-800 bg-coral-100 dark:bg-coral-900/30 flex items-center justify-center flex-shrink-0">
+            <span class="text-lg">{{ method.icon }}</span>
           </div>
+
+          <div class="min-w-0 flex-1">
+            <h3 class="text-sm font-medium text-warm-900 dark:text-warm-100 truncate group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors duration-150 ease-out">
+              {{ method.title }}
+            </h3>
+            <p class="mt-0.5 text-xs text-warm-500 dark:text-warm-400 line-clamp-1">
+              {{ method.description }}
+            </p>
+          </div>
+
+          <UIcon
+            name="i-lucide-arrow-up-right"
+            class="w-4 h-4 flex-shrink-0 text-warm-400 group-hover:text-coral-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-[transform,color] duration-200 ease-out"
+          />
         </NuxtLink>
 
-        <!-- Address or QRCode Type -->
-        <div
-          v-else
-          class="group block focus:outline-none"
-        >
-          <div class="h-full bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 transition-colors duration-200 ease-out hover:border-coral-500/50">
-            <div class="flex items-start gap-4">
-              <!-- Icon: regular type -->
-              <div
-                v-if="method.type !== 'qrcode'"
-                class="flex-shrink-0 w-12 h-12 flex items-center justify-center text-2xl bg-warm-200 dark:bg-warm-800"
-              >
-                {{ method.icon }}
-              </div>
+        <!-- Address / QRCode Type: 行点击展开详情 -->
+        <div v-else>
+          <button
+            type="button"
+            class="group flex w-full items-center gap-3 -mx-3 px-3 py-3 rounded-lg text-left focus:outline-none transition-colors duration-150 ease-out hover:bg-warm-100 dark:hover:bg-olive-800"
+            :aria-expanded="openId === method.id"
+            @click="toggle(method.id)"
+          >
+            <div class="w-10 h-10 rounded-lg border border-warm-200 dark:border-warm-800 bg-warm-200 dark:bg-warm-800 flex items-center justify-center flex-shrink-0">
+              <span v-if="method.icon" class="text-lg">{{ method.icon }}</span>
+              <UIcon
+                v-else
+                :name="method.type === 'qrcode' ? 'i-lucide-qr-code' : 'i-lucide-wallet'"
+                class="w-5 h-5 text-warm-900 dark:text-warm-100"
+              />
+            </div>
 
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-2">
-                  <h3 class="text-xl font-medium text-warm-900 dark:text-warm-100">
-                    {{ method.title }}
-                  </h3>
-                </div>
+            <div class="min-w-0 flex-1">
+              <h3 class="text-sm font-medium text-warm-900 dark:text-warm-100 truncate group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors duration-150 ease-out">
+                {{ method.title }}
+              </h3>
+              <p class="mt-0.5 text-xs text-warm-500 dark:text-warm-400 line-clamp-1">
+                {{ method.description }}
+              </p>
+            </div>
 
-                <p class="text-warm-600 dark:text-warm-400 mb-3">
-                  {{ method.description }}
-                </p>
+            <UIcon
+              name="i-lucide-chevron-down"
+              class="w-4 h-4 flex-shrink-0 text-warm-400 group-hover:text-coral-500 transition-[transform,color] duration-200 ease-out"
+              :class="{ 'rotate-180': openId === method.id }"
+            />
+          </button>
 
-                <div v-if="method.type === 'address'" class="flex items-center gap-2">
-                  <code class="flex-1 px-3 py-2 bg-warm-200 dark:bg-warm-800 rounded-sm text-sm text-warm-900 dark:text-warm-100 font-mono break-all">
-                    {{ method.address }}
-                  </code>
-                  <UButton
-                    icon="i-heroicons-clipboard-document"
-                    color="gray"
-                    variant="outline"
-                    size="sm"
-                    class="rounded-sm"
-                    @click.stop="copyAddress(method.address)"
-                  >
-                    Copy
-                  </UButton>
-                </div>
+          <!-- Expanded Panel -->
+          <div v-if="openId === method.id" class="pb-4 pl-13">
+            <img
+              v-if="method.type === 'qrcode'"
+              :src="method.qrcode"
+              :alt="method.title"
+              class="w-44 h-auto rounded-lg border border-warm-200 dark:border-warm-700"
+            />
 
-                <div v-if="method.type === 'qrcode'" class="mt-4">
-                  <img
-                    :src="method.qrcode"
-                    :alt="method.title"
-                    class="w-48 h-auto rounded-sm border border-warm-200 dark:border-warm-700"
-                  />
-                </div>
-              </div>
+            <div v-else-if="method.type === 'address'" class="flex items-center gap-2">
+              <code class="flex-1 min-w-0 px-3 py-2 bg-warm-100 dark:bg-warm-800 rounded-lg text-xs text-warm-900 dark:text-warm-100 font-mono break-all">
+                {{ method.address }}
+              </code>
+              <UButton
+                icon="i-lucide-clipboard"
+                color="gray"
+                variant="ghost"
+                size="xs"
+                label="Copy"
+                @click.stop="copyAddress(method.address)"
+              />
             </div>
           </div>
         </div>
@@ -123,6 +112,12 @@ interface SponsorMethod {
   url?: string
   address?: string
   qrcode?: string
+}
+
+const openId = ref<number | null>(null)
+
+const toggle = (id: number) => {
+  openId.value = openId.value === id ? null : id
 }
 
 const copyAddress = async (address: string | undefined) => {
