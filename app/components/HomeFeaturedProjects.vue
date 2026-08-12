@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="status === 'pending'" class="flex flex-col gap-1">
-      <USkeleton v-for="i in 3" :key="i" class="h-14 rounded-lg" />
+    <div v-if="status === 'pending'" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+      <USkeleton v-for="i in 4" :key="i" class="h-14 rounded-lg" />
     </div>
 
     <UAlert
@@ -24,8 +24,8 @@
       </template>
     </UAlert>
 
-    <!-- Continuous-document project rows -->
-    <div v-else class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800 animate-fade-in">
+    <!-- 2x2 project grid -->
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 animate-fade-in">
       <HomeProjectCard
         v-for="project in featuredProjects"
         :key="project.id"

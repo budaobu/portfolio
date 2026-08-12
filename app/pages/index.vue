@@ -69,9 +69,21 @@
         eyebrow="Selected Works"
         title="Projects"
         description="Most recent experiments and creations."
-        to="/projects"
       />
       <HomeFeaturedProjects />
+
+      <div class="mt-4 flex justify-end">
+        <UButton
+          to="/projects"
+          color="gray"
+          variant="ghost"
+          icon="i-lucide-arrow-right"
+          trailing
+          label="View All"
+          size="sm"
+          class="font-medium"
+        />
+      </div>
     </section>
 
     <!-- Recent Blog Section -->
@@ -81,7 +93,6 @@
         eyebrow="Latest Writing"
         title="Blog"
         description="No Tech, just ramblings."
-        to="/blog"
       />
 
       <div v-if="blogPending" class="flex flex-col gap-1">
@@ -97,6 +108,19 @@
       </div>
 
       <p v-else class="text-sm text-warm-500">No articles yet, stay tuned.</p>
+
+      <div class="mt-4 flex justify-end">
+        <UButton
+          to="/blog"
+          color="gray"
+          variant="ghost"
+          icon="i-lucide-arrow-right"
+          trailing
+          label="View All"
+          size="sm"
+          class="font-medium"
+        />
+      </div>
     </section>
   </div>
 </template>

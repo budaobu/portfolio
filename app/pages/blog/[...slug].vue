@@ -41,12 +41,12 @@
       </div>
     </div>
 
-    <!-- Article content with grid layout -->
-    <div v-else class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start animate-fade-in">
+    <!-- Article content：article 占满容器，TOC 刻度轨悬浮于右侧溢出留白 -->
+    <div v-else class="relative animate-fade-in">
 
       <!-- Main article -->
       <article
-        class="lg:col-span-9 bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 sm:p-10 md:p-12"
+        class="bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 sm:p-10 md:p-12"
       >
         <!-- Header -->
         <header class="mb-10 flex flex-col gap-6">
@@ -103,49 +103,37 @@
         </div>
       </article>
 
-      <!-- Sidebar: TOC -->
-      <aside class="hidden lg:block lg:col-span-3 lg:sticky lg:top-24 h-fit pl-4">
-        <!-- Back button -->
-        <div class="mb-6">
-          <UButton
-            to="/blog"
-            variant="ghost"
-            color="gray"
-            size="sm"
-            icon="i-lucide-corner-up-left"
-            label="Back to Blog"
-            class="-ml-2.5 text-warm-500 hover:text-warm-900 dark:text-warm-400 dark:hover:text-warm-100 rounded-sm"
-          />
-        </div>
-
-        <!-- TOC -->
-        <div v-if="doc.body?.toc?.links?.length">
-          <div class="font-medium text-sm text-warm-900 dark:text-warm-100 mb-4 uppercase tracking-wider flex items-center gap-2">
-            <UIcon name="i-lucide-list" class="w-4 h-4" />
-            <span>On this page</span>
+      <!-- Sidebar: Back + 隐式 TOC 刻度（绝对定位到容器外右侧留白，不占 article 宽度） -->
+      <aside class="hidden lg:block absolute left-full top-0 h-full pl-8">
+        <div class="sticky top-24 flex flex-col">
+          <!-- Back button -->
+          <div class="mb-6">
+            <UButton
+              to="/blog"
+              variant="ghost"
+              color="gray"
+              size="sm"
+              icon="i-lucide-corner-up-left"
+              label="Back to Blog"
+              class="-ml-2.5 text-warm-500 hover:text-warm-900 dark:text-warm-400 dark:hover:text-warm-100 rounded-sm"
+            />
           </div>
-          <nav>
-            <ul class="space-y-3 text-sm">
-              <li v-for="link in doc.body.toc.links" :key="link.id">
-                <a
-                  :href="`#${link.id}`"
-                  class="block text-warm-500 hover:text-coral-600 dark:text-warm-400 dark:hover:text-coral-400 transition-colors line-clamp-2"
-                >
-                  {{ link.text }}
-                </a>
-                <!-- Second level headings -->
-                <ul v-if="link.children" class="pl-4 mt-2 space-y-2 border-l border-warm-200 dark:border-warm-700 ml-1">
-                    <li v-for="child in link.children" :key="child.id">
-                      <a
-                      :href="`#${child.id}`"
-                      class="block text-warm-400 hover:text-coral-600 dark:text-warm-500 dark:hover:text-coral-400 transition-colors line-clamp-1"
-                    >
-                        {{ child.text }}
-                      </a>
-                    </li>
-                </ul>
-              </li>
-            </ul>
+
+          <!-- 隐式 TOC：每个最高级标题对应一根短横线，hover 弹出标题，点击跳转锚点 -->
+          <nav v-if="doc.body?.toc?.links?.length" class="flex flex-col items-start">
+            <a
+              v-for="link in doc.body.toc.links"
+              :key="link.id"
+              :href="`#${link.id}`"
+              class="group relative flex items-center py-1.5 focus:outline-none"
+            >
+              <span class="block w-5 h-[2px] rounded-full bg-warm-300 dark:bg-warm-700 transition-all duration-200 ease-out group-hover:w-8 group-hover:bg-coral-500 dark:group-hover:bg-coral-400"></span>
+
+              <!-- Hover 弹出的标题框 -->
+              <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-20 max-w-64 px-3 py-1.5 rounded-lg border border-warm-200 dark:border-warm-700 bg-warm-50 dark:bg-olive-900 shadow-md text-xs text-warm-700 dark:text-warm-300 leading-snug opacity-0 invisible translate-x-1 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-x-0">
+                {{ link.text }}
+              </span>
+            </a>
           </nav>
         </div>
       </aside>

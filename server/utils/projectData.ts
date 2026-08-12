@@ -33,7 +33,7 @@ const rawProjects: Project[] = [
     demoUrl: '/projects/video2gif',
     githubUrl: 'https://github.com/budaobu/video2gif',
     date: '2025-12-01',
-    featured: false
+    featured: true
   },
   {
     id: 6,
