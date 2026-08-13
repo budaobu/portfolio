@@ -79,5 +79,6 @@ vercel.json.local
 wrangler.toml.local
 
 .playwright-mcp/
+.playwright-cli/
 AGENTS.md
 CLAUDE.md
