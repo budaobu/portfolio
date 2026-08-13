@@ -50,8 +50,8 @@
             <NuxtLink
               v-for="project in archivedItems"
               :key="project.id"
-              :to="project.mainUrl"
-              :target="project.mainUrl?.startsWith('http') ? '_blank' : '_self'"
+              :to="project.demoUrl"
+              :target="project.demoUrl.startsWith('http') ? '_blank' : '_self'"
               class="group flex items-center gap-3 -mx-3 px-3 py-2.5 rounded-lg focus:outline-none transition-colors duration-150 ease-out hover:bg-warm-100 dark:hover:bg-olive-800"
             >
               <div class="w-8 h-8 rounded-lg border border-warm-200 dark:border-warm-800 bg-warm-200 dark:bg-warm-800 flex items-center justify-center flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity duration-150">

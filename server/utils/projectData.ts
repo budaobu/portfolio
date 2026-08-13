@@ -4,10 +4,7 @@ export interface Project {
   title: string
   description: string
   icon: string
-  demoUrl?: string
-  githubUrl?: string
-  appStoreUrl?: string
-  googlePlayUrl?: string
+  demoUrl: string
   date?: string // 可选：用于 RSS 的发布时间，如果不填则使用当前时间
   featured?: boolean
   archived?: boolean // 已归档：从主列表移至底部折叠区

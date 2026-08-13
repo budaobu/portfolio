@@ -8,14 +8,8 @@ export interface Project {
   description: string
   icon: string
   
-  // 外部链接字段
-  demoUrl?: string
-  githubUrl?: string
-  appStoreUrl?: string
-  googlePlayUrl?: string
-  
-  // 服务端 processProject 处理后生成的统一主链接
-  mainUrl?: string 
+  // 项目入口
+  demoUrl: string
   
   // 元数据
   date?: string

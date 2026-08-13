@@ -55,20 +55,16 @@ export default defineEventHandler(async (event) => {
   // 3. 智能查找项目 (Dynamic Project Mapping)
   // 自动将项目标题转换为 kebab-case 进行匹配
   // 例如: "Video to GIF" -> "video-to-gif"
-  // 访问 /go/video-to-gif 将自动跳转到该项目的 demoUrl 或 githubUrl
+  // 访问 /go/video-to-gif 将自动跳转到该项目的 demoUrl
   const project = projects.find(p => {
     const slug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-')
     return slug === key || slug === `project-${key}`
   })
 
   if (project) {
-    // 优先跳转到 Demo，没有 Demo 则跳转到 GitHub
-    const targetUrl = project.demoUrl || project.githubUrl
-    if (targetUrl) {
-      // 如果是站内链接 (如 /projects/xxx)，直接跳转
-      // 如果是站外链接 (http)，也直接跳转
-      return sendRedirect(event, targetUrl, 302)
-    }
+    // 如果是站内链接 (如 /projects/xxx)，直接跳转
+    // 如果是站外链接 (http)，也直接跳转
+    return sendRedirect(event, project.demoUrl, 302)
   }
 
   // 4. 如果都找不到，跳转到 404 或首页

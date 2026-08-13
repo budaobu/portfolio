@@ -1,0 +1,57 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "Back to Home" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img "Budaobu" [ref=e9]
+        - generic [ref=e10]: Budaobu
+      - generic [ref=e11]:
+        - link "Projects" [ref=e12] [cursor=pointer]:
+          - /url: /projects
+        - link "Articles" [ref=e15] [cursor=pointer]:
+          - /url: /blog
+        - link "Uses" [ref=e18] [cursor=pointer]:
+          - /url: /uses
+        - link "Sponsor" [ref=e21] [cursor=pointer]:
+          - /url: /sponsor
+        - button "Toggle Theme" [ref=e24]
+  - main [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: Support
+        - heading "Sponsor" [level=1] [ref=e39]
+        - paragraph [ref=e40]: V me 50 for KFC Crazy Thursday.
+      - generic [ref=e41]:
+        - link "☕ Buy Me a Coffee Support my work and keep the code flowing." [ref=e42] [cursor=pointer]:
+          - /url: /go/coffee
+          - generic [ref=e43]: ☕
+          - generic [ref=e45]:
+            - heading "Buy Me a Coffee" [level=3] [ref=e46]
+            - paragraph [ref=e47]: Support my work and keep the code flowing.
+        - button [ref=e50]:
+          - generic [ref=e53]:
+            - heading "Wechat Pay" [level=3] [ref=e54]
+            - paragraph [ref=e55]: Scan the QR code below with WeChat to support.
+  - contentinfo [ref=e57]:
+    - generic [ref=e59]:
+      - generic [ref=e60]:
+        - generic [ref=e61]: © 2026 Budaobu
+        - generic [ref=e62]: •
+        - generic [ref=e63]:
+          - generic [ref=e64]: vibe with
+          - generic [ref=e65]:
+            - link "Gemini 3.0 Pro" [ref=e67] [cursor=pointer]:
+              - /url: /go/gemini
+              - img "Gemini 3.0 Pro" [ref=e68]
+            - link "Claude 4.5~4.6 Sonnet" [ref=e70] [cursor=pointer]:
+              - /url: /go/claude
+              - img "Claude 4.5~4.6 Sonnet" [ref=e71]
+      - generic [ref=e72]:
+        - link "GitHub" [ref=e73] [cursor=pointer]:
+          - /url: /go/source
+        - link "RSS feed" [ref=e75] [cursor=pointer]:
+          - /url: /rss.xml
+        - link "Sitemap" [ref=e77] [cursor=pointer]:
+          - /url: /sitemap.xml
+        - link "Email" [ref=e79] [cursor=pointer]:
+          - /url: /connect

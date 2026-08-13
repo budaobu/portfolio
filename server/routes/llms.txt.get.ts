@@ -36,8 +36,7 @@ Here are some of the tools and applications I've stitched together:
 ${projects
     .filter(p => p.featured)
     .map(p => {
-      // 优先展示 Demo URL，其次 Github，最后是 path
-      const link = p.demoUrl?.startsWith('http') ? p.demoUrl : (p.demoUrl ? `${siteUrl}${p.demoUrl}` : p.githubUrl)
+      const link = p.demoUrl.startsWith('http') ? p.demoUrl : `${siteUrl}${p.demoUrl}`
       return `- **${p.title}**: ${p.description} (${link})`
     }).join('\n')}`
 

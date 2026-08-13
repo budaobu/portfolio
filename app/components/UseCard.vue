@@ -37,16 +37,18 @@
       <p class="mt-0.5 text-xs text-warm-500 dark:text-warm-400 line-clamp-1">
         {{ item.description }}
       </p>
+      <div class="mt-1 flex items-center gap-1.5 text-[11px] text-warm-400 dark:text-warm-500">
+        <span v-if="item.price" class="font-medium text-warm-700 dark:text-warm-300">
+          {{ item.price }}
+        </span>
+        <span v-if="item.price && item.category" aria-hidden="true">/</span>
+        <span v-if="item.category">
+          {{ item.category }}
+        </span>
+      </div>
     </div>
 
-    <div class="flex flex-col items-end gap-0.5 flex-shrink-0">
-      <span v-if="item.price" class="text-xs font-medium text-warm-900 dark:text-warm-100">
-        {{ item.price }}
-      </span>
-      <span class="text-[11px] text-warm-400 dark:text-warm-500">
-        {{ item.category }}
-      </span>
-    </div>
+    <UIcon name="i-lucide-arrow-up-right" class="w-4 h-4 text-warm-400 dark:text-warm-500 flex-shrink-0 transition-colors duration-150 ease-out group-hover:text-coral-600 dark:group-hover:text-coral-400" />
   </a>
 </template>
 
