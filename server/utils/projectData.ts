@@ -21,7 +21,6 @@ const rawProjects: Project[] = [
     description: 'Powerful file-to-markdown converter. Supporting PDF, DOCX, XLSX, and images. Processed with Microsoft MarkItDown engine.',
     icon: '📄',
     demoUrl: '/projects/markitdown',
-    githubUrl: 'https://github.com/budaobu/markitdown',
     date: '2026-01-26',
     featured: true
   },
@@ -31,7 +30,6 @@ const rawProjects: Project[] = [
     description: 'In browser converter, process locally, no server upload required.',
     icon: '🎥',
     demoUrl: '/projects/video2gif',
-    githubUrl: 'https://github.com/budaobu/video2gif',
     date: '2025-12-01',
     featured: true
   },
@@ -40,8 +38,7 @@ const rawProjects: Project[] = [
     title: 'Portfolio',
     description: 'Personal Homepage。',
     icon: '/avatar.webp',
-    demoUrl: '',
-    githubUrl: 'https://github.com/budaobu/portfolio',
+    demoUrl: 'https://github.com/budaobu/portfolio',
     date: '2025-12-01',
     featured: false
   },
@@ -51,7 +48,6 @@ const rawProjects: Project[] = [
     description: 'In browser compression, process images locally without uploading.',
     icon: '🖼',
     demoUrl: '/projects/tinypic',
-    githubUrl: 'https://github.com/budaobu/tinypic',
     date: '2025-11-29',
     featured: true
   },
@@ -61,7 +57,6 @@ const rawProjects: Project[] = [
     description: 'In browser meme tool, auto-slice images into custom grids (e.g., 6x4, 7x4) and generate GIFs.',
     icon: '✂️',
     demoUrl: '/projects/meme-slicer',
-    githubUrl: 'https://github.com/budaobu/meme-slicer',
     date: '2025-11-28',
     featured: false
   },
@@ -71,7 +66,6 @@ const rawProjects: Project[] = [
     description: 'In browser watermarker, add text watermarks to ID photos. Customize position, opacity, and size for professional results.',
     icon: '🪪',
     demoUrl: '/projects/image-watermark',
-    githubUrl: 'https://github.com/budaobu/image-watermark',
     date: '2025-01-05',
     featured: true
   },
@@ -81,7 +75,6 @@ const rawProjects: Project[] = [
     description: 'Scientifically analyze the best choice based on annual mileage, charging access, and driving habits.',
     icon: '🚗',
     demoUrl: 'https://car-calculator.pages.dev/',
-    githubUrl: 'https://github.com/budaobu/car-calculator',
     date: '2024-11-27',
     archived: true
   },
@@ -90,8 +83,7 @@ const rawProjects: Project[] = [
     title: 'ASN CN',
     description: 'Fetch ASN CN data from bgp.he.net and whois.ipip.net daily.',
     icon: 'i-simple-icons-github', // 🌐
-    demoUrl: '',
-    githubUrl: 'https://github.com/budaobu/rules/blob/main/py/cn-asn-scraper.py',
+    demoUrl: 'https://github.com/budaobu/rules/blob/main/py/cn-asn-scraper.py',
     date: '2024-09-10',
     featured: false
   }
