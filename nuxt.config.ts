@@ -10,6 +10,10 @@ export default defineNuxtConfig({
     compatibilityVersion: 4,
   },
 
+  experimental: {
+    emitRouteChunkError: 'automatic-immediate'
+  },
+
   modules: [
     '@nuxt/ui',
     '@nuxt/content',
@@ -182,6 +186,9 @@ export default defineNuxtConfig({
       ]
     },
     workbox: {
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
       navigateFallbackDenylist: [
       /^\/api\/.*/,        // 排除所有 API 端点
       /^\/go\/.*/,         // 排除短链接重定向
