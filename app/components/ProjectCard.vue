@@ -105,7 +105,6 @@ const LINK_CONFIG: LinkDefinition[] = [
   {
     key: 'demoUrl',
     props: {
-      label: 'Web',
       icon: 'i-lucide-arrow-up-right'
     }
   },
