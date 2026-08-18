@@ -17,7 +17,7 @@ export const sponsorMethods: SponsorMethod[] = [
     description: 'Support my work and keep the code flowing.',
     icon: '☕',
     // 关键修正：使用短链接，统一由服务端控制跳转
-    // 对应 server/routes/go/[key].get.ts 中的 'coffee'
+    // 对应 shared/utils/goLinks.ts 中的 'coffee'
     url: '/go/coffee'
   },
   /* // 暂时注释加密货币钱包

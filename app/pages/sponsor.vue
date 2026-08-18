@@ -15,6 +15,8 @@
         <NuxtLink
           v-if="method.type === 'link'"
           :to="method.url"
+          target="_blank"
+          rel="nofollow noopener noreferrer"
           class="group flex w-[calc(100%+1.5rem)] items-center gap-3 -mx-3 px-3 py-3 rounded-lg focus:outline-none transition-colors duration-150 ease-out hover:bg-warm-100 dark:hover:bg-olive-800"
         >
           <div class="w-10 h-10 rounded-lg border border-warm-200 dark:border-warm-800 bg-coral-100 dark:bg-coral-900/30 flex items-center justify-center flex-shrink-0">
