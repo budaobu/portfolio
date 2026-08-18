@@ -38,5 +38,5 @@ export const goLinks: Record<string, string> = {
   'giffgaff': 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
   'dmit': 'https://www.dmit.io/aff.php?aff=24826',
   'dedirock': 'https://billing.dedirock.com/aff.php?aff=794',
-  'evoxt': 'https://billing.dedirock.com/aff.php?aff=794'
+  'evoxt': 'https://console.evoxt.com/aff.php?aff=4733'
 }
