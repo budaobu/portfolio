@@ -130,7 +130,7 @@
               <span class="block w-5 h-[2px] rounded-full bg-warm-300 dark:bg-warm-700 transition-all duration-200 ease-out group-hover:w-8 group-hover:bg-coral-500 dark:group-hover:bg-coral-400"></span>
 
               <!-- Hover 弹出的标题框 -->
-              <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-20 max-w-64 px-3 py-1.5 rounded-lg border border-warm-200 dark:border-warm-700 bg-warm-50 dark:bg-olive-900 shadow-md text-xs text-warm-700 dark:text-warm-300 leading-snug opacity-0 invisible translate-x-1 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-x-0">
+              <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-20 w-max max-w-64 px-3 py-1.5 rounded-lg border border-warm-200 dark:border-warm-700 bg-warm-50 dark:bg-olive-900 shadow-md text-xs text-warm-700 dark:text-warm-300 leading-snug opacity-0 invisible translate-x-1 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-x-0">
                 {{ link.text }}
               </span>
             </a>
