@@ -19,7 +19,7 @@ const rawUses: Use[] = [
     category: 'VPS',
     description: 'DMIT 三网回程不分家，电信、联通、移动全部强制走 CN2 GIA (AS4809) 高阶精品线路直连回国。',
     imageUrl: '',
-    linkUrl: 'https://www.dmit.io/aff.php?aff=24826',
+    linkUrl: '/go/dmit',
     price: '$10.9/月',
     isAffiliate: true
   },
@@ -30,7 +30,7 @@ const rawUses: Use[] = [
     category: 'VPS',
     description: '可能是目前最便宜的亚太 VPS，电信走 CTG GIA 精品直连，联通走 AS9929 高阶直连，移动走 CMI 骨干。',
     imageUrl: '',
-    linkUrl: 'https://console.evoxt.com/aff.php?aff=4733',
+    linkUrl: '/go/evoxt',
     price: '$3.49/月',
     isAffiliate: true
   },
@@ -41,7 +41,7 @@ const rawUses: Use[] = [
     category: 'VPS',
     description: '你就说是不是便宜的美西',
     imageUrl: '',
-    linkUrl: 'https://billing.dedirock.com/aff.php?aff=794',
+    linkUrl: '/go/dedirock',
     price: '$9.88/年',
     isAffiliate: true
   },
@@ -52,7 +52,7 @@ const rawUses: Use[] = [
     category: 'Mobile Service',
     description: '0月租、无需KYC实名、支持 eSIM，充值10英镑，每180天消费一条短信即可保号，是注册接码、长期保号性价比首选。',
     imageUrl: '',
-    linkUrl: 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
+    linkUrl: '/go/giffgaff',
     isAffiliate: true
   },
   {
@@ -62,7 +62,7 @@ const rawUses: Use[] = [
     category: 'Nomad',
     description: 'Wise is the service I use when I want international transfers to be simple, transparent, and predictable.',
     imageUrl: '',
-    linkUrl: 'https://wise.com/',
+    linkUrl: '/go/wise',
     isAffiliate: false
   },
 
