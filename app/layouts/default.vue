@@ -91,6 +91,11 @@ const aiTools = [
     name: 'Claude 4.5~4.6 Sonnet',
     icon: '/claude-color.svg',
     url: '/go/claude'
+  },
+  {
+    name: 'Kimi K3',
+    icon: '/kimi.webp',
+    url: '/go/kimi'
   }
 ]
 
