@@ -63,8 +63,11 @@ defineProps<Props>()
 
 const getFavicon = (url: string) => {
   if (!url) return ''
+  // /go/ 短链接先还原成源链接，否则 favicon 会取到本站域名
+  const target = url.startsWith('/go/') ? goLinks[url.slice(4)] : url
+  if (!target || !target.startsWith('http')) return ''
   try {
-    const hostname = new URL(url).hostname
+    const hostname = new URL(target).hostname
     return `https://www.google.com/s2/favicons?domain=${hostname}&sz=128`
   } catch {
     return ''

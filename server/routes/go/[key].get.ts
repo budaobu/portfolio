@@ -8,48 +8,8 @@ export default defineEventHandler(async (event) => {
     return sendRedirect(event, '/')
   }
 
-  // 2. 定义静态短链接映射 (优先级最高)
-  const staticLinks: Record<string, string> = {
-    // --- 社交媒体 ---
-    'github': 'https://github.com/budaobu',
-    'twitter': 'https://x.com/lizhaoshui',
-    'x': 'https://x.com/lizhaoshui',
-    'telegram': 'https://t.me/joeyhuey',
-    'whatsapp': 'https://wa.me/你的号码',
-    'discord': '#',
-    'instagram': '#',
-    'youtube': '#',
-    
-    // --- 音乐服务 ---
-    'spotify': '#',
-    'applemusic': '#',
-
-    // --- 站内功能快捷方式 ---
-    'mail': '/connect',
-    'contact': '/connect',
-    'sponsor': '/sponsor',
-    'rss': '/rss.xml',
-    
-    // --- 特定资源 ---
-    'source': 'https://github.com/budaobu/portfolio',
-    'coffee': 'https://buymeacoffee.com/lizhaoshui',
-    
-    // 默认回首页
-    'home': '/',
-
-    // 其他静态映射可继续添加
-    'claude': 'https://claude.ai',
-    'chatgpt': 'https://chat.openai.com/',
-    'gemini': 'https://gemini.google.com/',
-    'nuxtjs': 'https://nuxt.com',
-
-    // uses链接
-    'wise': 'https://wise.com/invite/ilpc/qiuyangh',
-    'giffgaff': 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
-    'dmit': 'https://www.dmit.io/aff.php?aff=24826',
-    'dedirock': 'https://billing.dedirock.com/aff.php?aff=794',
-    'evoxt': 'https://billing.dedirock.com/aff.php?aff=794'
-  }
+  // 2. 静态短链接映射（优先级最高），与前端共用，见 shared/utils/goLinks.ts
+  const staticLinks = goLinks
 
   // 检查静态映射
   if (staticLinks[key]) {
