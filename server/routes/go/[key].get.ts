@@ -41,7 +41,14 @@ export default defineEventHandler(async (event) => {
     'claude': 'https://claude.ai',
     'chatgpt': 'https://chat.openai.com/',
     'gemini': 'https://gemini.google.com/',
-    'nuxtjs': 'https://nuxt.com'
+    'nuxtjs': 'https://nuxt.com',
+
+    // uses链接
+    'wise': 'https://wise.com/invite/ilpc/qiuyangh',
+    'giffgaff': 'https://giffgaff.com/orders/affiliate/aigua63?app=1',
+    'dmit': 'https://www.dmit.io/aff.php?aff=24826',
+    'dedirock': 'https://billing.dedirock.com/aff.php?aff=794',
+    'evoxt': 'https://billing.dedirock.com/aff.php?aff=794'
   }
 
   // 检查静态映射
