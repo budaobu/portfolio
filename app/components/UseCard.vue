@@ -20,7 +20,7 @@
       :src="getFavicon(item.linkUrl)"
       :alt="item.brand"
       loading="lazy"
-      class="w-10 h-10 rounded-lg border border-warm-200 dark:border-warm-800 object-contain bg-white dark:bg-warm-800 p-1 flex-shrink-0"
+      class="w-10 h-10 rounded-lg border border-warm-200 dark:border-warm-800 object-contain bg-white dark:bg-warm-800 flex-shrink-0"
       @error="handleIconError"
     />
 
