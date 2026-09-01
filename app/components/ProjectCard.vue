@@ -16,7 +16,7 @@
     </div>
 
     <div class="min-w-0 flex-1">
-      <div class="flex items-baseline gap-2">
+      <div class="flex items-baseline gap-3">
         <h3 class="text-sm font-medium text-warm-900 dark:text-warm-100 truncate group-hover:text-coral-600 dark:group-hover:text-coral-400 transition-colors duration-150 ease-out">
           <NuxtLink
             :to="project.demoUrl"
@@ -27,6 +27,13 @@
             {{ project.title }}
           </NuxtLink>
         </h3>
+        <span
+          v-if="status || project.date"
+          class="label-tag flex-shrink-0 text-[10px]"
+          :class="status === 'CURRENT' ? 'text-route-500' : 'text-warm-500 dark:text-warm-400'"
+        >
+          {{ status || project.date?.slice(0, 4) }}
+        </span>
       </div>
       <p class="mt-0.5 text-xs text-warm-500 dark:text-warm-400 line-clamp-1">
         {{ project.description }}
@@ -54,9 +61,12 @@ import type { Project } from '~/app/utils/types'
 
 interface Props {
   project: Project
+  status?: string
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), {
+  status: undefined
+})
 
 const isImageIcon = computed(() =>
   props.project.icon.startsWith('http') || props.project.icon.startsWith('/')

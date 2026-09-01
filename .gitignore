@@ -47,6 +47,7 @@ plans
 # Testing
 coverage/
 .nyc_output
+/output/
 
 # IDE & Editors
 .vscode/

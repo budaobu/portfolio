@@ -1,11 +1,11 @@
 <template>
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+  <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-16">
     <!-- Page Header - Editorial Style -->
     <SectionHeading
       large
-      eyebrow="Playground"
+      eyebrow="Flight Plan"
       title="Projects"
-      description="Just for fun, but hey, it runs. Come see the chaos."
+      description="Every row is an experiment that left the ground."
     />
 
     <div v-if="!loaded && !error" class="flex flex-col gap-1">
@@ -26,9 +26,10 @@
       <div>
         <div class="flex flex-col divide-y divide-dotted divide-warm-200 dark:divide-warm-800">
           <ProjectCard
-            v-for="project in allProjects"
+            v-for="(project, index) in allProjects"
             :key="project.id"
             :project="project"
+            :status="index === 0 ? 'CURRENT' : undefined"
           />
         </div>
 

@@ -1,14 +1,16 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-warm-50 dark:bg-olive-950">
+  <div class="min-h-[100svh] flex flex-col bg-warm-50 dark:bg-olive-950">
     <AppHeader />
+
+    <HomeIdentity v-if="route.path === '/'" />
 
     <main class="flex-1">
       <slot />
     </main>
 
     <!-- Footer -->
-    <footer class="border-t border-warm-200 dark:border-warm-800 bg-warm-50/90 dark:bg-olive-950/90 backdrop-blur-md py-10 mt-16">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer class="mt-16 pb-12">
+      <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-6">
 
           <!-- Copyright + AI tools -->
@@ -20,11 +22,11 @@
 
             <span class="flex items-center gap-2">
               <span>vibe with</span>
-              <span class="inline-flex items-center space-x-1 sm:-space-x-2 sm:hover:space-x-1 transition-all duration-500 ease-in-out px-1">
+              <span class="inline-flex items-center space-x-1 sm:-space-x-2 sm:hover:space-x-1 transition-[margin] duration-500 [transition-timing-function:var(--ease-out)] px-1">
                 <div
                   v-for="(tool, index) in aiTools"
                   :key="tool.name"
-                  class="relative transition-all duration-500 ease-in-out hover:z-50"
+                  class="relative transition-transform duration-300 [transition-timing-function:var(--ease-out)] hover:z-50"
                   :style="{ zIndex: aiTools.length - index }"
                 >
                   <UTooltip
@@ -78,6 +80,7 @@
 </template>
 
 <script setup lang="ts">
+const route = useRoute()
 const siteConfig = useSiteConfig()
 const currentYear = new Date().getFullYear()
 

@@ -12,17 +12,6 @@ useHead({
   ]
 })
 
-const colorMode = useColorMode()
-const isDark = computed({
-  get: () => colorMode.value === 'dark',
-  set: (val) => {
-    colorMode.preference = val ? 'dark' : 'light'
-  }
-})
-const toggleDark = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
-
 // --- State ---
 const file = ref<File | null>(null)
 const isProcessing = ref(false)
@@ -256,14 +245,14 @@ const formatSize = (bytes: number) => {
 
 <template>
   <div>
-    <div class="min-h-[calc(100vh-64px)] bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <div class="min-h-[70svh] bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300 [transition-timing-function:var(--ease-out)]">
 
       <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div class="text-center mb-16">
-          <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
             Convert Any File <br class="sm:hidden" /> to <span class="text-primary-600">Markdown</span> in Seconds.
           </h1>
-          <p class="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-400">
+          <p class="max-w-2xl mx-auto text-base text-gray-600 dark:text-gray-400">
             Support for PDF, Word, Excel, PowerPoint and more. Secure, private, and runs entirely in your browser.
           </p>
         </div>
@@ -271,7 +260,7 @@ const formatSize = (bytes: number) => {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 min-h-[600px]">
           
           <!-- Upload Section -->
-          <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 flex flex-col relative transition-shadow duration-300 ease-out hover:shadow-2xl">
+          <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden border border-gray-100 dark:border-gray-800 flex flex-col relative transition-shadow duration-300 [transition-timing-function:var(--ease-out)] hover:shadow-xl">
             <div class="p-6 border-b border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50">
                <h3 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
                  Source File
@@ -322,10 +311,10 @@ const formatSize = (bytes: number) => {
                  <p class="text-sm text-gray-500 dark:text-gray-400 mb-8">{{ formatSize(file.size) }}</p>
                  
                  <div class="flex gap-4 w-full">
-                    <button @click.stop="triggerFileInput" class="flex-1 py-2.5 px-4 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <button @click.stop="triggerFileInput" class="flex-1 py-2.5 px-4 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors [transition-timing-function:var(--ease-out)]">
                       Change
                     </button>
-                    <button @click.stop="file = null; resultText = ''" class="flex-1 py-2.5 px-4 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors">
+                    <button @click.stop="file = null; resultText = ''" class="flex-1 py-2.5 px-4 rounded-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 font-medium hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors [transition-timing-function:var(--ease-out)]">
                       Remove
                     </button>
                  </div>
@@ -334,14 +323,14 @@ const formatSize = (bytes: number) => {
           </div>
 
           <!-- Result Section -->
-          <div class="bg-white dark:bg-gray-900 rounded-3xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-800 flex flex-col relative transition-all duration-300 hover:shadow-2xl">
+          <div class="bg-white dark:bg-gray-900 rounded-lg shadow-lg overflow-hidden border border-gray-100 dark:border-gray-800 flex flex-col relative transition-shadow duration-300 [transition-timing-function:var(--ease-out)] hover:shadow-xl">
              <div class="p-4 border-b border-gray-100 dark:border-gray-800 flex items-center justify-between bg-gray-50/50 dark:bg-gray-900/50 h-[72px]">
-                <div class="flex bg-gray-200 dark:bg-gray-800 p-1 rounded-xl">
+                <div class="flex bg-gray-200 dark:bg-gray-800 p-1 rounded-full">
                    <button 
                      v-for="(t, i) in ['Markdown', 'Preview']" 
                      :key="i"
                      @click="activeTab = i"
-                     class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all"
+                     class="px-4 py-1.5 rounded-lg text-sm font-medium transition-[background-color,color,box-shadow]"
                      :class="activeTab === i ? 'bg-white dark:bg-gray-700 shadow-sm text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200'"
                    >
                      {{ t }}
@@ -378,7 +367,7 @@ const formatSize = (bytes: number) => {
                 ></textarea>
                 <div 
                   v-if="activeTab === 1" 
-                  class="absolute inset-0 overflow-auto p-8 prose dark:prose-invert max-w-none prose-sm sm:prose-base bg-white dark:bg-gray-900"
+                  class="absolute inset-0 overflow-auto p-8 prose max-w-none prose-sm sm:prose-base bg-white dark:bg-gray-900"
                 >
                   <ContentRenderer v-if="parsedContent" :value="parsedContent" />
                 </div>

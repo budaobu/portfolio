@@ -1,13 +1,13 @@
 <template>
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+  <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-16">
     <!-- Page Header -->
     <SectionHeading
       large
-      eyebrow="Writing"
+      eyebrow="Flight Log"
       title="Blog"
       description="No Tech, just ramblings."
     >
-      <div class="flex items-center gap-2.5 mt-5">
+      <div class="mt-5 flex items-center gap-2.5">
         <UTooltip
           v-for="social in blogSocialLinks"
           :key="social.name"
@@ -19,7 +19,7 @@
             target="_blank"
             rel="noopener noreferrer nofollow"
             :aria-label="social.name"
-            class="w-10 h-10 rounded-sm flex items-center justify-center bg-warm-200 dark:bg-warm-800 hover:bg-coral-500 hover:text-warm-50 text-warm-700 dark:text-warm-300 transition-colors duration-150 ease-out"
+            class="w-10 h-10 rounded-full flex items-center justify-center bg-warm-100 dark:bg-warm-900 border border-warm-300 dark:border-warm-800 hover:border-coral-500 hover:text-coral-600 text-warm-700 dark:text-warm-300 transition-colors duration-150 [transition-timing-function:var(--ease-out)]"
           >
             <UIcon :name="social.icon" class="w-5 h-5" />
           </NuxtLink>

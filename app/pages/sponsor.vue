@@ -1,11 +1,11 @@
 <template>
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+  <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-16">
     <!-- Page Header -->
     <SectionHeading
       large
-      eyebrow="Support"
+      eyebrow="Onboard Service"
       title="Sponsor"
-      description="V me 50 for KFC Crazy Thursday."
+      description="Keep the cabin running and the experiments flying."
     />
 
     <!-- Sponsor Methods List -->

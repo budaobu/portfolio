@@ -7,17 +7,44 @@
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
 
+  /* Cabin palette: warm paper, never cold white or absolute black. */
+  --color-white: #fffdfb;
+  --color-black: #191817;
+
+  --color-warm-50: #faf5f5;
+  --color-warm-100: #f1eceb;
+  --color-warm-200: #ded8d7;
+  --color-warm-300: #cbc9d6;
+  --color-warm-400: #8d8c88;
+  --color-warm-500: #777671;
+  --color-warm-600: #575752;
+  --color-warm-700: #434445;
+  --color-warm-800: #262424;
+  --color-warm-900: #17160f;
+  --color-warm-950: #191817;
+
+  --color-olive-50: #f4f3f0;
+  --color-olive-100: #e5e2db;
+  --color-olive-200: #cbc5b7;
+  --color-olive-300: #a9a08e;
+  --color-olive-400: #85806b;
+  --color-olive-500: #686152;
+  --color-olive-600: #544d41;
+  --color-olive-700: #423d36;
+  --color-olive-800: #242322;
+  --color-olive-900: #211f1f;
+  --color-olive-950: #191817;
+
+  --color-route-400: #2c6fff;
+  --color-route-500: #3a53ed;
+
   /* 自定义颜色 - 温暖的大地色调 */
-  --color-warm-50: #FAF9F6;
-  --color-warm-100: #F5F3EE;
-  --color-warm-200: #E8E4DB;
-  --color-warm-300: #D4CFC2;
-  --color-warm-400: #B8B2A4;
-  --color-warm-500: #9A9282;
-  --color-warm-600: #7D7668;
-  --color-warm-700: #5F5950;
-  --color-warm-800: #423D36;
-  --color-warm-900: #252220;
+  --color-paper: #faf5f5;
+  --color-ink: #060606;
+  --color-body-ink: #434445;
+  --color-night: #191817;
+  --color-night-ink: #f5f3f0;
+  --color-night-body: #b9b8b6;
 
   /* 珊瑚色强调色 */
   --color-coral-50: #FEF3EF;
@@ -58,6 +85,20 @@
   --color-primary-900: var(--color-coral-900);
   --color-primary-950: var(--color-coral-950);
 
+  /* Tool pages currently use Tailwind's neutral scale. Map it into the same
+     warm cabin world without rewriting their working interaction layouts. */
+  --color-gray-50: #f5f1f0;
+  --color-gray-100: #eeeae8;
+  --color-gray-200: #d9d5d2;
+  --color-gray-300: #c0bcb9;
+  --color-gray-400: #8d8c88;
+  --color-gray-500: #777671;
+  --color-gray-600: #575752;
+  --color-gray-700: #434445;
+  --color-gray-800: #262424;
+  --color-gray-900: #211f1f;
+  --color-gray-950: #191817;
+
   /* --- 微交互动画注册 --- */
   
   /* 1. 幽灵：四处张望 */
@@ -82,6 +123,8 @@
   /* 交互 easing token */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  --animate-item-reveal: itemReveal 0.4s cubic-bezier(0.23, 1, 0.32, 1) both;
 
   /* --- 关键帧定义 --- */
   @keyframes look-around {
@@ -124,6 +167,139 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes itemReveal {
+    from {
+      opacity: 0;
+      filter: blur(6px);
+      transform: translateY(-10px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --cabin-initial: 0;
+}
+
+html.dark {
+  color-scheme: dark;
+  --cabin-initial: 1;
+}
+
+body {
+  transition: background-color 0.52s var(--ease-out), color 0.52s var(--ease-out);
+}
+
+.item-reveal {
+  animation: var(--animate-item-reveal);
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+.item-reveal:nth-child(2) { --reveal-delay: 60ms; }
+.item-reveal:nth-child(3) { --reveal-delay: 120ms; }
+.item-reveal:nth-child(4) { --reveal-delay: 180ms; }
+.item-reveal:nth-child(n + 5) { --reveal-delay: 240ms; }
+
+.label-tag {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.8;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: #e85a3f;
+  color: #faf5f5;
+}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex="0"]:focus-visible {
+  outline: 2px solid #3a53ed;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.prose {
+  color: var(--color-body-ink);
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  color: #17160f;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+.prose p,
+.prose li {
+  color: #434445;
+  text-wrap: pretty;
+}
+
+.prose strong {
+  color: #17160f;
+}
+
+.prose a {
+  color: #d94a2b;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.prose :where(pre):not(:where([class~="not-prose"] *)) {
+  background-color: #f1eceb;
+  border: 1px solid #ded8d7;
+  color: #434445;
+}
+
+.prose :where(code):not(:where([class~="not-prose"] *))::before,
+.prose :where(code):not(:where([class~="not-prose"] *))::after {
+  content: none;
+}
+
+html.dark .prose {
+  color: #b9b8b6;
+}
+
+html.dark .prose h1,
+html.dark .prose h2,
+html.dark .prose h3,
+html.dark .prose h4,
+html.dark .prose strong {
+  color: #f5f3f0;
+}
+
+html.dark .prose p,
+html.dark .prose li {
+  color: #b9b8b6;
+}
+
+html.dark .prose a {
+  color: #2c6fff;
+}
+
+html.dark .prose :where(pre):not(:where([class~="not-prose"] *)) {
+  background-color: #211f1f;
+  border-color: #33312f;
+  color: #d7d3d0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item-reveal {
+    animation: fadeInReduced 0.2s var(--ease-out) forwards;
+    animation-delay: 0ms;
+  }
 }
 
 /* 减弱动画偏好：去位移，留透明度反馈 */
@@ -143,6 +319,12 @@
   /* 淡入仅保留透明度，去掉 20px 位移 */
   .animate-fade-in {
     animation: fadeInReduced 0.3s ease-out forwards !important;
+  }
+
+  body,
+  .page-enter-active,
+  .page-leave-active {
+    transition: background-color 0.2s ease-out, color 0.2s ease-out, opacity 0.15s ease-out;
   }
 }
 

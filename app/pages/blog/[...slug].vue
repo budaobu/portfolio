@@ -1,9 +1,9 @@
 <template>
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-16">
 
     <!-- Loading state -->
     <div v-if="pending" class="max-w-4xl mx-auto w-full">
-      <div class="bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-8 md:p-12 space-y-8">
+        <div class="bg-warm-50 dark:bg-olive-900 border border-warm-300 dark:border-warm-800 p-6 md:p-10 space-y-8">
         <div class="flex gap-4">
           <div class="w-10 h-10 rounded-sm bg-warm-200 dark:bg-warm-800 animate-pulse"></div>
           <div class="flex-1 space-y-4">
@@ -46,7 +46,7 @@
 
       <!-- Main article -->
       <article
-        class="bg-warm-50 dark:bg-olive-900 border border-warm-200 dark:border-warm-800 p-6 sm:p-10 md:p-12"
+        class="bg-warm-50 dark:bg-olive-900 border border-warm-300 dark:border-warm-800 p-6 sm:p-8 md:p-10"
       >
         <!-- Header -->
         <header class="mb-10 flex flex-col gap-6">
@@ -82,13 +82,13 @@
         </header>
 
         <!-- MDX content -->
-        <div class="prose prose-lg prose-warm dark:prose-invert prose-coral max-w-none">
+        <div class="prose prose-base sm:prose-lg prose-warm max-w-none">
           <ContentRenderer :value="doc" />
         </div>
 
         <!-- Footer -->
         <div class="mt-12 pt-8 border-t border-warm-200 dark:border-warm-800 flex justify-between items-center">
-          <div class="text-sm text-warm-500 italic">
+          <div class="text-sm text-warm-500">
             Thanks for reading.
           </div>
           <UButton
@@ -127,10 +127,10 @@
               :href="`#${link.id}`"
               class="group relative flex items-center py-1.5 focus:outline-none"
             >
-              <span class="block w-5 h-[2px] rounded-full bg-warm-300 dark:bg-warm-700 transition-all duration-200 ease-out group-hover:w-8 group-hover:bg-coral-500 dark:group-hover:bg-coral-400"></span>
+              <span class="block w-5 h-[2px] rounded-full bg-warm-300 dark:bg-warm-700 transition-[width,background-color] duration-200 [transition-timing-function:var(--ease-out)] group-hover:w-8 group-hover:bg-coral-500 dark:group-hover:bg-coral-400"></span>
 
               <!-- Hover 弹出的标题框 -->
-              <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-20 w-max max-w-64 px-3 py-1.5 rounded-lg border border-warm-200 dark:border-warm-700 bg-warm-50 dark:bg-olive-900 shadow-md text-xs text-warm-700 dark:text-warm-300 leading-snug opacity-0 invisible translate-x-1 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:visible group-hover:translate-x-0">
+              <span class="pointer-events-none absolute left-full top-1/2 -translate-y-1/2 ml-3 z-20 w-max max-w-64 px-3 py-1.5 rounded-lg border border-warm-200 dark:border-warm-700 bg-warm-50 dark:bg-olive-900 shadow-md text-xs text-warm-700 dark:text-warm-300 leading-snug opacity-0 invisible translate-x-1 transition-[opacity,visibility,transform] duration-200 [transition-timing-function:var(--ease-out)] group-hover:opacity-100 group-hover:visible group-hover:translate-x-0">
                 {{ link.text }}
               </span>
             </a>

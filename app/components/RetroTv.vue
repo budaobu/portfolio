@@ -106,7 +106,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .antenna {
   width: 5px;
   height: 10px;
-  background-color: #374151; /* gray-700 */
+  background-color: #434445; /* gray-700 */
   margin-bottom: -10px;
   position: relative;
   z-index: 2;
@@ -128,7 +128,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   left: -130%;
   width: 12px;
   height: 80px;
-  background-color: #374151;
+  background-color: #434445;
   border-radius: 50px;
   transform: rotate(-29deg);
 }
@@ -140,7 +140,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   height: 12px;
   border-radius: 50%;
   background-color: #ef4444; /* red-500 */
-  box-shadow: inset 0px -3px 2px #00000040;
+  box-shadow: inset 0px -3px 2px #19181740;
 }
 .a2 {
   transform: rotate(29deg);
@@ -150,7 +150,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .a2d {
   left: 130%;
   top: -308%;
-  background-color: #374151;
+  background-color: #434445;
 }
 .a_base {
   position: absolute;
@@ -158,7 +158,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   left: -20px;
   width: 45px;
   height: 10px;
-  background-color: #374151;
+  background-color: #434445;
   border-radius: 50px;
 }
 
@@ -167,12 +167,12 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   width: 350px; /* 增加宽度 */
   height: 200px; /* 增加高度 */
   margin-top: 20px;
-  background-color: #1f2937; /* gray-800 */
+  background-color: #262424; /* gray-800 */
   border-radius: 20px;
   display: flex;
   justify-content: center;
-  border: 4px solid #111827; /* gray-900 */
-  box-shadow: inset 2px 2px 5px #4b5563, 10px 10px 20px rgba(0,0,0,0.5);
+  border: 4px solid #211f1f; /* gray-900 */
+  box-shadow: inset 2px 2px 5px #4b5563, 10px 10px 20px rgba(25,24,23,0.5);
   position: relative;
 }
 
@@ -187,7 +187,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   pointer-events: none;
 }
 .curve_svg path {
-  fill: #fff;
+  fill: #fffdfb;
 }
 
 /* 显示区域 */
@@ -197,12 +197,12 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   align-self: center;
   justify-content: center;
   border-radius: 20px;
-  box-shadow: -2px 2px 5px #111827;
+  box-shadow: -2px 2px 5px #211f1f;
 }
 .screen_out {
   width: 230px;
   height: 160px;
-  background-color: #111827;
+  background-color: #211f1f;
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -211,11 +211,11 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .screen_out1 {
   width: 210px;
   height: 140px;
-  background-color: #000;
+  background-color: #191817;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
-  border: 2px solid #374151;
+  border: 2px solid #434445;
 }
 
 /* 屏幕内容与噪点 */
@@ -249,7 +249,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle, transparent 50%, #000 150%),
+  background: radial-gradient(circle, transparent 50%, #191817 150%),
               url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
   z-index: 1;
   animation: noise 0.5s steps(5) infinite;
@@ -269,7 +269,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .line1, .line2, .line3 {
   width: 3px;
   height: 30px;
-  background-color: #000;
+  background-color: #191817;
   border-radius: 5px;
 }
 
@@ -277,12 +277,12 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .buttons_div {
   width: 70px;
   height: 160px;
-  background-color: #374151;
+  background-color: #434445;
   align-self: center;
   margin-left: 10px;
   margin-right: 10px;
   border-radius: 10px;
-  border: 2px solid #111827;
+  border: 2px solid #211f1f;
   box-shadow: inset 2px 2px 2px #6b7280;
   display: flex;
   flex-direction: column;
@@ -293,9 +293,9 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .b1 {
   width: 35px;
   height: 35px;
-  background-color: #1f2937;
+  background-color: #262424;
   border-radius: 50%;
-  box-shadow: 2px 2px 2px #111827;
+  box-shadow: 2px 2px 2px #211f1f;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -310,9 +310,9 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .b2 {
   width: 20px;
   height: 20px;
-  background-color: #1f2937;
+  background-color: #262424;
   border-radius: 50%;
-  box-shadow: 1px 1px 2px #111827;
+  box-shadow: 1px 1px 2px #211f1f;
 }
 .speakers {
   display: flex;
@@ -328,7 +328,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .g11, .g12, .g13, .g {
   width: 40px;
   height: 3px;
-  background-color: #111827;
+  background-color: #211f1f;
   border-radius: 2px;
 }
 .g11 { width: 10px; }
@@ -347,12 +347,12 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
 .base1, .base2, .base3 {
   width: 15px;
   height: 15px;
-  background-color: #1f2937;
-  border: 2px solid #111827;
+  background-color: #262424;
+  border: 2px solid #211f1f;
   box-shadow: inset 1px 1px 2px #4b5563;
 }
 .base1 { transform: skewX(-20deg); margin-right: 150px; }
-.base2 { width: 80px; height: 10px; margin-top: -5px; background-color: #111827; }
+.base2 { width: 80px; height: 10px; margin-top: -5px; background-color: #211f1f; }
 .base3 { transform: skewX(20deg); margin-left: -20px; }
 
 /* 404 文字 */
@@ -362,7 +362,7 @@ const errorCodeDigits = computed(() => props.errorCode.split(''))
   display: flex;
   gap: 120px;
   z-index: 0;
-  font-family: 'Arial', sans-serif;
+  font-family: 'Outfit', sans-serif;
   font-weight: 900;
   font-size: 8rem;
   color: #22c55e; /* gray-200 */

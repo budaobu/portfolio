@@ -6,6 +6,15 @@ export default defineNuxtConfig({
   
   devtools: { enabled: true },
 
+  colorMode: {
+    classSuffix: '',
+    dataValue: 'color-mode',
+    disableTransition: false,
+    fallback: 'light',
+    preference: 'system',
+    storageKey: 'nuxt-color-mode'
+  },
+
   future: {
     compatibilityVersion: 4,
   },
@@ -141,9 +150,10 @@ export default defineNuxtConfig({
         { property: 'og:type', content: 'website' },
         { name: 'theme-color', content: '#FAF9F6' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
-        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
       ],
       link: [
+        { rel: 'preload', href: '/theme.js', as: 'script' },
         { rel: 'icon', type: 'image/webp', href: '/avatar.webp' },
         { rel: 'apple-touch-icon', href: '/avatar.webp' },
         { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -151,6 +161,9 @@ export default defineNuxtConfig({
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap' },
         { rel: 'alternate', type: 'application/rss+xml', title: 'Budaobu RSS Feed', href: '/rss.xml' },
         { rel: 'help', href: '/llms.txt', title: 'LLM Context' }
+      ],
+      script: [
+        { src: '/theme.js', tagPriority: 'critical' }
       ]
     }
   },
@@ -160,8 +173,8 @@ export default defineNuxtConfig({
       name: 'Budaobu Portfolio',
       short_name: 'Budaobu',
       description: 'Non-dev, just vibe coding to stitch stuff together.',
-      theme_color: '#ffffff',
-      background_color: '#ffffff',
+      theme_color: '#faf5f5',
+      background_color: '#faf5f5',
       display: 'standalone',
       orientation: 'portrait',
       lang: 'en-US',

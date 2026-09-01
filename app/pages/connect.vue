@@ -69,14 +69,14 @@ const onSubmit = async () => {
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+  <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-16">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
       <!-- Left Column: Header -->
       <div class="relative">
         <!-- Decorative geometric element -->
         <div class="absolute -top-4 -left-4 w-20 h-20 border-[3px] border-coral-500/30 rotate-12 hidden lg:block"></div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-medium text-warm-900 dark:text-warm-100 leading-[0.95] tracking-tight mb-8">
+        <h1 class="text-3xl sm:text-4xl font-serif font-medium text-warm-900 dark:text-warm-100 leading-tight tracking-tight mb-8">
           Get in<br/>Touch
         </h1>
 
@@ -113,7 +113,7 @@ const onSubmit = async () => {
       </div>
 
       <!-- Right Column: Form -->
-      <div class="bg-warm-100 dark:bg-warm-900 border border-warm-200 dark:border-warm-800 p-8 sm:p-10">
+      <div class="bg-warm-100 dark:bg-warm-900 border border-warm-300 dark:border-warm-800 p-6 sm:p-8">
         <form @submit.prevent="onSubmit" class="flex flex-col gap-6">
           <UFormGroup label="Name" name="name">
             <UInput

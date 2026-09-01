@@ -304,7 +304,7 @@ interface WatermarkConfig {
 
 const defaultConfig: WatermarkConfig = {
   text: '仅供 xxx 验证使用',
-  color: '#000000',
+  color: '#17160f',
   opacity: 50,
   size: 50,
   rotate: 0,
