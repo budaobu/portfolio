@@ -70,8 +70,8 @@ const onSubmit = async () => {
 
 <template>
   <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-16">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-      <!-- Left Column: Header -->
+    <div class="grid grid-cols-1 gap-12">
+      <!-- Header -->
       <div class="relative">
         <!-- Decorative geometric element -->
         <div class="absolute -top-4 -left-4 w-20 h-20 border-[3px] border-coral-500/30 rotate-12 hidden lg:block"></div>
@@ -112,10 +112,10 @@ const onSubmit = async () => {
         </div>
       </div>
 
-      <!-- Right Column: Form -->
+      <!-- Contact form -->
       <div class="bg-warm-100 dark:bg-warm-900 border border-warm-300 dark:border-warm-800 p-6 sm:p-8">
         <form @submit.prevent="onSubmit" class="flex flex-col gap-6">
-          <UFormGroup label="Name" name="name">
+          <UFormField label="Name" name="name">
             <UInput
               v-model="state.name"
               placeholder="Your Name"
@@ -126,9 +126,9 @@ const onSubmit = async () => {
               :ui="{ rounded: 'rounded-sm' }"
               class="w-full"
             />
-          </UFormGroup>
+          </UFormField>
 
-          <UFormGroup label="Email" name="email">
+          <UFormField label="Email" name="email">
             <UInput
               v-model="state.email"
               type="email"
@@ -140,9 +140,9 @@ const onSubmit = async () => {
               :ui="{ rounded: 'rounded-sm' }"
               class="w-full"
             />
-          </UFormGroup>
+          </UFormField>
 
-          <UFormGroup label="Message" name="message">
+          <UFormField label="Message" name="message">
             <UTextarea
               v-model="state.message"
               placeholder="What's on your mind?"
@@ -154,7 +154,7 @@ const onSubmit = async () => {
               :ui="{ rounded: 'rounded-sm' }"
               class="w-full"
             />
-          </UFormGroup>
+          </UFormField>
 
           <div class="pt-4">
             <UButton

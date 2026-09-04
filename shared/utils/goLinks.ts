@@ -32,6 +32,7 @@ export const goLinks: Record<string, string> = {
   'chatgpt': 'https://chat.openai.com/',
   'gemini': 'https://gemini.google.com/',
   'nuxtjs': 'https://nuxt.com',
+  'mikescv': 'https://www.mikes.cv/',
   'kimi': 'https://www.kimi.com/code',
   'zhipu': 'https://www.bigmodel.cn/invite?icode=Ew3Q%2FbRU7hh50jn09dXVK1wpqjqOwPB5EXW6OL4DgqY%3D',
 

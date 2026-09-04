@@ -13,10 +13,18 @@
       <div class="max-w-[40rem] mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col-reverse md:flex-row items-center justify-between gap-6">
 
-          <!-- Copyright + AI tools -->
+          <!-- Inspiration + AI tools -->
           <div class="text-sm text-warm-500 dark:text-warm-400 flex items-center gap-3 flex-wrap justify-center">
 
-            <span>&copy; {{ currentYear }} {{ siteConfig.author }}</span>
+            <span>
+              Inspired by
+              <NuxtLink
+                to="/go/mikescv"
+                class="font-medium transition-colors hover:text-coral-600 dark:hover:text-coral-400"
+              >
+                Mikes.cv
+              </NuxtLink>.
+            </span>
 
             <span class="text-warm-300 dark:text-warm-600">•</span>
 
@@ -81,8 +89,6 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const siteConfig = useSiteConfig()
-const currentYear = new Date().getFullYear()
 
 const aiTools = [
   {
