@@ -33,6 +33,7 @@ export const goLinks: Record<string, string> = {
   'gemini': 'https://gemini.google.com/',
   'nuxtjs': 'https://nuxt.com',
   'kimi': 'https://www.kimi.com/code',
+  'GLM': 'https://www.bigmodel.cn/invite?icode=Ew3Q%2FbRU7hh50jn09dXVK1wpqjqOwPB5EXW6OL4DgqY%3D'
 
   // uses链接
   'wise': 'https://wise.com/invite/ilpc/qiuyangh',
