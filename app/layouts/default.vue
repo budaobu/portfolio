@@ -99,6 +99,11 @@ const aiTools = [
     name: 'Kimi K3',
     icon: '/kimi.webp',
     url: '/go/kimi'
+  },
+  {
+    name: 'GLM 5.3 Flash',
+    icon: '/zai.svg',
+    url: '/go/zhipu'
   }
 ]
 
