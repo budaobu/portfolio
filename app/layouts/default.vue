@@ -20,6 +20,7 @@
               Inspired by
               <NuxtLink
                 to="/go/mikescv"
+                target="_blank"
                 class="font-medium transition-colors hover:text-coral-600 dark:hover:text-coral-400"
               >
                 Mikes.cv
